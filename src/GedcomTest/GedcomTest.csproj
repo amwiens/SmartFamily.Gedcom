@@ -5,8 +5,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AWWebSolutions.GEDCOM.Parser\AWWebSolutions.GEDCOM.Parser.csproj" />
-  </ItemGroup>
-
 </Project>
