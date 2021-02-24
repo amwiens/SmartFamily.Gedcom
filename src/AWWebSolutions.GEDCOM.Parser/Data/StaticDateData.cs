@@ -1,4 +1,5 @@
 ﻿using AWWebSolutions.GEDCOM.Parser.Enums;
+using AWWebSolutions.GEDCOM.Parser.Models;
 
 using System.Collections.Generic;
 using System.Collections.Immutable;

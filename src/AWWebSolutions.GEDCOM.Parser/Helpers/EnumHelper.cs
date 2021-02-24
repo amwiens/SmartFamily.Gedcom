@@ -87,7 +87,6 @@ namespace AWWebSolutions.GEDCOM.Parser.Helpers
             throw new ArgumentOutOfRangeException(nameof(value), value, $"Could not parse in to type {enumType}");
         }
 
-
         /// <summary>
         /// Parses a string into an enum by comparing against the description attribute of the enum.
         /// </summary>
