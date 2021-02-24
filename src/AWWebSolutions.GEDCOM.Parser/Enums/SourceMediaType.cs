@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AWWebSolutions.GEDCOM.Parser.Enums
+﻿namespace AWWebSolutions.GEDCOM.Parser.Enums
 {
     /// <summary>
     /// Source Media Type

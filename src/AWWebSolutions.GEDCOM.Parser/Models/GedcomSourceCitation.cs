@@ -17,6 +17,7 @@ namespace AWWebSolutions.GEDCOM.Parser.Models
 
         // source citation fields
         private string page;
+
         private string eventType;
         private string role;
         private GedcomCertainty certainty = GedcomCertainty.Unknown;

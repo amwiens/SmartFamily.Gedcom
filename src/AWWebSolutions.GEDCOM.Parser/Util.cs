@@ -47,6 +47,7 @@ namespace AWWebSolutions.GEDCOM.Parser
                 case 'p':
                 case 'v':
                     return "1";
+
                 case 'c':
                 case 'g':
                 case 'j':
@@ -56,16 +57,21 @@ namespace AWWebSolutions.GEDCOM.Parser
                 case 'x':
                 case 'z':
                     return "2";
+
                 case 'd':
                 case 't':
                     return "3";
+
                 case 'l':
                     return "4";
+
                 case 'm':
                 case 'n':
                     return "5";
+
                 case 'r':
                     return "6";
+
                 default:
                     return string.Empty;
             }
