@@ -418,7 +418,7 @@ namespace SmartFamily.Gedcom.Models
                 {
                     foreach (string noteID in notes)
                     {
-                        GedcomNoteRecord note = (GedcomRecord)Database[noteID];
+                        GedcomNoteRecord note = (GedcomNoteRecord)Database[noteID];
                         note.Delete();
                     }
                 }
