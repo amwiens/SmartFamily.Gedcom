@@ -32,6 +32,6 @@
         /// <summary>
         /// The date could not be turned into a valid date time.
         /// </summary>
-        DateIsNOtValid = 201,
+        DateIsNotValid = 201,
     }
 }
