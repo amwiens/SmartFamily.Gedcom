@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GedcomTest", "GedcomTest\Ge
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFamily.Gedcom", "SmartFamily.Gedcom\SmartFamily.Gedcom.csproj", "{60749BBA-2A64-4D16-A2B4-B6E3C76B7921}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFamily.Gedcom.Tests", "SmartFamily.Gedcom.Tests\SmartFamily.Gedcom.Tests.csproj", "{81842461-413A-48F8-95F7-6D3F605B1F40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{60749BBA-2A64-4D16-A2B4-B6E3C76B7921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60749BBA-2A64-4D16-A2B4-B6E3C76B7921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60749BBA-2A64-4D16-A2B4-B6E3C76B7921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81842461-413A-48F8-95F7-6D3F605B1F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81842461-413A-48F8-95F7-6D3F605B1F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81842461-413A-48F8-95F7-6D3F605B1F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81842461-413A-48F8-95F7-6D3F605B1F40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
