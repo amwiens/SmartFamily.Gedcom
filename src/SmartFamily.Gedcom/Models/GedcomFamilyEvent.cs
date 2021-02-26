@@ -95,8 +95,8 @@ namespace SmartFamily.Gedcom.Models
             {
                 if (value != Record)
                 {
-                    RecordType = value;
-                    if (RecordType != null)
+                    Record = value;
+                    if (Record != null)
                     {
                         if (Record.RecordType != GedcomRecordType.Family)
                         {

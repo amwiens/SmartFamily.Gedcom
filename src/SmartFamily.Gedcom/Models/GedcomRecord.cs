@@ -297,7 +297,7 @@ namespace SmartFamily.Gedcom.Models
                 if (notes == null)
                 {
                     notes = new GedcomRecordList<string>();
-                    notes.CollectionChange += ListChanged;
+                    notes.CollectionChanged += ListChanged;
                 }
 
                 return notes;
