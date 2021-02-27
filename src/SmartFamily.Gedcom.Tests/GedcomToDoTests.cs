@@ -57,7 +57,6 @@ Individual records need to compare all name elements (Name/surname/given name, n
         [InlineData("199 9")]
         [InlineData("1899 99")]
         [InlineData("1899/0")]
-
             yield return new object[] { "1/1896", new DateTime(1896, 1, 1) };
             yield return new object[] { "01/1896", new DateTime(1896, 1, 1) };
             yield return new object[] { "02/1896", new DateTime(1896, 2, 1) };

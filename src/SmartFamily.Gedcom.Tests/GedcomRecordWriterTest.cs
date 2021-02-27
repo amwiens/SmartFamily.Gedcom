@@ -15,7 +15,10 @@ namespace SmartFamily.Gedcom.Tests
     {
         private readonly ITestOutputHelper output;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomRecordWriterTest"/> class.
+        /// </summary>
+        /// <param name="output">A helper class used to log output to the test runner.</param>
         public GedcomRecordWriterTest(ITestOutputHelper output)
         {
             this.output = output;

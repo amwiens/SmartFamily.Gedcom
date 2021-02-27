@@ -1,9 +1,5 @@
 ﻿using SmartFamily.Gedcom.Models;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 using Xunit;
 
 namespace SmartFamily.Gedcom.Tests
