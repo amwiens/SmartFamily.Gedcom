@@ -244,7 +244,7 @@ namespace SmartFamily.Gedcom.Models
             string levelPlusOne = null;
             string levelPlusTwo = null;
 
-            if (String.IsNullOrEmpty(Form))
+            if (!String.IsNullOrEmpty(Form))
             {
                 if (levelPlusOne == null)
                 {

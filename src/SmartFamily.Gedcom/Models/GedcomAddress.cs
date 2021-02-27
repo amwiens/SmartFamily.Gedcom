@@ -907,15 +907,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Phone1))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Phone1.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" PHON ");
                 if (line.Length <= 25)
                 {
@@ -930,15 +930,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Phone2))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Phone2.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" PHON ");
                 if (line.Length <= 25)
                 {
@@ -953,15 +953,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Phone3))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Phone3.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" PHON ");
                 if (line.Length <= 25)
                 {
@@ -976,15 +976,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Fax1))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Fax1.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" FAX ");
                 if (line.Length <= 60)
                 {
@@ -999,15 +999,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Fax2))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Fax2.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" FAX ");
                 if (line.Length <= 60)
                 {
@@ -1022,15 +1022,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Fax3))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Fax3.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" FAX ");
                 if (line.Length <= 60)
                 {
@@ -1045,15 +1045,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Email1))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Email1.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" EMAIL ");
                 if (line.Length <= 120)
                 {
@@ -1068,15 +1068,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Email2))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Email2.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" EMAIL ");
                 if (line.Length <= 120)
                 {
@@ -1091,15 +1091,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Email3))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Email3.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" EMAIL ");
                 if (line.Length <= 120)
                 {
@@ -1114,15 +1114,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Www1))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Www1.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" WWW ");
                 if (line.Length <= 120)
                 {
@@ -1137,15 +1137,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Www2))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Www2.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" WWW ");
                 if (line.Length <= 120)
                 {
@@ -1160,15 +1160,15 @@ namespace SmartFamily.Gedcom.Models
 
             if (!string.IsNullOrEmpty(Www3))
             {
-                if (levelPlusOne == null)
+                if (levelStr == null)
                 {
-                    levelPlusOne = (level + 1).ToString();
+                    levelStr = level.ToString();
                 }
 
                 string line = Www3.Replace("@", "@@");
 
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelStr);
                 sw.Write(" WWW ");
                 if (line.Length <= 120)
                 {

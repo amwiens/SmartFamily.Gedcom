@@ -155,7 +155,7 @@ namespace SmartFamily.Gedcom
                 {
                     if (l.Length <= maxLen)
                     {
-                        sw.WriteLine(l);
+                        sw.Write(l);
                     }
                     else
                     {
