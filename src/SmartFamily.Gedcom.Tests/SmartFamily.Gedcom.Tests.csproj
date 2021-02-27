@@ -66,6 +66,9 @@
     <None Update="Data\superfluous-ident-test.ged">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\TortureTests\TGC551.ged">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
