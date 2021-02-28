@@ -299,7 +299,6 @@ namespace SmartFamily.Gedcom.Parser
                         GedcomIndividualRecord husband = Database[husbandID] as GedcomIndividualRecord;
                         if (husband != null)
                         {
-
                             if (!husband.SpouseInFamily(family.XRefID, out GedcomFamilyLink famLink))
                             {
                                 famLink = new GedcomFamilyLink
@@ -325,7 +324,6 @@ namespace SmartFamily.Gedcom.Parser
                         GedcomIndividualRecord wife = Database[wifeID] as GedcomIndividualRecord;
                         if (wife != null)
                         {
-
                             if (!wife.SpouseInFamily(family.XRefID, out GedcomFamilyLink famLink))
                             {
                                 famLink = new GedcomFamilyLink
