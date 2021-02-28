@@ -101,7 +101,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Gets or sets the mont portion of the individual's age.
+        /// Gets or sets the month portion of the individual's age.
         /// </summary>
         public int Months
         {
@@ -120,7 +120,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Gets or sets the day portino of the individual's age.
+        /// Gets or sets the day portion of the individual's age.
         /// </summary>
         public int Days
         {
@@ -152,26 +152,32 @@ namespace SmartFamily.Gedcom.Models
 
             if (string.Compare(str, "INFANT", true) == 0)
             {
-                age = new GedcomAge();
-                age.Database = database;
-                age.Equality = -1;
-                age.Years = 1;
+                age = new GedcomAge
+                {
+                    Database = database,
+                    Equality = -1,
+                    Years = 1
+                };
             }
             else if (string.Compare(str, "CHILD", true) == 0)
             {
-                age = new GedcomAge();
-                age.Database = database;
-                age.Equality = -1;
-                age.Years = 8;
+                age = new GedcomAge
+                {
+                    Database = database,
+                    Equality = -1,
+                    Years = 8
+                };
             }
             else if (string.Compare(str, "STILLBORN", true) == 0)
             {
-                age = new GedcomAge();
-                age.Database = database;
-                age.Equality = 0;
-                age.Years = 0;
-                age.Months = 0;
-                age.Days = 0;
+                age = new GedcomAge
+                {
+                    Database = database,
+                    Equality = 0,
+                    Years = 0,
+                    Months = 0,
+                    Days = 0
+                };
             }
             else
             {
@@ -267,12 +273,14 @@ namespace SmartFamily.Gedcom.Models
 
                 if (isAge)
                 {
-                    age = new GedcomAge();
-                    age.Database = database;
-                    age.Equality = equality;
-                    age.Years = year;
-                    age.Months = month;
-                    age.Days = day;
+                    age = new GedcomAge
+                    {
+                        Database = database,
+                        Equality = equality,
+                        Years = year,
+                        Months = month,
+                        Days = day
+                    };
                 }
             }
 

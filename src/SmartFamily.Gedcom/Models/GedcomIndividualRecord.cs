@@ -18,20 +18,20 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>, IEquatable<GedcomIndividualRecord>
     {
-        private GedcomRecordList<GedcomName> names;
+        private readonly GedcomRecordList<GedcomName> names;
         private GedcomSex sex;
 
         /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
         public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
-        private GedcomRecordList<GedcomIndividualEvent> events;
+        private readonly GedcomRecordList<GedcomIndividualEvent> events;
         private GedcomRecordList<GedcomIndividualEvent> attributes;
 
         // TODO
         private object lDSIndividualOrdinances;
 
-        private GedcomRecordList<GedcomFamilyLink> childIn;
-        private GedcomRecordList<GedcomFamilyLink> spouseIn;
+        private readonly GedcomRecordList<GedcomFamilyLink> childIn;
+        private readonly GedcomRecordList<GedcomFamilyLink> spouseIn;
 
         private GedcomRecordList<string> submitterRecords;
 
@@ -94,11 +94,13 @@ namespace SmartFamily.Gedcom.Models
             Sex = GedcomSex.NotSet;
             XRefID = database.GenerateXref("I");
 
-            GedcomName name = new GedcomName();
-            name.Level = 1;
-            name.Database = database;
-            name.Name = "unknown /" + surname + "/";
-            name.PreferredName = true;
+            GedcomName name = new GedcomName
+            {
+                Level = 1,
+                Database = database,
+                Name = "unknown /" + surname + "/",
+                PreferredName = true
+            };
 
             Names.Add(name);
 
@@ -452,7 +454,7 @@ namespace SmartFamily.Gedcom.Models
             }
         }
 
-        // Util properties to get specific events
+        // Utility properties to get specific events
 
         /// <summary>
         /// Gets the birth.
@@ -693,7 +695,7 @@ namespace SmartFamily.Gedcom.Models
              * These fields indicate interest in additional research for
              * ancestors and descendants, and don't contribute to equality.
              *
-             * Assocations are links to relatives, godparents, etc.
+             * Associations are links to relatives, godparents, etc.
              * They're part of the comparison currently, but not sure if they should be.
              */
 
@@ -897,10 +899,10 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Sets the name of the prefered.
+        /// Sets the name of the preferred.
         /// </summary>
         /// <param name="name">The name.</param>
-        public void SetPreferedName(GedcomName name)
+        public void SetPreferredName(GedcomName name)
         {
             foreach (GedcomName n in Names)
             {
@@ -917,9 +919,7 @@ namespace SmartFamily.Gedcom.Models
         /// </returns>
         public bool SpouseInFamily(string family)
         {
-            GedcomFamilyLink tmp;
-
-            return SpouseInFamily(family, out tmp);
+            return SpouseInFamily(family, out GedcomFamilyLink tmp);
         }
 
         /// <summary>
@@ -957,9 +957,7 @@ namespace SmartFamily.Gedcom.Models
         /// </returns>
         public bool ChildInFamily(string family)
         {
-            GedcomFamilyLink tmp;
-
-            return ChildInFamily(family, out tmp);
+            return ChildInFamily(family, out GedcomFamilyLink tmp);
         }
 
         /// <summary>
@@ -998,10 +996,10 @@ namespace SmartFamily.Gedcom.Models
         {
             GedcomFamilyRecord fam = null;
 
-            GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferedSpouse == true));
+            GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferredSpouse == true));
 
-            // shouldn't need this as we automatically set the prefered on loading
-            // do the check anyway though just incase.
+            // shouldn't need this as we automatically set the preferred on loading
+            // do the check anyway though just in case.
             if (link == null && SpouseIn.Count > 0)
             {
                 link = SpouseIn[0];
@@ -1027,11 +1025,11 @@ namespace SmartFamily.Gedcom.Models
                 GedcomFamilyRecord famRec = Database[famID] as GedcomFamilyRecord;
                 if (famRec != null)
                 {
-                    link.PreferedSpouse = famRec.Husband == xrefID || famRec.Wife == xrefID;
+                    link.PreferredSpouse = famRec.Husband == xrefID || famRec.Wife == xrefID;
                 }
                 else
                 {
-                    link.PreferedSpouse = false;
+                    link.PreferredSpouse = false;
                     System.Diagnostics.Debug.WriteLine("Unable to find family for link with spouse: " + xrefID);
                 }
             }
@@ -1497,7 +1495,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            GedcomFamilyLink prefSpouse = SpouseIn.FirstOrDefault(s => s.PreferedSpouse == true);
+            GedcomFamilyLink prefSpouse = SpouseIn.FirstOrDefault(s => s.PreferredSpouse == true);
             if (prefSpouse != null)
             {
                 tw.Write(Environment.NewLine);

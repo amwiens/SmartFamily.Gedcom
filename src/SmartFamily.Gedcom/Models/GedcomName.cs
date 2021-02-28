@@ -495,7 +495,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Compares two GedcomName instances by useing the full name.
+        /// Compares two GedcomName instances by using the full name.
         /// </summary>
         /// <param name="other">The name to compare against this instance.</param>
         /// <returns>An integer specifying the relative sort order.</returns>
@@ -836,7 +836,7 @@ namespace SmartFamily.Gedcom.Models
                 capacity += suffix.Length;
             }
 
-            // for the // surrounding surname + potiential spaces
+            // for the // surrounding surname + potential spaces
             capacity += 4;
 
             StringBuilder name = new StringBuilder(capacity);

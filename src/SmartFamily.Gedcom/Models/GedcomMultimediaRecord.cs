@@ -12,7 +12,7 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
     {
-        private GedcomRecordList<GedcomMultimediaFile> files;
+        private readonly GedcomRecordList<GedcomMultimediaFile> files;
 
         private string title;
 
@@ -167,11 +167,13 @@ namespace SmartFamily.Gedcom.Models
         {
             FileInfo info = new FileInfo(filename);
 
-            GedcomMultimediaFile file = new GedcomMultimediaFile();
-            file.Database = Database;
+            GedcomMultimediaFile file = new GedcomMultimediaFile
+            {
+                Database = Database,
 
-            file.Filename = filename;
-            file.Format = info.Extension;
+                Filename = filename,
+                Format = info.Extension
+            };
 
             files.Add(file);
         }

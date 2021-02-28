@@ -31,9 +31,9 @@ namespace SmartFamily.Gedcom.Models
         private int generationsOfAncestors;
 
         /// <summary>
-        /// The generations of decendants.
+        /// The generations of descendants.
         /// </summary>
-        private int generationsOfDecendants;
+        private int generationsOfDescendants;
 
         /// <summary>
         /// The ordinance process flag.
@@ -59,7 +59,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Gets the GEDCOM tag for a sumbission record.
+        /// Gets the GEDCOM tag for a submission record.
         /// </summary>
         /// <value>
         /// The GEDCOM tag.
@@ -158,22 +158,22 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Gets or sets the generations of decendants.
+        /// Gets or sets the generations of descendants.
         /// </summary>
         /// <value>
-        /// The generations of decendants.
+        /// The generations of descendants.
         /// </value>
         public int GenerationsOfDecendants
         {
             get
             {
-                return generationsOfDecendants;
+                return generationsOfDescendants;
             }
             set
             {
-                if (value != generationsOfDecendants)
+                if (value != generationsOfDescendants)
                 {
-                    generationsOfDecendants = value;
+                    generationsOfDescendants = value;
                     Changed();
                 }
             }

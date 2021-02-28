@@ -453,7 +453,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant note");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent note");
                 }
             }
         }
@@ -539,13 +539,13 @@ namespace SmartFamily.Gedcom.Models
 
         /// <summary>
         /// Must be overridden in derived classes to compare the user entered data for that instance.
-        /// Called from the <see cref="Equals(GedcomRecord)" /> method before it checks comman
+        /// Called from the <see cref="Equals(GedcomRecord)" /> method before it checks common
         /// data elements (notes, sources etc.).
         /// We use the word equivalent so that we avoid using the word equals. This is because we are
         /// checking user entered data only and as far as the end user cares, two records can be equivalent
         /// (matching) but they might be two different individuals / families etc.
         /// </summary>
-        /// <param name="obj">The object to compare this instnce against.</param>
+        /// <param name="obj">The object to compare this instance against.</param>
         /// <returns>True if instance matches user data, otherwise False.</returns>
         public abstract bool IsEquivalentTo(object obj);
 
@@ -591,7 +591,7 @@ namespace SmartFamily.Gedcom.Models
                 return false;
             }
 
-            // TODO: NOtes are hard work, we need to do lookups by xref instead of just having a list of GedcomNote records attached. Need to fix this as a pain to test and use as well.
+            // TODO: Notes are hard work, we need to do lookups by xref instead of just having a list of GedcomNote records attached. Need to fix this as a pain to test and use as well.
             //if (!GedcomGenericListComparer.CompareLists(Notes, record.Notes))
             //{
             //    return false;
@@ -672,8 +672,10 @@ namespace SmartFamily.Gedcom.Models
             {
                 if (changeDate == null)
                 {
-                    changeDate = new GedcomChangeDate(Database);
-                    changeDate.Level = Level + 1;
+                    changeDate = new GedcomChangeDate(Database)
+                    {
+                        Level = Level + 1
+                    };
                 }
 
                 DateTime now = SystemTime.Now;

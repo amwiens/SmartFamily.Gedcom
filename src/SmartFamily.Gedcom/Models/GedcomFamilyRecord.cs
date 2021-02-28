@@ -14,12 +14,12 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomFamilyRecord : GedcomRecord, IEquatable<GedcomFamilyRecord>
     {
-        private GedcomRecordList<GedcomFamilyEvent> events;
+        private readonly GedcomRecordList<GedcomFamilyEvent> events;
 
         private string husband;
         private string wife;
 
-        private GedcomRecordList<string> children;
+        private readonly GedcomRecordList<string> children;
 
         // not just _Children.Count, may be unknown children
         private int numberOfChildren;
@@ -64,18 +64,22 @@ namespace SmartFamily.Gedcom.Models
 
             if (indi1 != null)
             {
-                GedcomFamilyLink link = new GedcomFamilyLink();
-                link.Database = database;
-                link.Family = XRefID;
-                link.Individual = indi1.XRefID;
+                GedcomFamilyLink link = new GedcomFamilyLink
+                {
+                    Database = database,
+                    Family = XRefID,
+                    Individual = indi1.XRefID
+                };
                 indi1.SpouseIn.Add(link);
 
                 if (indi2 != null)
                 {
-                    link = new GedcomFamilyLink();
-                    link.Database = database;
-                    link.Family = XRefID;
-                    link.Individual = indi2.XRefID;
+                    link = new GedcomFamilyLink
+                    {
+                        Database = database,
+                        Family = XRefID,
+                        Individual = indi2.XRefID
+                    };
                     indi2.SpouseIn.Add(link);
                 }
 
@@ -239,7 +243,7 @@ namespace SmartFamily.Gedcom.Models
             }
         }
 
-        // Util properties to get marriage event
+        // Utility properties to get marriage event
 
         /// <summary>
         /// Gets the marriage.
@@ -380,10 +384,12 @@ namespace SmartFamily.Gedcom.Models
         /// </returns>
         public GedcomFamilyEvent AddNewEvent(GedcomEventType type)
         {
-            GedcomFamilyEvent familyEvent = new GedcomFamilyEvent();
-            familyEvent.EventType = type;
-            familyEvent.Level = Level + 1;
-            familyEvent.FamRecord = this;
+            GedcomFamilyEvent familyEvent = new GedcomFamilyEvent
+            {
+                EventType = type,
+                Level = Level + 1,
+                FamRecord = this
+            };
 
             Events.Add(familyEvent);
 
@@ -411,11 +417,13 @@ namespace SmartFamily.Gedcom.Models
 
                 if (!indi.ChildInFamily(XRefID))
                 {
-                    GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = Database;
-                    link.Family = XRefID;
-                    link.Individual = indi.XRefID;
-                    link.Level = 1;
+                    GedcomFamilyLink link = new GedcomFamilyLink
+                    {
+                        Database = Database,
+                        Family = XRefID,
+                        Individual = indi.XRefID,
+                        Level = 1
+                    };
                     indi.ChildIn.Add(link);
                 }
 
@@ -484,8 +492,7 @@ namespace SmartFamily.Gedcom.Models
         {
             Children.Remove(child.XRefID);
 
-            GedcomFamilyLink link;
-            if (child.ChildInFamily(XRefID, out link))
+            if (child.ChildInFamily(XRefID, out GedcomFamilyLink link))
             {
                 child.ChildIn.Remove(link);
             }
@@ -518,8 +525,7 @@ namespace SmartFamily.Gedcom.Models
 
             if (husband != null)
             {
-                GedcomFamilyLink link;
-                if (husband.SpouseInFamily(XRefID, out link))
+                if (husband.SpouseInFamily(XRefID, out GedcomFamilyLink link))
                 {
                     husband.SpouseIn.Remove(link);
                 }
@@ -534,10 +540,12 @@ namespace SmartFamily.Gedcom.Models
 
                 if (!husband.SpouseInFamily(XRefID))
                 {
-                    GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = Database;
-                    link.Family = XRefID;
-                    link.Individual = this.husband;
+                    GedcomFamilyLink link = new GedcomFamilyLink
+                    {
+                        Database = Database,
+                        Family = XRefID,
+                        Individual = this.husband
+                    };
                     husband.SpouseIn.Add(link);
                 }
             }
@@ -548,10 +556,12 @@ namespace SmartFamily.Gedcom.Models
 
                 if (!wife.SpouseInFamily(XRefID))
                 {
-                    GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = Database;
-                    link.Family = XRefID;
-                    link.Individual = this.wife;
+                    GedcomFamilyLink link = new GedcomFamilyLink
+                    {
+                        Database = Database,
+                        Family = XRefID,
+                        Individual = this.wife
+                    };
                     wife.SpouseIn.Add(link);
                 }
             }
@@ -584,8 +594,7 @@ namespace SmartFamily.Gedcom.Models
 
             if (wife != null)
             {
-                GedcomFamilyLink link;
-                if (wife.SpouseInFamily(XRefID, out link))
+                if (wife.SpouseInFamily(XRefID, out GedcomFamilyLink link))
                 {
                     wife.SpouseIn.Remove(link);
                 }
@@ -600,10 +609,12 @@ namespace SmartFamily.Gedcom.Models
 
                 if (!husband.SpouseInFamily(XRefID))
                 {
-                    GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = Database;
-                    link.Family = XRefID;
-                    link.Individual = this.husband;
+                    GedcomFamilyLink link = new GedcomFamilyLink
+                    {
+                        Database = Database,
+                        Family = XRefID,
+                        Individual = this.husband
+                    };
                     husband.SpouseIn.Add(link);
                 }
             }
@@ -614,10 +625,12 @@ namespace SmartFamily.Gedcom.Models
 
                 if (!wife.SpouseInFamily(XRefID))
                 {
-                    GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = Database;
-                    link.Family = XRefID;
-                    link.Individual = this.wife;
+                    GedcomFamilyLink link = new GedcomFamilyLink
+                    {
+                        Database = Database,
+                        Family = XRefID,
+                        Individual = this.wife
+                    };
                     wife.SpouseIn.Add(link);
                 }
             }
@@ -629,14 +642,12 @@ namespace SmartFamily.Gedcom.Models
         /// <param name="indi">The husband.</param>
         public void RemoveHusband(GedcomIndividualRecord indi)
         {
-            GedcomFamilyLink link;
-
             if (husband == indi.XRefID)
             {
                 husband = string.Empty;
             }
 
-            if (indi.SpouseInFamily(XRefID, out link))
+            if (indi.SpouseInFamily(XRefID, out GedcomFamilyLink link))
             {
                 indi.SpouseIn.Remove(link);
             }
@@ -648,14 +659,12 @@ namespace SmartFamily.Gedcom.Models
         /// <param name="indi">The wife.</param>
         public void RemoveWife(GedcomIndividualRecord indi)
         {
-            GedcomFamilyLink link;
-
             if (wife == indi.XRefID)
             {
                 wife = string.Empty;
             }
 
-            if (indi.SpouseInFamily(XRefID, out link))
+            if (indi.SpouseInFamily(XRefID, out GedcomFamilyLink link))
             {
                 indi.SpouseIn.Remove(link);
             }
@@ -766,8 +775,7 @@ namespace SmartFamily.Gedcom.Models
                 GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childXrefID];
                 if (child != null)
                 {
-                    GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(XrefId, out link))
+                    if (child.ChildInFamily(XrefId, out GedcomFamilyLink link))
                     {
                         ret = link.FatherPedigree;
                     }
@@ -807,8 +815,7 @@ namespace SmartFamily.Gedcom.Models
                 GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childXrefID];
                 if (child != null)
                 {
-                    GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(XrefId, out link))
+                    if (child.ChildInFamily(XrefId, out GedcomFamilyLink link))
                     {
                         ret = link.MotherPedigree;
                     }
@@ -848,8 +855,7 @@ namespace SmartFamily.Gedcom.Models
                 GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childXrefID];
                 if (child != null)
                 {
-                    GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(XrefId, out link))
+                    if (child.ChildInFamily(XrefId, out GedcomFamilyLink link))
                     {
                         ret = link.Pedigree;
                     }
@@ -908,7 +914,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                 }
             }
 
@@ -935,7 +941,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                 }
             }
 
@@ -959,62 +965,31 @@ namespace SmartFamily.Gedcom.Models
                     node.AppendChild(linkNode);
 
                     // TODO: add in <ChildNbr>
-                    GedcomFamilyLink link = null;
 
-                    if (indi.ChildInFamily(XRefID, out link))
+                    if (indi.ChildInFamily(XRefID, out GedcomFamilyLink link))
                     {
                         XmlNode relNode = doc.CreateElement("RelToFath");
                         string relType = string.Empty;
-                        switch (link.FatherPedigree)
+                        relType = link.FatherPedigree switch
                         {
-                            case PedigreeLinkageType.Adopted:
-                                relType = "adopted";
-                                break;
-
-                            case PedigreeLinkageType.Birth:
-                                relType = "birth";
-                                break;
-
-                            case PedigreeLinkageType.Foster:
-                                relType = "foster";
-                                break;
-
-                            case PedigreeLinkageType.Sealing:
-                                relType = "sealing";
-                                break;
-
-                            default:
-                                relType = "unknown";
-                                break;
-                        }
-
+                            PedigreeLinkageType.Adopted => "adopted",
+                            PedigreeLinkageType.Birth => "birth",
+                            PedigreeLinkageType.Foster => "foster",
+                            PedigreeLinkageType.Sealing => "sealing",
+                            _ => "unknown",
+                        };
                         relNode.AppendChild(doc.CreateTextNode(relType));
 
                         relNode = doc.CreateElement("RelToMoth");
                         relType = string.Empty;
-                        switch (link.MotherPedigree)
+                        relType = link.MotherPedigree switch
                         {
-                            case PedigreeLinkageType.Adopted:
-                                relType = "adopted";
-                                break;
-
-                            case PedigreeLinkageType.Birth:
-                                relType = "birth";
-                                break;
-
-                            case PedigreeLinkageType.Foster:
-                                relType = "foster";
-                                break;
-
-                            case PedigreeLinkageType.Sealing:
-                                relType = "sealing";
-                                break;
-
-                            default:
-                                relType = "unknown";
-                                break;
-                        }
-
+                            PedigreeLinkageType.Adopted => "adopted",
+                            PedigreeLinkageType.Birth => "birth",
+                            PedigreeLinkageType.Foster => "foster",
+                            PedigreeLinkageType.Sealing => "sealing",
+                            _ => "unknown",
+                        };
                         relNode.AppendChild(doc.CreateTextNode(relType));
                     }
 
@@ -1022,7 +997,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant child");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent child");
                 }
             }
 
@@ -1116,8 +1091,7 @@ namespace SmartFamily.Gedcom.Models
                 {
                     // only output _FREL / _MREL value here,
                     // real PEDI goes on the FAMC on the INDI tag
-                    GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(XrefId, out link))
+                    if (child.ChildInFamily(XrefId, out GedcomFamilyLink link))
                     {
                         switch (link.Pedigree)
                         {

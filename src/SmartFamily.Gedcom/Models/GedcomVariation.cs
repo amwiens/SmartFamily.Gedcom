@@ -164,7 +164,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Changeds this instance.
+        /// Changed this instance.
         /// </summary>
         protected virtual void Changed()
         {

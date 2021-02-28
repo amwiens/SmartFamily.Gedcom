@@ -12,7 +12,7 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, IEquatable<GedcomEvent>
     {
-        private static string[] typeStrings = new string[]
+        private static readonly string[] typeStrings = new string[]
         {
             "EVEN",
 
@@ -73,7 +73,7 @@ namespace SmartFamily.Gedcom.Models
             "_UNKN",
         };
 
-        private static List<string> typeDescriptions = new List<string>()
+        private static readonly List<string> typeDescriptions = new List<string>()
         {
             "Other Event",
             "Annulment",
@@ -83,7 +83,7 @@ namespace SmartFamily.Gedcom.Models
             "Engagement",
             "Marriage Bann",
             "Marriage Contract",
-            "Marriate",
+            "Marriage",
             "Marriage License",
             "Marriage Settlement",
             "Residence",
@@ -551,7 +551,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Attempts to determin a standard event type from a textual
+        /// Attempts to determine a standard event type from a textual
         /// description. Always returns GenericEvent if one can't be found
         /// even though where the string came from maybe a FACT
         /// </summary>
@@ -729,7 +729,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                     }
                 }
 
@@ -757,7 +757,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                     }
                 }
 
@@ -931,7 +931,7 @@ namespace SmartFamily.Gedcom.Models
             // Quality of data should only be on source citations according to
             // the spec.
             // We output it on events as well as it has been seen in GEDCOM
-            // files from other apps
+            // files from other apps.
             if (Certainty != GedcomCertainty.Unknown)
             {
                 if (levelPlusOne == null)

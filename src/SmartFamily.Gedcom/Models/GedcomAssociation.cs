@@ -132,7 +132,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in association to see if they are the same.
         /// </summary>
         /// <param name="other">The association to compare the current instance against.</param>
-        /// <returns>A 32-bit signed integer that indicates whether this instance preceds, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(GedcomAssociation other)
         {
             if (other == null)

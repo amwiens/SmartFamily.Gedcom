@@ -264,7 +264,7 @@ namespace SmartFamily.Gedcom.Models
         /// <returns>True if instance matches user data, otherwise False.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var repository = obj as GedcomRepositoryRecord;
+            GedcomRepositoryRecord repository = obj as GedcomRepositoryRecord;
 
             if (repository == null)
             {

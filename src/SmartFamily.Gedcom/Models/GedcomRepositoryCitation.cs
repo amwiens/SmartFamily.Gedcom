@@ -14,8 +14,8 @@ namespace SmartFamily.Gedcom.Models
     {
         private string repository;
 
-        private GedcomRecordList<string> callNumbers;
-        private GedcomRecordList<SourceMediaType> mediaTypes;
+        private readonly GedcomRecordList<string> callNumbers;
+        private readonly GedcomRecordList<SourceMediaType> mediaTypes;
 
         // This is a hack for broken GEDCOM files that misuse MEDI
         private GedcomRecordList<string> otherMediaTypes;
@@ -36,7 +36,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets the type of the record.
         /// </summary>
         /// <value>
-        /// The type fo the record.
+        /// The type of the record.
         /// </value>
         public override GedcomRecordType RecordType
         {
@@ -287,7 +287,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
-        /// <param name="obj">The object ot compare this instance against.</param>
+        /// <param name="obj">The object to compare this instance against.</param>
         /// <returns>True if instance matches user data, otherwise false.</returns>
         public override bool Equals(object obj)
         {

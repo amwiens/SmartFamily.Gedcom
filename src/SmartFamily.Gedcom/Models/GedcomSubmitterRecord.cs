@@ -18,7 +18,7 @@ namespace SmartFamily.Gedcom.Models
         private string registeredRFN;
 
         /// <summary>
-        /// Initializaes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
+        /// Initializes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
         /// </summary>
         public GedcomSubmitterRecord()
         {
@@ -250,7 +250,7 @@ namespace SmartFamily.Gedcom.Models
         /// <returns>True if instance matches user data, otherwise false.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var submitter = obj as GedcomSubmitterRecord;
+            GedcomSubmitterRecord submitter = obj as GedcomSubmitterRecord;
 
             if (submitter == null)
             {

@@ -32,7 +32,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets the type of the record.
         /// </summary>
         /// <value>
-        /// The type fo the record.
+        /// The type of the record.
         /// </value>
         public override GedcomRecordType RecordType
         {
@@ -98,7 +98,7 @@ namespace SmartFamily.Gedcom.Models
             }
         }
 
-        // util backpointer to the individual for this event
+        // utility backpointer to the individual for this event
 
         /// <summary>
         /// Gets or sets the individual's record.

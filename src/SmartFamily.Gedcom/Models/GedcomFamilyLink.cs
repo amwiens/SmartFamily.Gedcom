@@ -18,7 +18,7 @@ namespace SmartFamily.Gedcom.Models
         private PedigreeLinkageType fatherPedigree;
         private PedigreeLinkageType motherPedigree;
 
-        private bool preferedSpouse;
+        private bool preferredSpouse;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomFamilyLink"/> class.
@@ -171,15 +171,15 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [prefered spouse].
+        /// Gets or sets a value indicating whether [preferred spouse].
         /// </summary>
         /// <value>
-        /// <c>true</c> if [prefered spouse]; otherwise, <c>false</c>.
+        /// <c>true</c> if [preferred spouse]; otherwise, <c>false</c>.
         /// </value>
-        public bool PreferedSpouse
+        public bool PreferredSpouse
         {
-            get { return preferedSpouse; }
-            set { preferedSpouse = value; }
+            get { return preferredSpouse; }
+            set { preferredSpouse = value; }
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Compares the current and passed family link to see if they are the same.
         /// </summary>
-        /// <param name="link">Teh family link to compare the current instance against.</param>
+        /// <param name="link">The family link to compare the current instance against.</param>
         /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(GedcomFamilyLink link)
         {
@@ -226,7 +226,7 @@ namespace SmartFamily.Gedcom.Models
                 return compare;
             }
 
-            compare = PreferedSpouse.CompareTo(link.PreferedSpouse);
+            compare = PreferredSpouse.CompareTo(link.PreferredSpouse);
             if (compare != 0)
             {
                 return compare;
@@ -278,7 +278,7 @@ namespace SmartFamily.Gedcom.Models
                 FatherPedigree,
                 MotherPedigree,
                 Pedigree,
-                PreferedSpouse,
+                PreferredSpouse,
                 Status,
             }.GetHashCode();
         }

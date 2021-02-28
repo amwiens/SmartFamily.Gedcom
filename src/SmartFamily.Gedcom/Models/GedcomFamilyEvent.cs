@@ -35,7 +35,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets or sets the husband age.
         /// </summary>
         /// <value>
-        /// The hustband age.
+        /// The husband age.
         /// </value>
         public GedcomAge HusbandAge
         {

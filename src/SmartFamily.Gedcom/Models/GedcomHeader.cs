@@ -37,7 +37,7 @@ namespace SmartFamily.Gedcom.Models
         /// <value>
         /// The database.
         /// </value>
-        /// <exception cref="Exception">Databse can only have one header.</exception>
+        /// <exception cref="Exception">Database can only have one header.</exception>
         public override GedcomDatabase Database
         {
             get
@@ -430,7 +430,7 @@ namespace SmartFamily.Gedcom.Models
         /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var header = obj as GedcomHeader;
+            GedcomHeader header = obj as GedcomHeader;
 
             if (header == null)
             {

@@ -170,7 +170,7 @@ namespace SmartFamily.Gedcom.Models
             get { return dateTime2; }
         }
 
-        // Util properties to get the date as a string
+        // Utility properties to get the date as a string
 
         /// <summary>
         /// Gets
@@ -444,7 +444,7 @@ namespace SmartFamily.Gedcom.Models
         /// Returns a percentage based score on how similar the passed record is to the current instance.
         /// </summary>
         /// <param name="date">The date to compare this instance against.</param>
-        /// <returns>A score from 0 to 100 representing the percenage match.</returns>
+        /// <returns>A score from 0 to 100 representing the percentage match.</returns>
         public decimal CalculateSimilarityScore(GedcomDate date)
         {
             var match = decimal.Zero;
@@ -458,15 +458,12 @@ namespace SmartFamily.Gedcom.Models
             var matches = decimal.Zero;
             int parts = 0;
 
-            DateTime? dateDate1 = date.DateTime1;
-            DateTime? dateDate2 = date.DateTime2;
-
             // some type, nice and simple,
             // range is the same as between as far as we are concerned
             // for instance an Occupation could have been FROM a TO b
             // or BETWEEN a AND b
             // logic doesn't hold for one off events such as birth, but
-            // then a Range doesn't make sense for thos anyway so if
+            // then a Range doesn't make sense for those anyway so if
             // we have one should be safe to assume it is Between
             if (DateType == date.DateType &&
                 (DatePeriod == date.DatePeriod ||
@@ -577,33 +574,15 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            switch (dateType)
+            DateType = dateType switch
             {
-                case "@#DGREGORIAN@":
-                    DateType = GedcomDateType.Gregorian;
-                    break;
-
-                case "@#DJULIAN@":
-                    DateType = GedcomDateType.Julian;
-                    break;
-
-                case "@#DHEBREW@":
-                    DateType = GedcomDateType.Hebrew;
-                    break;
-
-                case "@#DROMAN@":
-                    DateType = GedcomDateType.Roman;
-                    break;
-
-                case "@#DUNKNOWN@":
-                    DateType = GedcomDateType.Unknown;
-                    break;
-
-                default:
-                    DateType = GedcomDateType.Gregorian;
-                    break;
-            }
-
+                "@#DGREGORIAN@" => GedcomDateType.Gregorian,
+                "@#DJULIAN@" => GedcomDateType.Julian,
+                "@#DHEBREW@" => GedcomDateType.Hebrew,
+                "@#DROMAN@" => GedcomDateType.Roman,
+                "@#DUNKNOWN@" => GedcomDateType.Unknown,
+                _ => GedcomDateType.Gregorian,
+            };
             period = dataString;
             var periodResult = ExtractDatePeriod(period);
             dataString = periodResult.DataAfterExtration;
@@ -916,7 +895,6 @@ namespace SmartFamily.Gedcom.Models
             string year = string.Empty;
             string month = string.Empty;
             string day = string.Empty;
-            //bool bc = false;
 
             DateTime? ret = null;
 
@@ -929,10 +907,8 @@ namespace SmartFamily.Gedcom.Models
                 {
                     // year only
                     year = dateSplit[start];
-                    //bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        //bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }
@@ -943,10 +919,8 @@ namespace SmartFamily.Gedcom.Models
 
                     // year
                     year = dateSplit[start + 1];
-                    //bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        //bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }
@@ -960,10 +934,8 @@ namespace SmartFamily.Gedcom.Models
 
                     //year
                     year = dateSplit[start + 2];
-                    //bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        //bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }

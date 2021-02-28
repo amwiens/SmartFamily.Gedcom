@@ -471,7 +471,7 @@ namespace SmartFamily.Gedcom.Models
 
             // TODO: Type attribute, GEDCOM 6 mapping problem, Type
             // appears to be a media type, but that is held in the repo citations
-            // even worse is that ther can be multiple media types per citation
+            // even worse is that there can be multiple media types per citation
             node.Attributes.Append(attr);
 
             if (RepositoryCitations != null)

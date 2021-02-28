@@ -170,7 +170,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets or sets the date.
         /// </summary>
         /// <value>
-        /// Teh date.
+        /// The date.
         /// </value>
         public GedcomDate Date
         {
@@ -258,7 +258,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant source");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent source");
                 }
 
                 if (!string.IsNullOrEmpty(Page))
@@ -436,7 +436,7 @@ namespace SmartFamily.Gedcom.Models
         /// <param name="citation">A citation.</param>
         /// <returns>
         /// &lt;0 if this citation precedes the other in the sort order;
-        /// &gt;0 if the other citation preceds this one;
+        /// &gt;0 if the other citation precedes this one;
         /// 0 if the citations are equal
         /// </returns>
         public int CompareTo(GedcomSourceCitation citation)
@@ -490,7 +490,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="obj">A citation.</param>
         /// <returns>
-        /// &lt;0 if this object preceds the other in the sort order;
+        /// &lt;0 if this object precedes the other in the sort order;
         /// &gt;0 if the other object precedes this one;
         /// 0 if the objects are equal
         /// </returns>

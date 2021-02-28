@@ -308,7 +308,7 @@ namespace SmartFamily.Gedcom.Parser
                                     Family = family.XRefID,
                                     Individual = husbandID,
                                     Level = 1,
-                                    PreferedSpouse = husband.SpouseIn.Count == 0
+                                    PreferredSpouse = husband.SpouseIn.Count == 0
                                 };
                                 husband.SpouseIn.Add(famLink);
                             }
@@ -1874,7 +1874,7 @@ namespace SmartFamily.Gedcom.Parser
                                 Level = level,
                                 Family = lineValue,
                                 Individual = individualRecord.XRefID,
-                                PreferedSpouse = individualRecord.SpouseIn.Count == 0
+                                PreferredSpouse = individualRecord.SpouseIn.Count == 0
                             };
 
                             missingReferences.Add(lineValue);

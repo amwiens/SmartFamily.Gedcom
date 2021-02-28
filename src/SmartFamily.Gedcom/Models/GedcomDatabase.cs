@@ -6,28 +6,28 @@ using System.Collections.Generic;
 namespace SmartFamily.Gedcom.Models
 {
     /// <summary>
-    /// The database for all the GEDCOM reocrds.
+    /// The database for all the GEDCOM records.
     /// This is currently just in memory. To implement a "real"
     /// database you should derive from this class and override
     /// the necessary methods / properties.
     /// </summary>
     public class GedcomDatabase
     {
-        private List<GedcomIndividualRecord> individuals;
-        private List<GedcomFamilyRecord> families;
-        private List<GedcomSourceRecord> sources;
-        private List<GedcomRepositoryRecord> repositories;
-        private List<GedcomMultimediaRecord> media;
-        private List<GedcomNoteRecord> notes;
-        private List<GedcomSubmitterRecord> submitters;
+        private readonly List<GedcomIndividualRecord> individuals;
+        private readonly List<GedcomFamilyRecord> families;
+        private readonly List<GedcomSourceRecord> sources;
+        private readonly List<GedcomRepositoryRecord> repositories;
+        private readonly List<GedcomMultimediaRecord> media;
+        private readonly List<GedcomNoteRecord> notes;
+        private readonly List<GedcomSubmitterRecord> submitters;
 
         private int xrefCounter = 0;
 
-        private IndexedKeyCollection placeNameCollection;
+        private readonly IndexedKeyCollection placeNameCollection;
 
         // NOTE: having a collection for date strings saves memory
         // but kills GEDCOM reading time to an extent that it isn't worth it
-        private Dictionary<string, int> surnames;
+        private readonly Dictionary<string, int> surnames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomDatabase"/> class.
@@ -135,7 +135,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name of the database, this is currently the full filename
         /// of the GEDCOM file the database was read from / saved to,
-        /// but could equally be a connection string for a real backend database.
+        /// but could equally be a connection string for a real back-end database.
         /// </summary>
         public virtual string Name { get; set; }
 
@@ -146,7 +146,7 @@ namespace SmartFamily.Gedcom.Models
         public IndexedKeyCollection NameCollection { get; } = new IndexedKeyCollection();
 
         /// <summary>
-        /// Gets all the place names used in the database, used primarly to save
+        /// Gets all the place names used in the database, used primarily to save
         /// memory by storing names only once.
         /// </summary>
         public IndexedKeyCollection PlaceNameCollection

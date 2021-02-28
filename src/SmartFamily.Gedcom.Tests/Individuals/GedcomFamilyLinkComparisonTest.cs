@@ -76,7 +76,7 @@ namespace SmartFamily.Gedcom.Tests.Individuals
             var familyLink1 = GenerateComparableFamilyLink();
             var familyLink2 = GenerateComparableFamilyLink();
 
-            familyLink1.PreferedSpouse = true;
+            familyLink1.PreferredSpouse = true;
 
             Assert.False(familyLink1.CompareTo(familyLink2) == 0);
         }
@@ -99,7 +99,7 @@ namespace SmartFamily.Gedcom.Tests.Individuals
                 FatherPedigree = PedigreeLinkageType.Unknown,
                 MotherPedigree = PedigreeLinkageType.Unknown,
                 Pedigree = PedigreeLinkageType.Unknown,
-                PreferedSpouse = false,
+                PreferredSpouse = false,
                 Status = ChildLinkageStatus.Unknown,
             };
         }
