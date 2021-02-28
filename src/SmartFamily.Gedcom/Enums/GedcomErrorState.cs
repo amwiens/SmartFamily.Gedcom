@@ -6,7 +6,7 @@
     public enum GedcomErrorState
     {
         /// <summary>
-        /// No error has occured
+        /// No error has occurred
         /// </summary>
         NoError = 0,
 
@@ -16,7 +16,7 @@
         LevelExpected,
 
         /// <summary>
-        /// Delimeter after level not found
+        /// Delimiter after level not found
         /// </summary>
         LevelMissingDelim,
 
@@ -26,7 +26,7 @@
         LevelInvalid,
 
         /// <summary>
-        /// Delimeter after XrefID not found
+        /// Delimiter after XrefID not found
         /// </summary>
         XrefIDMissingDelim,
 
@@ -41,7 +41,7 @@
         TagExpected,
 
         /// <summary>
-        /// Delimeter, or newline after the tag was not found
+        /// Delimiter, or newline after the tag was not found
         /// </summary>
         TagMissingDelimOrTerm,
 
@@ -51,7 +51,7 @@
         LineValueExpected,
 
         /// <summary>
-        /// newline after line value not found
+        /// Newline after line value not found
         /// </summary>
         LineValueMissingTerm,
 
@@ -61,13 +61,13 @@
         LineValueInvalid,
 
         /// <summary>
-        /// Deliminator in GEDCOM is a single space, this error will occur
+        /// Delimiter in GEDCOM is a single space, this error will occur
         /// when a multi space delimiter is detected
         /// </summary>
         InvalidDelim,
 
         /// <summary>
-        /// An unknown error has occured while parsing
+        /// An unknown error has occurred while parsing
         /// </summary>
         UnknownError,
     }

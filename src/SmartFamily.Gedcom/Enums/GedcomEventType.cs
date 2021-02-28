@@ -41,7 +41,7 @@
         /// Divorce Filed
         /// </summary>
         /// <remarks>
-        /// An event of filing for a divoce by a spouse.
+        /// An event of filing for a divorce by a spouse.
         /// </remarks>
         DIVF,
 
