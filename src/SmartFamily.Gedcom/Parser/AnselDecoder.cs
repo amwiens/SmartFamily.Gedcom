@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Parser
     internal class AnselDecoder : Decoder
     {
         // Push diacritic characters onto this stack so we can pull them off
-        // after the latin combining character has been written.
-        private readonly Stack<char> diacritics = new Stack<char>(2); // ANSEL has a maximum of 2 diacritics added to a latin to form a precomposed character
+        // after the Latin combining character has been written.
+        private readonly Stack<char> diacritics = new Stack<char>(2); // ANSEL has a maximum of 2 diacritics added to a Latin to form a precomposed character
 
         private readonly ushort[] charMapping = new ushort[]
         {

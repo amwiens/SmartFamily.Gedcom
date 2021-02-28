@@ -9,12 +9,12 @@ namespace SmartFamily.Gedcom.Parser
     /// GedcomParser is responsible for parsing GEDCOM files.
     /// This class implements GEDCOM 5.5 grammar rules.
     /// This is probably not the class you want to use unless writing a
-    /// validtor application. GedcomRecordReader makes use of this
+    /// validator application. GedcomRecordReader makes use of this
     /// class for building up a GedcomDatabase.
     /// </summary>
     public class GedcomParser
     {
-        // arbitary magic max level number
+        // arbitrary magic max level number
         private const int MaxLevel = 99;
 
         private const int MaxXRefLength = 22;
@@ -498,7 +498,7 @@ namespace SmartFamily.Gedcom.Parser
 
                                 // TODO: no line value, but have hit the terminator
                                 // what should this be allowed for?
-                                // Family Tree Maker outputs emtpy CONT (and CONC?)
+                                // Family Tree Maker outputs empty CONT (and CONC?)
                                 else if (Tag == "CONT" || Tag == "CONC")
                                 {
                                     LineValue = " ";

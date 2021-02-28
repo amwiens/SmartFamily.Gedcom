@@ -74,7 +74,7 @@ namespace SmartFamily.Gedcom.Parser
         public Stack<GedcomRecord> Records { get; protected set; }
 
         /// <summary>
-        /// Gets or sets the current dataase the GedcomRecordReader is working with.
+        /// Gets or sets the current database the GedcomRecordReader is working with.
         /// </summary>
         public GedcomDatabase Database { get; set; }
 

@@ -10,7 +10,7 @@ namespace SmartFamily.Gedcom.Parser
     internal class GedcomStreamWriter : StreamWriter
     {
         //private int tabSize = 4;
-        private string tab = "    ";
+        private readonly string tab = "    ";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomStreamWriter"/> class.
@@ -56,7 +56,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="stream">The stream to write to.</param>
         /// <param name="encoding">The character encoding to use.</param>
         /// <param name="bufferSize">The buffer size, in bytes.</param>
-        /// <param name="leaveOpen">true to leave the sream open after the <see cref="StreamWriter"/> object is disposed; otherwise, false.</param>
+        /// <param name="leaveOpen">true to leave the stream open after the <see cref="StreamWriter"/> object is disposed; otherwise, false.</param>
         public GedcomStreamWriter(Stream stream, Encoding encoding, int bufferSize, bool leaveOpen)
             : base(stream, encoding, bufferSize, leaveOpen)
         {
@@ -65,7 +65,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomStreamWriter"/> class.
         /// </summary>
-        /// <param name="path">The comlete file path to write to.</param>
+        /// <param name="path">The complete file path to write to.</param>
         /// <param name="append">true to append data to the file; false to overwrite the file. If the specified file does not exist, this parameter has no effect, and the constructor creates a new file.</param>
         /// <param name="encoding">The character encoding to use.</param>
         public GedcomStreamWriter(string path, bool append, Encoding encoding)

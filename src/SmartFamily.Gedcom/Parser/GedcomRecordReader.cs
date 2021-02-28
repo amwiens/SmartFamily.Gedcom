@@ -51,7 +51,7 @@ namespace SmartFamily.Gedcom.Parser
             // we don't care if delims are multiple spaces
             Parser.IgnoreInvalidDelim = true;
 
-            // we don't care if lines are missing delimeters
+            // we don't care if lines are missing delimiters
             Parser.IgnoreMissingTerms = true;
 
             // apply hack for lines that are just part of the line value
@@ -299,16 +299,17 @@ namespace SmartFamily.Gedcom.Parser
                         GedcomIndividualRecord husband = Database[husbandID] as GedcomIndividualRecord;
                         if (husband != null)
                         {
-                            GedcomFamilyLink famLink = null;
 
-                            if (!husband.SpouseInFamily(family.XRefID, out famLink))
+                            if (!husband.SpouseInFamily(family.XRefID, out GedcomFamilyLink famLink))
                             {
-                                famLink = new GedcomFamilyLink();
-                                famLink.Database = Database;
-                                famLink.Family = family.XRefID;
-                                famLink.Individual = husbandID;
-                                famLink.Level = 1;
-                                famLink.PreferedSpouse = husband.SpouseIn.Count == 0;
+                                famLink = new GedcomFamilyLink
+                                {
+                                    Database = Database,
+                                    Family = family.XRefID,
+                                    Individual = husbandID,
+                                    Level = 1,
+                                    PreferedSpouse = husband.SpouseIn.Count == 0
+                                };
                                 husband.SpouseIn.Add(famLink);
                             }
                         }
@@ -324,15 +325,16 @@ namespace SmartFamily.Gedcom.Parser
                         GedcomIndividualRecord wife = Database[wifeID] as GedcomIndividualRecord;
                         if (wife != null)
                         {
-                            GedcomFamilyLink famLink = null;
 
-                            if (!wife.SpouseInFamily(family.XRefID, out famLink))
+                            if (!wife.SpouseInFamily(family.XRefID, out GedcomFamilyLink famLink))
                             {
-                                famLink = new GedcomFamilyLink();
-                                famLink.Database = Database;
-                                famLink.Family = family.XRefID;
-                                famLink.Individual = wifeID;
-                                famLink.Level = 1;
+                                famLink = new GedcomFamilyLink
+                                {
+                                    Database = Database,
+                                    Family = family.XRefID,
+                                    Individual = wifeID,
+                                    Level = 1
+                                };
                                 wife.SpouseIn.Add(famLink);
                             }
                         }
@@ -348,17 +350,17 @@ namespace SmartFamily.Gedcom.Parser
 
                         if (child != null)
                         {
-                            GedcomFamilyLink famLink = null;
-
                             // add a family link record if one doesn't already exist
-                            if (!child.ChildInFamily(family.XRefID, out famLink))
+                            if (!child.ChildInFamily(family.XRefID, out GedcomFamilyLink famLink))
                             {
-                                famLink = new GedcomFamilyLink();
-                                famLink.Database = Database;
-                                famLink.Family = family.XRefID;
-                                famLink.Individual = childID;
-                                famLink.Level = 1;
-                                famLink.Status = ChildLinkageStatus.Unknown;
+                                famLink = new GedcomFamilyLink
+                                {
+                                    Database = Database,
+                                    Family = family.XRefID,
+                                    Individual = childID,
+                                    Level = 1,
+                                    Status = ChildLinkageStatus.Unknown
+                                };
 
                                 // pedigree now set below
                                 child.ChildIn.Add(famLink);
@@ -427,7 +429,7 @@ namespace SmartFamily.Gedcom.Parser
                             case GedcomRecordType.Individual:
                                 // TODO: don't increase ref count on individuals,
                                 // a bit of a hack, only place where it may be
-                                // needed is on assocciations
+                                // needed is on associations
                                 break;
 
                             case GedcomRecordType.Family:
@@ -779,12 +781,14 @@ namespace SmartFamily.Gedcom.Parser
 
                         if (address != null)
                         {
-                            GedcomIndividualEvent resi = new GedcomIndividualEvent();
-                            resi.EventType = GedcomEventType.RESIFact;
-                            resi.Database = Database;
-                            resi.Level = indi.Level + 1;
-                            resi.IndiRecord = indi;
-                            resi.Address = address;
+                            GedcomIndividualEvent resi = new GedcomIndividualEvent
+                            {
+                                EventType = GedcomEventType.RESIFact,
+                                Database = Database,
+                                Level = indi.Level + 1,
+                                IndiRecord = indi,
+                                Address = address
+                            };
 
                             indi.Events.Add(resi);
 
@@ -994,7 +998,7 @@ namespace SmartFamily.Gedcom.Parser
             // no parsed date, perhaps it was an age?
             if (date.DateTime1 == null)
             {
-                // date handling is severly broken in genealogy applications,
+                // date handling is severely broken in genealogy applications,
                 // with many not taking any notice of the mandated formats when
                 // outputting gedcom, and some such as Family Tree Maker
                 // inserting what belongs in AGE as the date, e.g. INFANT
@@ -1651,10 +1655,12 @@ namespace SmartFamily.Gedcom.Parser
                         }
                         else
                         {
-                            GedcomSubmitterRecord submitter = new GedcomSubmitterRecord();
-                            submitter.Level = 0; // new top level submitter, always 0;
-                            submitter.ParsingLevel = level;
-                            submitter.XRefID = Database.GenerateXref("SUBM");
+                            GedcomSubmitterRecord submitter = new GedcomSubmitterRecord
+                            {
+                                Level = 0, // new top level submitter, always 0;
+                                ParsingLevel = level,
+                                XRefID = Database.GenerateXref("SUBM")
+                            };
 
                             parseState.Records.Push(submitter);
 
@@ -1863,11 +1869,13 @@ namespace SmartFamily.Gedcom.Parser
                     case "FAMS":
                         if (lineValueType == GedcomLineValueType.PointerType)
                         {
-                            GedcomFamilyLink spouseIn = new GedcomFamilyLink();
-                            spouseIn.Level = level;
-                            spouseIn.Family = lineValue;
-                            spouseIn.Individual = individualRecord.XRefID;
-                            spouseIn.PreferedSpouse = individualRecord.SpouseIn.Count == 0;
+                            GedcomFamilyLink spouseIn = new GedcomFamilyLink
+                            {
+                                Level = level,
+                                Family = lineValue,
+                                Individual = individualRecord.XRefID,
+                                PreferedSpouse = individualRecord.SpouseIn.Count == 0
+                            };
 
                             missingReferences.Add(lineValue);
 
@@ -1913,11 +1921,13 @@ namespace SmartFamily.Gedcom.Parser
                     case "NAME":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            GedcomName name = new GedcomName();
-                            name.Database = parseState.Database;
-                            name.Level = level;
-                            name.Name = lineValue;
-                            name.PreferredName = individualRecord.Names.Count == 0;
+                            GedcomName name = new GedcomName
+                            {
+                                Database = parseState.Database,
+                                Level = level,
+                                Name = lineValue,
+                                PreferredName = individualRecord.Names.Count == 0
+                            };
 
                             individualRecord.Names.Add(name);
                             parseState.Records.Push(name);
@@ -1929,12 +1939,14 @@ namespace SmartFamily.Gedcom.Parser
                     case "AKA":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            GedcomName name = new GedcomName();
-                            name.Database = parseState.Database;
-                            name.Level = level;
-                            name.Name = lineValue;
-                            name.Type = "aka";
-                            name.PreferredName = individualRecord.Names.Count == 0;
+                            GedcomName name = new GedcomName
+                            {
+                                Database = parseState.Database,
+                                Level = level,
+                                Name = lineValue,
+                                Type = "aka",
+                                PreferredName = individualRecord.Names.Count == 0
+                            };
                             individualRecord.Names.Add(name);
                         }
 
@@ -1980,10 +1992,12 @@ namespace SmartFamily.Gedcom.Parser
                         }
                         else
                         {
-                            GedcomSubmitterRecord submitter = new GedcomSubmitterRecord();
-                            submitter.Level = 0; // new top level submitter, always 0
-                            submitter.ParsingLevel = level;
-                            submitter.XRefID = Database.GenerateXref("SUBM");
+                            GedcomSubmitterRecord submitter = new GedcomSubmitterRecord
+                            {
+                                Level = 0, // new top level submitter, always 0
+                                ParsingLevel = level,
+                                XRefID = Database.GenerateXref("SUBM")
+                            };
 
                             parseState.Records.Push(submitter);
 
@@ -2007,12 +2021,14 @@ namespace SmartFamily.Gedcom.Parser
                             // though, not another name.
                             // spec allows multiple NAME though, so add one
                             // with this name
-                            GedcomName name = new GedcomName();
-                            name.Database = parseState.Database;
-                            name.Level = level;
-                            name.Name = lineValue;
-                            name.Type = "aka";
-                            name.PreferredName = individualRecord.Names.Count == 0;
+                            GedcomName name = new GedcomName
+                            {
+                                Database = parseState.Database,
+                                Level = level,
+                                Name = lineValue,
+                                Type = "aka",
+                                PreferredName = individualRecord.Names.Count == 0
+                            };
                             individualRecord.Names.Add(name);
                         }
 
@@ -2069,8 +2085,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -2089,10 +2107,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "BIRT":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.Birth;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.Birth,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2103,10 +2123,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "CHR":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.CHR;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.CHR,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2117,10 +2139,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "DEAT":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.DEAT;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.DEAT,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2131,10 +2155,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "BURI":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.BURI;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.BURI,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2145,10 +2171,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "CREM":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.CREM;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.CREM,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2159,10 +2187,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "ADOP":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.ADOP;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.ADOP,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2173,10 +2203,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "BAPM":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.BAPM;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.BAPM,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2187,10 +2219,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "BARM":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.BARM;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.BARM,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2201,10 +2235,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "BASM":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.BASM;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.BASM,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2215,10 +2251,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "BLES":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.BLES;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.BLES,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2229,10 +2267,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "CHRA":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.CHRA;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.CHRA,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2243,10 +2283,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "CONF":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.CONF;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.CONF,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2257,10 +2299,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "FCOM":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.FCOM;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.FCOM,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2271,10 +2315,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "ORDN":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.ORDN;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.ORDN,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2285,10 +2331,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "NATU":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.NATU;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.NATU,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2299,10 +2347,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "EMIG":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.EMIG;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.EMIG,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2313,10 +2363,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "IMMI":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.IMMI;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.IMMI,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2327,10 +2379,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "CENS":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.CENS;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.CENS,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2341,10 +2395,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "PROB":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.PROB;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.PROB,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2355,10 +2411,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "WILL":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.WILL;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.WILL,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2369,10 +2427,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "GRAD":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.GRAD;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.GRAD,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2383,10 +2443,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "RETI":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.RETI;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.RETI,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         individualRecord.Events.Add(individualEvent);
 
@@ -2397,10 +2459,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "EVEN":
 
                         // event
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.GenericEvent;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.GenericEvent,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2416,10 +2480,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "CAST":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.CASTFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.CASTFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2435,10 +2501,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "DSCR":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.DSCRFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.DSCRFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2454,10 +2522,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "EDUC":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.EDUCFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.EDUCFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2473,10 +2543,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "IDNO":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.IDNOFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.IDNOFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2492,10 +2564,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "NATI":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.NATIFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.NATIFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2511,10 +2585,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "NCHI":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.NCHIFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.NCHIFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2530,10 +2606,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "NMR":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.NMRFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.NMRFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2549,10 +2627,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "OCCU":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.OCCUFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.OCCUFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2568,10 +2648,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "PROP":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.PROPFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.PROPFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2587,10 +2669,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "RELI":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.RELIFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.RELIFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2606,10 +2690,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "RESI":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.RESIFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.RESIFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2625,10 +2711,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "SSN":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.SSNFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.SSNFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2644,10 +2732,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "TITL":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.TITLFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.TITLFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2663,10 +2753,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "FACT":
 
                         // fact
-                        individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.GenericFact;
-                        individualEvent.Level = level;
-                        individualEvent.IndiRecord = individualRecord;
+                        individualEvent = new GedcomIndividualEvent
+                        {
+                            EventType = GedcomEventType.GenericFact,
+                            Level = level,
+                            IndiRecord = individualRecord
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -2689,8 +2781,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "ADDR":
                         if (individualRecord.Address == null)
                         {
-                            individualRecord.Address = new GedcomAddress();
-                            individualRecord.Address.Database = Database;
+                            individualRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -2703,8 +2797,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "PHON":
                         if (individualRecord.Address == null)
                         {
-                            individualRecord.Address = new GedcomAddress();
-                            individualRecord.Address.Database = Database;
+                            individualRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -2732,8 +2828,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "EMAIL":
                         if (individualRecord.Address == null)
                         {
-                            individualRecord.Address = new GedcomAddress();
-                            individualRecord.Address.Database = Database;
+                            individualRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -2761,8 +2859,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "FAX":
                         if (individualRecord.Address == null)
                         {
-                            individualRecord.Address = new GedcomAddress();
-                            individualRecord.Address.Database = Database;
+                            individualRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -2790,8 +2890,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "WWW":
                         if (individualRecord.Address == null)
                         {
-                            individualRecord.Address = new GedcomAddress();
-                            individualRecord.Address.Database = Database;
+                            individualRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -2868,8 +2970,10 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             else
                             {
-                                file = new GedcomMultimediaFile();
-                                file.Database = Database;
+                                file = new GedcomMultimediaFile
+                                {
+                                    Database = Database
+                                };
                                 multimediaRecord.Files.Add(file);
                             }
 
@@ -2901,8 +3005,10 @@ namespace SmartFamily.Gedcom.Parser
 
                             if (file == null)
                             {
-                                file = new GedcomMultimediaFile();
-                                file.Database = Database;
+                                file = new GedcomMultimediaFile
+                                {
+                                    Database = Database
+                                };
                                 multimediaRecord.Files.Add(file);
                             }
 
@@ -2928,8 +3034,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -3031,8 +3139,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -3102,8 +3212,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "ADDR":
                         if (repositoryRecord.Address == null)
                         {
-                            repositoryRecord.Address = new GedcomAddress();
-                            repositoryRecord.Address.Database = Database;
+                            repositoryRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3116,8 +3228,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "PHON":
                         if (repositoryRecord.Address == null)
                         {
-                            repositoryRecord.Address = new GedcomAddress();
-                            repositoryRecord.Address.Database = Database;
+                            repositoryRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3145,8 +3259,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "EMAIL":
                         if (repositoryRecord.Address == null)
                         {
-                            repositoryRecord.Address = new GedcomAddress();
-                            repositoryRecord.Address.Database = Database;
+                            repositoryRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3174,8 +3290,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "FAX":
                         if (repositoryRecord.Address == null)
                         {
-                            repositoryRecord.Address = new GedcomAddress();
-                            repositoryRecord.Address.Database = Database;
+                            repositoryRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3203,8 +3321,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "WWW":
                         if (repositoryRecord.Address == null)
                         {
-                            repositoryRecord.Address = new GedcomAddress();
-                            repositoryRecord.Address.Database = Database;
+                            repositoryRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3246,8 +3366,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -3380,8 +3502,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "REPO":
-                        GedcomRepositoryCitation citation = new GedcomRepositoryCitation();
-                        citation.Level = level;
+                        GedcomRepositoryCitation citation = new GedcomRepositoryCitation
+                        {
+                            Level = level
+                        };
                         if (lineValueType == GedcomLineValueType.PointerType)
                         {
                             citation.Repository = lineValue;
@@ -3410,8 +3534,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -3571,8 +3697,10 @@ namespace SmartFamily.Gedcom.Parser
                 switch (tag)
                 {
                     case "DATE":
-                        GedcomDate date = new GedcomDate(Database);
-                        date.Level = level;
+                        GedcomDate date = new GedcomDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         recordedEvent.Date = date;
                         level++;
@@ -3582,8 +3710,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "PLAC":
-                        GedcomPlace place = new GedcomPlace();
-                        place.Level = level;
+                        GedcomPlace place = new GedcomPlace
+                        {
+                            Level = level
+                        };
 
                         recordedEvent.Place = place;
 
@@ -3620,10 +3750,12 @@ namespace SmartFamily.Gedcom.Parser
                 switch (tag)
                 {
                     default:
-                        GedcomCustomRecord custom = new GedcomCustomRecord();
-                        custom.Level = level;
-                        custom.XRefID = xrefId;
-                        custom.Tag = tag;
+                        GedcomCustomRecord custom = new GedcomCustomRecord
+                        {
+                            Level = level,
+                            XRefID = xrefId,
+                            Tag = tag
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -3651,8 +3783,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "ADDR":
                         if (submitterRecord.Address == null)
                         {
-                            submitterRecord.Address = new GedcomAddress();
-                            submitterRecord.Address.Database = Database;
+                            submitterRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3665,8 +3799,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "PHON":
                         if (submitterRecord.Address == null)
                         {
-                            submitterRecord.Address = new GedcomAddress();
-                            submitterRecord.Address.Database = Database;
+                            submitterRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3694,8 +3830,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "EMAIL":
                         if (submitterRecord.Address == null)
                         {
-                            submitterRecord.Address = new GedcomAddress();
-                            submitterRecord.Address.Database = Database;
+                            submitterRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3723,8 +3861,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "FAX":
                         if (submitterRecord.Address == null)
                         {
-                            submitterRecord.Address = new GedcomAddress();
-                            submitterRecord.Address.Database = Database;
+                            submitterRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3752,8 +3892,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "WWW":
                         if (submitterRecord.Address == null)
                         {
-                            submitterRecord.Address = new GedcomAddress();
-                            submitterRecord.Address.Database = Database;
+                            submitterRecord.Address = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -3811,8 +3953,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -3851,10 +3995,12 @@ namespace SmartFamily.Gedcom.Parser
                         }
                         else
                         {
-                            GedcomSubmitterRecord submitter = new GedcomSubmitterRecord();
-                            submitter.Level = 0; // new top level submitter, always 0;
-                            submitter.ParsingLevel = level;
-                            submitter.XRefID = Database.GenerateXref("SUBM");
+                            GedcomSubmitterRecord submitter = new GedcomSubmitterRecord
+                            {
+                                Level = 0, // new top level submitter, always 0;
+                                ParsingLevel = level,
+                                XRefID = Database.GenerateXref("SUBM")
+                            };
 
                             parseState.Records.Push(submitter);
 
@@ -3882,8 +4028,7 @@ namespace SmartFamily.Gedcom.Parser
                     case "ANCE":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            int num = 0;
-                            if (int.TryParse(lineValue, out num))
+                            if (int.TryParse(lineValue, out int num))
                             {
                                 submissionRecord.GenerationsOfAncestors = num;
                             }
@@ -3894,8 +4039,7 @@ namespace SmartFamily.Gedcom.Parser
                     case "DESC":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            int num = 0;
-                            if (int.TryParse(lineValue, out num))
+                            if (int.TryParse(lineValue, out int num))
                             {
                                 submissionRecord.GenerationsOfDecendants = num;
                             }
@@ -3920,8 +4064,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -3949,10 +4095,12 @@ namespace SmartFamily.Gedcom.Parser
                 switch (tag)
                 {
                     default:
-                        GedcomCustomRecord custom = new GedcomCustomRecord();
-                        custom.Level = level;
-                        custom.XRefID = xrefId;
-                        custom.Tag = tag;
+                        GedcomCustomRecord custom = new GedcomCustomRecord
+                        {
+                            Level = level,
+                            XRefID = xrefId,
+                            Tag = tag
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -4096,9 +4244,11 @@ namespace SmartFamily.Gedcom.Parser
                             break;
 
                         case "DATE":
-                            GedcomDate date = new GedcomDate(Database);
-                            date.Database = Database;
-                            date.Level = level;
+                            GedcomDate date = new GedcomDate(Database)
+                            {
+                                Database = Database,
+                                Level = level
+                            };
                             parseState.Records.Push(date);
                             eventRecord.Date = date;
                             level++;
@@ -4108,9 +4258,11 @@ namespace SmartFamily.Gedcom.Parser
                             break;
 
                         case "PLAC":
-                            GedcomPlace place = new GedcomPlace();
-                            place.Database = Database;
-                            place.Level = level;
+                            GedcomPlace place = new GedcomPlace
+                            {
+                                Database = Database,
+                                Level = level
+                            };
 
                             eventRecord.Place = place;
 
@@ -4131,8 +4283,10 @@ namespace SmartFamily.Gedcom.Parser
                         case "ADDR":
                             if (eventRecord.Address == null)
                             {
-                                eventRecord.Address = new GedcomAddress();
-                                eventRecord.Address.Database = Database;
+                                eventRecord.Address = new GedcomAddress
+                                {
+                                    Database = Database
+                                };
                             }
 
                             if (lineValueType == GedcomLineValueType.DataType)
@@ -4145,8 +4299,10 @@ namespace SmartFamily.Gedcom.Parser
                         case "PHON":
                             if (eventRecord.Address == null)
                             {
-                                eventRecord.Address = new GedcomAddress();
-                                eventRecord.Address.Database = Database;
+                                eventRecord.Address = new GedcomAddress
+                                {
+                                    Database = Database
+                                };
                             }
 
                             if (lineValueType == GedcomLineValueType.DataType)
@@ -4174,8 +4330,10 @@ namespace SmartFamily.Gedcom.Parser
                         case "EMAIL":
                             if (eventRecord.Address == null)
                             {
-                                eventRecord.Address = new GedcomAddress();
-                                eventRecord.Address.Database = Database;
+                                eventRecord.Address = new GedcomAddress
+                                {
+                                    Database = Database
+                                };
                             }
 
                             if (lineValueType == GedcomLineValueType.DataType)
@@ -4203,8 +4361,10 @@ namespace SmartFamily.Gedcom.Parser
                         case "FAX":
                             if (eventRecord.Address == null)
                             {
-                                eventRecord.Address = new GedcomAddress();
-                                eventRecord.Address.Database = Database;
+                                eventRecord.Address = new GedcomAddress
+                                {
+                                    Database = Database
+                                };
                             }
 
                             if (lineValueType == GedcomLineValueType.DataType)
@@ -4232,8 +4392,10 @@ namespace SmartFamily.Gedcom.Parser
                         case "WWW":
                             if (eventRecord.Address == null)
                             {
-                                eventRecord.Address = new GedcomAddress();
-                                eventRecord.Address.Database = Database;
+                                eventRecord.Address = new GedcomAddress
+                                {
+                                    Database = Database
+                                };
                             }
 
                             if (lineValueType == GedcomLineValueType.DataType)
@@ -4357,9 +4519,11 @@ namespace SmartFamily.Gedcom.Parser
                     case "FONE":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            GedcomVariation variation = new GedcomVariation();
-                            variation.Database = Database;
-                            variation.Value = lineValue;
+                            GedcomVariation variation = new GedcomVariation
+                            {
+                                Database = Database,
+                                Value = lineValue
+                            };
 
                             place.PhoneticVariations.Add(variation);
                         }
@@ -4369,9 +4533,11 @@ namespace SmartFamily.Gedcom.Parser
                     case "ROMN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            GedcomVariation variation = new GedcomVariation();
-                            variation.Database = Database;
-                            variation.Value = lineValue;
+                            GedcomVariation variation = new GedcomVariation
+                            {
+                                Database = Database,
+                                Value = lineValue
+                            };
 
                             place.RomanizedVariations.Add(variation);
                         }
@@ -4549,8 +4715,10 @@ namespace SmartFamily.Gedcom.Parser
                 {
                     if (tag == "DATE")
                     {
-                        GedcomDate date = new GedcomDate(Database);
-                        date.Level = level;
+                        GedcomDate date = new GedcomDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         sourceCitation.Date = date;
                         level++;
@@ -4646,8 +4814,10 @@ namespace SmartFamily.Gedcom.Parser
                 switch (tag)
                 {
                     case "DATE":
-                        GedcomDate date = new GedcomDate(Database);
-                        date.Level = level;
+                        GedcomDate date = new GedcomDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         record.Date = date;
                         level++;
@@ -4657,9 +4827,11 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "PLAC":
-                        record.Place = new GedcomPlace();
-                        record.Place.Database = Database;
-                        record.Place.Level = level;
+                        record.Place = new GedcomPlace
+                        {
+                            Database = Database,
+                            Level = level
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -4749,7 +4921,7 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid pedegree linkage type: " + lineValue);
+                                Debug.WriteLine("Invalid pedigree linkage type: " + lineValue);
 
                                 childOf.Pedigree = PedigreeLinkageType.Unknown;
                             }
@@ -4841,9 +5013,11 @@ namespace SmartFamily.Gedcom.Parser
                     case "FONE":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            GedcomVariation variation = new GedcomVariation();
-                            variation.Database = Database;
-                            variation.Value = lineValue;
+                            GedcomVariation variation = new GedcomVariation
+                            {
+                                Database = Database,
+                                Value = lineValue
+                            };
 
                             name.PhoneticVariations.Add(variation);
                         }
@@ -4853,9 +5027,11 @@ namespace SmartFamily.Gedcom.Parser
                     case "ROMN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            GedcomVariation variation = new GedcomVariation();
-                            variation.Database = Database;
-                            variation.Value = lineValue;
+                            GedcomVariation variation = new GedcomVariation
+                            {
+                                Database = Database,
+                                Value = lineValue
+                            };
 
                             name.RomanizedVariations.Add(variation);
                         }
@@ -5119,10 +5295,12 @@ namespace SmartFamily.Gedcom.Parser
             }
             else
             {
-                GedcomSourceRecord source = new GedcomSourceRecord();
-                source.Level = 0; // new top level source, always 0
-                source.ParsingLevel = level;
-                source.XRefID = Database.GenerateXref("SOUR");
+                GedcomSourceRecord source = new GedcomSourceRecord
+                {
+                    Level = 0, // new top level source, always 0
+                    ParsingLevel = level,
+                    XRefID = Database.GenerateXref("SOUR")
+                };
 
                 if (lineValue != string.Empty)
                 {
@@ -5155,10 +5333,12 @@ namespace SmartFamily.Gedcom.Parser
             }
             else
             {
-                GedcomNoteRecord note = new GedcomNoteRecord();
-                note.Level = 0; // new top level note, always 0 (not true, 1 in header, fixed up later)
-                note.ParsingLevel = level;
-                note.XRefID = Database.GenerateXref("NOTE");
+                GedcomNoteRecord note = new GedcomNoteRecord
+                {
+                    Level = 0, // new top level note, always 0 (not true, 1 in header, fixed up later)
+                    ParsingLevel = level,
+                    XRefID = Database.GenerateXref("NOTE")
+                };
 
                 if (lineValue != string.Empty)
                 {
@@ -5183,10 +5363,12 @@ namespace SmartFamily.Gedcom.Parser
             }
             else
             {
-                GedcomMultimediaRecord multimedia = new GedcomMultimediaRecord();
-                multimedia.Level = 0; // new top level multimedia, always 0
-                multimedia.ParsingLevel = level;
-                multimedia.XRefID = Database.GenerateXref("OBJE");
+                GedcomMultimediaRecord multimedia = new GedcomMultimediaRecord
+                {
+                    Level = 0, // new top level multimedia, always 0
+                    ParsingLevel = level,
+                    XRefID = Database.GenerateXref("OBJE")
+                };
 
                 record.Multimedia.Add(multimedia.XRefID);
                 parseState.Records.Push(multimedia);
@@ -5204,10 +5386,12 @@ namespace SmartFamily.Gedcom.Parser
             }
             else
             {
-                GedcomSubmitterRecord submitter = new GedcomSubmitterRecord();
-                submitter.Level = 0; // always level 0
-                submitter.ParsingLevel = level + 1;
-                submitter.XRefID = Database.GenerateXref("S");
+                GedcomSubmitterRecord submitter = new GedcomSubmitterRecord
+                {
+                    Level = 0, // always level 0
+                    ParsingLevel = level + 1,
+                    XRefID = Database.GenerateXref("S")
+                };
                 parseState.Records.Push(submitter);
 
                 xref = submitter.XRefID;
