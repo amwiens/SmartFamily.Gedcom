@@ -19,7 +19,7 @@ namespace SmartFamily.Gedcom.Parser
 
         private const int MaxXRefLength = 22;
 
-        private static char[] validOtherChar = new char[]
+        private static readonly char[] validOtherChar = new char[]
         {
             '!', '\"', '$', '%', '&', '\'', '(',
             ')', '*', '+', ',', '-', '.', '/', ':',

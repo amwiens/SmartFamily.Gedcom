@@ -46,30 +46,31 @@ namespace SmartFamily.Gedcom.Parser
         /// </summary>
         public GedcomRecordReader()
         {
-            Parser = new GedcomParser();
+            Parser = new GedcomParser
+            {
+                // we don't care if delims are multiple spaces
+                IgnoreInvalidDelim = true,
 
-            // we don't care if delims are multiple spaces
-            Parser.IgnoreInvalidDelim = true;
+                // we don't care if lines are missing delimiters
+                IgnoreMissingTerms = true,
 
-            // we don't care if lines are missing delimiters
-            Parser.IgnoreMissingTerms = true;
+                // apply hack for lines that are just part of the line value
+                // for the previous CONC/CONT in invalid GEDCOM files
+                ApplyConcContOnNewLineHack = true,
 
-            // apply hack for lines that are just part of the line value
-            // for the previous CONC/CONT in invalid GEDCOM files
-            Parser.ApplyConcContOnNewLineHack = true;
+                // allow tabs in line values, seen from RootsMagic and GenealogyJ
+                AllowTabs = true,
 
-            // allow tabs in line values, seen from RootsMagic and GenealogyJ
-            Parser.AllowTabs = true;
+                // allow line tabs in line values, seen from Legacy
+                AllowLineTabs = true,
 
-            // allow line tabs in line values, seen from Legacy
-            Parser.AllowLineTabs = true;
+                // allow information separator one chars, seen from that bastion
+                // of spec compliance RootsMagic
+                AllowInformationSeparatorOne = true,
 
-            // allow information separator one chars, seen from that bastion
-            // of spec compliance RootsMagic
-            Parser.AllowInformationSeparatorOne = true;
-
-            // allow - or _ in tag names (GenealogyJ?)
-            Parser.AllowHyphenOrUnderscoreInTag = true;
+                // allow - or _ in tag names (GenealogyJ?)
+                AllowHyphenOrUnderscoreInTag = true
+            };
 
             Parser.ParserError += Parser_ParseError;
             Parser.TagFound += Parser_TagFound;
@@ -878,10 +879,11 @@ namespace SmartFamily.Gedcom.Parser
         private void ResetParse()
         {
             // set specialist IndexedKeyCollection that supports replacing xrefs
-            xrefCollection = new XRefIndexedKeyCollection();
-
-            // always replace xrefs
-            xrefCollection.ReplaceXRefs = true;
+            xrefCollection = new XRefIndexedKeyCollection
+            {
+                // always replace xrefs
+                ReplaceXRefs = true
+            };
             Parser.XrefCollection = xrefCollection;
 
             Parser.ResetParseState();
@@ -1038,10 +1040,12 @@ namespace SmartFamily.Gedcom.Parser
                 switch (tag)
                 {
                     default:
-                        GedcomCustomRecord custom = new GedcomCustomRecord();
-                        custom.Level = level;
-                        custom.XRefID = xrefId;
-                        custom.Tag = tag;
+                        GedcomCustomRecord custom = new GedcomCustomRecord
+                        {
+                            Level = level,
+                            XRefID = xrefId,
+                            Tag = tag
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -1165,8 +1169,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "DATE":
-                        GedcomDate date = new GedcomDate(Database);
-                        date.Level = level;
+                        GedcomDate date = new GedcomDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         headerRecord.TransmissionDate = date;
                         level++;
@@ -1245,8 +1251,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "DATE":
-                        GedcomDate date = new GedcomDate(Database);
-                        date.Level = level;
+                        GedcomDate date = new GedcomDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         headerRecord.SourceDate = date;
                         level++;
@@ -1266,8 +1274,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "ADDR":
                         if (headerRecord.CorporationAddress == null)
                         {
-                            headerRecord.CorporationAddress = new GedcomAddress();
-                            headerRecord.CorporationAddress.Database = Database;
+                            headerRecord.CorporationAddress = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -1280,8 +1290,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "PHON":
                         if (headerRecord.CorporationAddress == null)
                         {
-                            headerRecord.CorporationAddress = new GedcomAddress();
-                            headerRecord.CorporationAddress.Database = Database;
+                            headerRecord.CorporationAddress = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -1309,8 +1321,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "EMAIL":
                         if (headerRecord.CorporationAddress == null)
                         {
-                            headerRecord.CorporationAddress = new GedcomAddress();
-                            headerRecord.CorporationAddress.Database = Database;
+                            headerRecord.CorporationAddress = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -1338,8 +1352,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "FAX":
                         if (headerRecord.CorporationAddress == null)
                         {
-                            headerRecord.CorporationAddress = new GedcomAddress();
-                            headerRecord.CorporationAddress.Database = Database;
+                            headerRecord.CorporationAddress = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -1367,8 +1383,10 @@ namespace SmartFamily.Gedcom.Parser
                     case "WWW":
                         if (headerRecord.CorporationAddress == null)
                         {
-                            headerRecord.CorporationAddress = new GedcomAddress();
-                            headerRecord.CorporationAddress.Database = Database;
+                            headerRecord.CorporationAddress = new GedcomAddress
+                            {
+                                Database = Database
+                            };
                         }
 
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -1461,10 +1479,12 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     default:
-                        GedcomCustomRecord custom = new GedcomCustomRecord();
-                        custom.Level = level;
-                        custom.XRefID = xrefId;
-                        custom.Tag = tag;
+                        GedcomCustomRecord custom = new GedcomCustomRecord
+                        {
+                            Level = level,
+                            XRefID = xrefId,
+                            Tag = tag
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -1668,9 +1688,11 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "SLGS": // LDS spouse sealing.
-                        familyRecord.SpouseSealing = new GedcomSpouseSealingRecord();
-                        familyRecord.SpouseSealing.Description = lineValue;
-                        familyRecord.SpouseSealing.Level = level;
+                        familyRecord.SpouseSealing = new GedcomSpouseSealingRecord
+                        {
+                            Description = lineValue,
+                            Level = level
+                        };
                         parseState.Records.Push(familyRecord.SpouseSealing);
 
                         break;
@@ -1692,8 +1714,10 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     case "CHAN":
-                        GedcomChangeDate date = new GedcomChangeDate(Database);
-                        date.Level = level;
+                        GedcomChangeDate date = new GedcomChangeDate(Database)
+                        {
+                            Level = level
+                        };
                         parseState.Records.Push(date);
                         break;
 
@@ -1828,10 +1852,12 @@ namespace SmartFamily.Gedcom.Parser
                         break;
 
                     default:
-                        GedcomCustomRecord custom = new GedcomCustomRecord();
-                        custom.Level = level;
-                        custom.XRefID = xrefId;
-                        custom.Tag = tag;
+                        GedcomCustomRecord custom = new GedcomCustomRecord
+                        {
+                            Level = level,
+                            XRefID = xrefId,
+                            Tag = tag
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -1851,10 +1877,12 @@ namespace SmartFamily.Gedcom.Parser
                     case "FAMC":
                         if (lineValueType == GedcomLineValueType.PointerType)
                         {
-                            GedcomFamilyLink childIn = new GedcomFamilyLink();
-                            childIn.Level = level;
-                            childIn.Family = lineValue;
-                            childIn.Individual = individualRecord.XRefID;
+                            GedcomFamilyLink childIn = new GedcomFamilyLink
+                            {
+                                Level = level,
+                                Family = lineValue,
+                                Individual = individualRecord.XRefID
+                            };
 
                             missingReferences.Add(lineValue);
 
@@ -1886,9 +1914,11 @@ namespace SmartFamily.Gedcom.Parser
                     case "ASSO":
                         if (lineValueType == GedcomLineValueType.PointerType)
                         {
-                            GedcomAssociation association = new GedcomAssociation();
-                            association.Level = level;
-                            association.Individual = lineValue;
+                            GedcomAssociation association = new GedcomAssociation
+                            {
+                                Level = level,
+                                Individual = lineValue
+                            };
 
                             missingReferences.Add(lineValue);
 
@@ -3179,10 +3209,12 @@ namespace SmartFamily.Gedcom.Parser
                 switch (tag)
                 {
                     default:
-                        GedcomCustomRecord custom = new GedcomCustomRecord();
-                        custom.Level = level;
-                        custom.XRefID = xrefId;
-                        custom.Tag = tag;
+                        GedcomCustomRecord custom = new GedcomCustomRecord
+                        {
+                            Level = level,
+                            XRefID = xrefId,
+                            Tag = tag
+                        };
 
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -5282,9 +5314,11 @@ namespace SmartFamily.Gedcom.Parser
 
         private void AddSourceCitation(GedcomRecord record)
         {
-            GedcomSourceCitation sourceCitation = new GedcomSourceCitation();
-            sourceCitation.Level = level;
-            sourceCitation.Database = parseState.Database;
+            GedcomSourceCitation sourceCitation = new GedcomSourceCitation
+            {
+                Level = level,
+                Database = parseState.Database
+            };
 
             if (lineValueType == GedcomLineValueType.PointerType)
             {

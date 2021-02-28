@@ -11,7 +11,7 @@ namespace SmartFamily.Gedcom.Parser
     /// </summary>
     public class GedcomParseState
     {
-        private GedcomTagLevel[] pairPool;
+        private readonly GedcomTagLevel[] pairPool;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomParseState"/> class.

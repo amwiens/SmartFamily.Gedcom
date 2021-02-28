@@ -719,8 +719,7 @@ namespace SmartFamily.Gedcom.Models
                 // throw away the original data at all or use these dates
                 // when writing the data back out
                 // TODO: format provider instead of null?
-                DateTime date;
-                if (DateTime.TryParseExact(dataString, new string[] { "d-M-yyyy", "M-d-yyyy", "yyyy-M-d", "d.M.yyyy", "M.d.yyyy", "yyyy.M.d" }, null, DateTimeStyles.None, out date))
+                if (DateTime.TryParseExact(dataString, new string[] { "d-M-yyyy", "M-d-yyyy", "yyyy-M-d", "d.M.yyyy", "M.d.yyyy", "yyyy.M.d" }, null, DateTimeStyles.None, out DateTime date))
                 {
                     dateTime1 = date;
                     partsParsed1 = 3;
