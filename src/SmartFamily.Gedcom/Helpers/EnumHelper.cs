@@ -65,6 +65,7 @@ namespace SmartFamily.Gedcom.Helpers
         /// <param name="value">The text value to parse.</param>
         /// <param name="ignoreCase">if set to <c>true</c> the parsing will not be case sensitive.</param>
         /// <returns>The enum equivalent of the passed text or a default value if parsing does not succeed.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when enum can't be parsed.</exception>
         public static T ParseByDescription<T>(string value, bool ignoreCase)
         {
             Type enumType = typeof(T);

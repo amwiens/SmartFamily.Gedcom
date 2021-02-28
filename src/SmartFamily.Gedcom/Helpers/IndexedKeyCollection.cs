@@ -55,8 +55,7 @@ namespace SmartFamily.Gedcom.Helpers
         {
             get
             {
-                string ret = null;
-
+                string ret;
                 if (length == 0)
                 {
                     ret = string.Empty;
