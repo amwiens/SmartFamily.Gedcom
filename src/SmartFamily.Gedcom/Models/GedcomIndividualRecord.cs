@@ -28,7 +28,7 @@ namespace SmartFamily.Gedcom.Models
         private GedcomRecordList<GedcomIndividualEvent> attributes;
 
         // TODO
-        private object lDSIndividualOrdinances;
+        //private object lDSIndividualOrdinances;
 
         private readonly GedcomRecordList<GedcomFamilyLink> childIn;
         private readonly GedcomRecordList<GedcomFamilyLink> spouseIn;

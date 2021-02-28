@@ -596,7 +596,6 @@ namespace SmartFamily.Gedcom.Models
                     // TODO: no FrenchCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
-                    break;
 
                 case GedcomDateType.Gregorian:
                     calendar = new GregorianCalendar();
@@ -617,7 +616,6 @@ namespace SmartFamily.Gedcom.Models
                     // TODO: no RomanCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
-                    break;
             }
 
             string[] dateSplit = SplitDateString(dataString);
