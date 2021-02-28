@@ -6,7 +6,7 @@
     public class Constants
     {
         /// <summary>
-        /// Teh default name for an individual when they have not been given one.
+        /// The default name for an individual when they have not been given one.
         /// </summary>
         public const string UnknownName = "unknown /unknown/";
 

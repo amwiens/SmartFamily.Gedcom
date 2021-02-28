@@ -13,7 +13,7 @@ namespace SmartFamily.Gedcom
     {
         private GedcomDatabase database;
 
-        private List<string> replacementXRefs;
+        private readonly List<string> replacementXRefs;
 
         private bool replaceXrefs;
 
@@ -63,10 +63,7 @@ namespace SmartFamily.Gedcom
         {
             get
             {
-                string ret = null;
-
-                int pos;
-                bool found = Find(str, startIndex, length, out pos);
+                bool found = Find(str, startIndex, length, out int pos);
 
                 if (!found)
                 {
@@ -93,6 +90,7 @@ namespace SmartFamily.Gedcom
                     }
                 }
 
+                string ret;
                 if (replaceXrefs)
                 {
                     ret = replacementXRefs[pos];
