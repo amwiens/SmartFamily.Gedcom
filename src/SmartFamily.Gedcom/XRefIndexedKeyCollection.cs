@@ -11,18 +11,18 @@ namespace SmartFamily.Gedcom
     /// <seealso cref="IndexedKeyCollection"/>
     public class XRefIndexedKeyCollection : IndexedKeyCollection
     {
-        private GedcomDatabase database;
+        private GedcomDatabase _database;
 
-        private readonly List<string> replacementXRefs;
+        private readonly List<string> _replacementXRefs;
 
-        private bool replaceXrefs;
+        private bool _replaceXrefs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XRefIndexedKeyCollection"/> class.
         /// </summary>
         public XRefIndexedKeyCollection()
         {
-            replacementXRefs = new List<string>();
+            _replacementXRefs = new List<string>();
         }
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace SmartFamily.Gedcom
         /// </value>
         public GedcomDatabase Database
         {
-            get { return database; }
-            set { database = value; }
+            get => _database;
+            set => _database = value;
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace SmartFamily.Gedcom
         /// </value>
         public bool ReplaceXRefs
         {
-            get { return replaceXrefs; }
-            set { replaceXrefs = value; }
+            get => _replaceXrefs;
+            set => _replaceXrefs = value;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace SmartFamily.Gedcom
                 if (!found)
                 {
                     Strings.Insert(pos, str.Substring(startIndex, length).Trim());
-                    if (replaceXrefs)
+                    if (_replaceXrefs)
                     {
                         int prefixLen = 0;
                         while (char.IsLetter(str[prefixLen]))
@@ -86,14 +86,14 @@ namespace SmartFamily.Gedcom
                             prefix = "XREF";
                         }
 
-                        replacementXRefs.Insert(pos, database.GenerateXref(prefix));
+                        _replacementXRefs.Insert(pos, _database.GenerateXref(prefix));
                     }
                 }
 
                 string ret;
-                if (replaceXrefs)
+                if (_replaceXrefs)
                 {
-                    ret = replacementXRefs[pos];
+                    ret = _replacementXRefs[pos];
                 }
                 else
                 {

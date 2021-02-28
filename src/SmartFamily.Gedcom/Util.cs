@@ -9,7 +9,7 @@ namespace SmartFamily.Gedcom
     /// </summary>
     public static class Util
     {
-        private static readonly string[] NewLineArray = { Environment.NewLine };
+        private static readonly string[] _newLineArray = { Environment.NewLine };
 
         /// <summary>
         /// Generates a soundex string for the passed value.
@@ -144,7 +144,7 @@ namespace SmartFamily.Gedcom
         {
             string line = text.Replace("@", "@@");
 
-            string[] lines = line.Split(NewLineArray, StringSplitOptions.None);
+            string[] lines = line.Split(_newLineArray, StringSplitOptions.None);
             bool first = true;
 
             string levelPlusOne = null;
