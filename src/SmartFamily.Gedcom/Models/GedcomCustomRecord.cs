@@ -40,8 +40,8 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Placeholder for GEDCOM output code, does not actually output any data.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
         }
     }

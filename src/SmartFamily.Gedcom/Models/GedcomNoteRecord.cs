@@ -102,28 +102,28 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
             {
-                sw.Write("@");
-                sw.Write(XrefId);
-                sw.Write("@ ");
+                tw.Write("@");
+                tw.Write(XrefId);
+                tw.Write("@ ");
             }
 
-            sw.Write("NOTE ");
+            tw.Write("NOTE ");
 
             if (!string.IsNullOrEmpty(Text))
             {
-                Util.SplitLineText(sw, Text, Level, 248);
+                Util.SplitLineText(tw, Text, Level, 248);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>

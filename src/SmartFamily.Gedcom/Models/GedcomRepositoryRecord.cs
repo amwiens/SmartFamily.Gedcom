@@ -228,23 +228,23 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this repository record as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             if (!string.IsNullOrEmpty(Name))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write((Level + 1).ToString());
-                sw.Write(" NAME ");
+                tw.Write(Environment.NewLine);
+                tw.Write((Level + 1).ToString());
+                tw.Write(" NAME ");
                 string line = Name.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (Address != null)
             {
-                Address.Output(sw, Level + 1);
+                Address.Output(tw, Level + 1);
             }
         }
 

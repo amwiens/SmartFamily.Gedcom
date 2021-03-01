@@ -662,23 +662,19 @@ namespace SmartFamily.Gedcom.Models
         /// Get the GEDCOM 5.5 lines for the data in this object.
         /// Lines start at the given level.
         /// </summary>
-        /// <param name="sw">
-        /// A <see cref="TextWriter"/>
-        /// </param>
-        /// <param name="level">
-        /// A <see cref="int"/>
-        /// </param>
-        public void Output(TextWriter sw, int level)
+        /// <param name="tw">A <see cref="TextWriter"/></param>
+        /// <param name="level">A <see cref="int"/></param>
+        public void Output(TextWriter tw, int level)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(level.ToString());
-            sw.Write(" ADDR");
+            tw.Write(Environment.NewLine);
+            tw.Write(level.ToString());
+            tw.Write(" ADDR");
 
             if (!string.IsNullOrEmpty(AddressLine))
             {
-                sw.Write(" ");
+                tw.Write(" ");
 
-                Util.SplitLineText(sw, AddressLine, level, 60, 3, true);
+                Util.SplitLineText(tw, AddressLine, level, 60, 3, true);
             }
 
             string levelStr = null;
@@ -693,16 +689,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = AddressLine1.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" ADR1 ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" ADR1 ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating AddressLine1");
                 }
             }
@@ -716,16 +712,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = AddressLine2.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" ADR2 ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" ADR2 ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating AddressLine2");
                 }
             }
@@ -739,16 +735,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = AddressLine3.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" ADR3 ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" ADR3 ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating AddressLine3");
                 }
             }
@@ -762,16 +758,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = City.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" CITY ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" CITY ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating City");
                 }
             }
@@ -785,16 +781,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = State.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" STAE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" STAE ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating State");
                 }
             }
@@ -808,16 +804,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = PostCode.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" POST ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" POST ");
                 if (line.Length <= 10)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 10));
+                    tw.Write(line.Substring(0, 10));
                     System.Diagnostics.Debug.WriteLine("Truncating PostCode");
                 }
             }
@@ -831,16 +827,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Country.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" CTRY ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" CTRY ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating Country");
                 }
             }
@@ -854,16 +850,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Phone1.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" PHON ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" PHON ");
                 if (line.Length <= 25)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 25));
+                    tw.Write(line.Substring(0, 25));
                     System.Diagnostics.Debug.WriteLine("Truncating Phone1");
                 }
             }
@@ -877,16 +873,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Phone2.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" PHON ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" PHON ");
                 if (line.Length <= 25)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 25));
+                    tw.Write(line.Substring(0, 25));
                     System.Diagnostics.Debug.WriteLine("Truncating Phone2");
                 }
             }
@@ -900,16 +896,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Phone3.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" PHON ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" PHON ");
                 if (line.Length <= 25)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 25));
+                    tw.Write(line.Substring(0, 25));
                     System.Diagnostics.Debug.WriteLine("Truncating Phone3");
                 }
             }
@@ -923,16 +919,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Fax1.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" FAX ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" FAX ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating Fax1");
                 }
             }
@@ -946,16 +942,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Fax2.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" FAX ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" FAX ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating Fax2");
                 }
             }
@@ -969,16 +965,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Fax3.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" FAX ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" FAX ");
                 if (line.Length <= 60)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 60));
+                    tw.Write(line.Substring(0, 60));
                     System.Diagnostics.Debug.WriteLine("Truncating Fax3");
                 }
             }
@@ -992,16 +988,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Email1.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" EMAIL ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" EMAIL ");
                 if (line.Length <= 120)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 120));
+                    tw.Write(line.Substring(0, 120));
                     System.Diagnostics.Debug.WriteLine("Truncating Email1");
                 }
             }
@@ -1015,16 +1011,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Email2.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" EMAIL ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" EMAIL ");
                 if (line.Length <= 120)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 120));
+                    tw.Write(line.Substring(0, 120));
                     System.Diagnostics.Debug.WriteLine("Truncating Email2");
                 }
             }
@@ -1038,16 +1034,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Email3.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" EMAIL ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" EMAIL ");
                 if (line.Length <= 120)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 120));
+                    tw.Write(line.Substring(0, 120));
                     System.Diagnostics.Debug.WriteLine("Truncating Email3");
                 }
             }
@@ -1061,16 +1057,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Www1.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" WWW ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" WWW ");
                 if (line.Length <= 120)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 120));
+                    tw.Write(line.Substring(0, 120));
                     System.Diagnostics.Debug.WriteLine("Truncating Www1");
                 }
             }
@@ -1084,16 +1080,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Www2.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" WWW ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" WWW ");
                 if (line.Length <= 120)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 120));
+                    tw.Write(line.Substring(0, 120));
                     System.Diagnostics.Debug.WriteLine("Truncating Www2");
                 }
             }
@@ -1107,16 +1103,16 @@ namespace SmartFamily.Gedcom.Models
 
                 string line = Www3.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" WWW ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" WWW ");
                 if (line.Length <= 120)
                 {
-                    sw.Write(line);
+                    tw.Write(line);
                 }
                 else
                 {
-                    sw.Write(line.Substring(0, 120));
+                    tw.Write(line.Substring(0, 120));
                     System.Diagnostics.Debug.WriteLine("Truncating Www3");
                 }
             }

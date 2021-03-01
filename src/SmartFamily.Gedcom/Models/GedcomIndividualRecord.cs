@@ -21,7 +21,9 @@ namespace SmartFamily.Gedcom.Models
         private readonly GedcomRecordList<GedcomName> _names;
         private GedcomSex _sex;
 
-        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
+        /// <summary>
+        /// Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.
+        /// </summary>
         public GedcomRecordList<GedcomCustomRecord> _custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
         private readonly GedcomRecordList<GedcomIndividualEvent> _events;
@@ -894,9 +896,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determine whether a spouse is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>
-        /// True if spouse is in the family; otherwise False.
-        /// </returns>
+        /// <returns>True if spouse is in the family; otherwise False.</returns>
         public bool SpouseInFamily(string family)
         {
             return SpouseInFamily(family, out GedcomFamilyLink tmp);
@@ -907,9 +907,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The family link.</param>
-        /// <returns>
-        /// True if spouse is in the family; otherwise False.
-        /// </returns>
+        /// <returns>True if spouse is in the family; otherwise False.</returns>
         public bool SpouseInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -932,9 +930,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determine whether a child is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>
-        /// True if child is in the family; otherwise False.
-        /// </returns>
+        /// <returns>True if child is in the family; otherwise False.</returns>
         public bool ChildInFamily(string family)
         {
             return ChildInFamily(family, out GedcomFamilyLink tmp);
@@ -945,9 +941,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The fam link.</param>
-        /// <returns>
-        /// True if child is in the family; otherwise False.
-        /// </returns>
+        /// <returns>True if child is in the family; otherwise False.</returns>
         public bool ChildInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -969,9 +963,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the family.
         /// </summary>
-        /// <returns>
-        /// Family.
-        /// </returns>
+        /// <returns>Family.</returns>
         public GedcomFamilyRecord GetFamily()
         {
             GedcomFamilyRecord fam = null;
@@ -1019,9 +1011,7 @@ namespace SmartFamily.Gedcom.Models
         /// Finds the event.
         /// </summary>
         /// <param name="eventType">Type of the event.</param>
-        /// <returns>
-        /// The event if found; otherwise null.
-        /// </returns>
+        /// <returns>The event if found; otherwise null.</returns>
         public GedcomIndividualEvent FindEvent(GedcomEventType eventType)
         {
             return _events.FirstOrDefault(e => e.EventType == eventType);
@@ -1032,9 +1022,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>
-        /// True if the surname starts with prefix; otherwise False.
-        /// </returns>
+        /// <returns>True if the surname starts with prefix; otherwise False.</returns>
         public bool MatchSurname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1082,9 +1070,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>
-        /// True if the firstname starts with prefix; otherwise False.
-        /// </returns>
+        /// <returns>True if the firstname starts with prefix; otherwise False.</returns>
         public bool MatchFirstname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1195,9 +1181,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets a "fake" family record that contains all of this individual's children.
         /// The record will only contain children.
         /// </summary>
-        /// <returns>
-        /// A <see cref="GedcomFamilyRecord"/>.
-        /// </returns>
+        /// <returns>A <see cref="GedcomFamilyRecord"/>.</returns>
         public GedcomFamilyRecord GetAllChildren()
         {
             GedcomFamilyRecord fam = new GedcomFamilyRecord();

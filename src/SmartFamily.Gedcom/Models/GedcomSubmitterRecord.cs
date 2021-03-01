@@ -172,21 +172,21 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this submitter record as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
             {
-                sw.Write("@");
-                sw.Write(XrefId);
-                sw.Write("@ ");
+                tw.Write("@");
+                tw.Write(XrefId);
+                tw.Write("@ ");
             }
 
-            sw.Write(GedcomTag);
+            tw.Write(GedcomTag);
 
             string levelPlusOne = (Level + 1).ToString();
 
@@ -196,36 +196,36 @@ namespace SmartFamily.Gedcom.Models
                 name = "Unknown";
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write(levelPlusOne);
-            sw.Write(" NAME ");
-            sw.Write(name);
+            tw.Write(Environment.NewLine);
+            tw.Write(levelPlusOne);
+            tw.Write(" NAME ");
+            tw.Write(name);
 
             if (Address != null)
             {
-                Address.Output(sw, Level + 1);
+                Address.Output(tw, Level + 1);
             }
 
             foreach (string languagePreference in LanguagePreferences)
             {
                 if (!string.IsNullOrEmpty(languagePreference))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" LANG ");
-                    sw.Write(languagePreference);
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" LANG ");
+                    tw.Write(languagePreference);
                 }
             }
 
             if (!string.IsNullOrEmpty(RegisteredRFN))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RFN ");
-                sw.Write(RegisteredRFN);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RFN ");
+                tw.Write(RegisteredRFN);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>

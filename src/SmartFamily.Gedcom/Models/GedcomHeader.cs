@@ -297,98 +297,98 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">Where to output the data to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write("0 HEAD");
+            tw.Write("0 HEAD");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 SOUR {0}", ApplicationSystemId);
+            tw.Write(Environment.NewLine);
+            tw.Write("1 SOUR {0}", ApplicationSystemId);
 
             if (!string.IsNullOrEmpty(ApplicationName))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 NAME {0}", ApplicationName);
+                tw.Write(Environment.NewLine);
+                tw.Write("2 NAME {0}", ApplicationName);
             }
 
             if (!string.IsNullOrEmpty(ApplicationVersion))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 VERS {0}", ApplicationVersion);
+                tw.Write(Environment.NewLine);
+                tw.Write("2 VERS {0}", ApplicationVersion);
             }
 
             if (!string.IsNullOrEmpty(Corporation))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 CORP {0}", Corporation);
+                tw.Write(Environment.NewLine);
+                tw.Write("2 CORP {0}", Corporation);
             }
 
             if (CorporationAddress != null)
             {
-                CorporationAddress.Output(sw, 3);
+                CorporationAddress.Output(tw, 3);
             }
 
             if (!string.IsNullOrEmpty(SourceName) ||
                 !string.IsNullOrEmpty(SourceCopyright) ||
                 SourceDate != null)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 DATA");
+                tw.Write(Environment.NewLine);
+                tw.Write("2 DATA");
                 if (!string.IsNullOrEmpty(SourceName))
                 {
-                    sw.Write(" ");
-                    sw.Write(SourceName);
+                    tw.Write(" ");
+                    tw.Write(SourceName);
                 }
 
                 if (!string.IsNullOrEmpty(SourceCopyright))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write("3 COPR ");
-                    sw.Write(SourceCopyright);
+                    tw.Write(Environment.NewLine);
+                    tw.Write("3 COPR ");
+                    tw.Write(SourceCopyright);
                 }
 
                 if (SourceDate != null)
                 {
-                    SourceDate.Output(sw);
+                    SourceDate.Output(tw);
                 }
             }
 
             if (TransmissionDate != null)
             {
-                TransmissionDate.Output(sw);
+                TransmissionDate.Output(tw);
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 FILE {0}", Filename);
+            tw.Write(Environment.NewLine);
+            tw.Write("1 FILE {0}", Filename);
 
             if (ContentDescription != null)
             {
-                ContentDescription.Output(sw);
+                ContentDescription.Output(tw);
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 GEDC");
+            tw.Write(Environment.NewLine);
+            tw.Write("1 GEDC");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("2 VERS 5.5.1");
+            tw.Write(Environment.NewLine);
+            tw.Write("2 VERS 5.5.1");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("2 FORM LINEAGE-LINKED");
+            tw.Write(Environment.NewLine);
+            tw.Write("2 FORM LINEAGE-LINKED");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 CHAR UTF-8");
+            tw.Write(Environment.NewLine);
+            tw.Write("1 CHAR UTF-8");
 
-            sw.Write(Environment.NewLine);
+            tw.Write(Environment.NewLine);
             if (!string.IsNullOrWhiteSpace(Language))
             {
-                sw.Write($"1 LANG {Language}");
+                tw.Write($"1 LANG {Language}");
             }
 
             bool hasSubmitter = !string.IsNullOrEmpty(_submitterXRefID);
             if (hasSubmitter)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write($"1 SUBM @{_submitterXRefID}@");
+                tw.Write(Environment.NewLine);
+                tw.Write($"1 SUBM @{_submitterXRefID}@");
             }
         }
 

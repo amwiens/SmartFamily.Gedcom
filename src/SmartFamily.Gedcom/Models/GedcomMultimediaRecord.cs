@@ -54,7 +54,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets the GEDCOM tag for a multimedia record.
         /// </summary>
         /// <value>
-        /// The GGEDCOM tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -178,10 +178,10 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw"></param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw"></param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -194,34 +194,34 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusTwo = (Level + 2).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" FILE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" FILE ");
 
                 // TODO: we don't support BLOB so we can end up without a filename
                 if (!string.IsNullOrEmpty(file.Filename))
                 {
-                    sw.Write(file.Filename);
+                    tw.Write(file.Filename);
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusTwo);
-                sw.Write(" FORM ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusTwo);
+                tw.Write(" FORM ");
                 if (!string.IsNullOrEmpty(file.Format))
                 {
-                    sw.Write(file.Format);
+                    tw.Write(file.Format);
                 }
                 else
                 {
-                    sw.Write("Unknown");
+                    tw.Write("Unknown");
                 }
 
                 if (!string.IsNullOrEmpty(file.SourceMediaType))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" MEDI ");
-                    sw.Write(file.SourceMediaType);
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" MEDI ");
+                    tw.Write(file.SourceMediaType);
                 }
             }
         }

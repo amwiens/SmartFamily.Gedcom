@@ -272,56 +272,56 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.WriteLine();
-            sw.Write(Level.ToString());
-            sw.Write(" SLGS ");
+            tw.WriteLine();
+            tw.Write(Level.ToString());
+            tw.Write(" SLGS ");
 
             if (!string.IsNullOrEmpty(Description))
             {
-                sw.Write(Description);
+                tw.Write(Description);
             }
 
             if (_date != null)
             {
-                _date.Output(sw);
+                _date.Output(tw);
             }
 
             if (_place != null)
             {
-                _place.Output(sw);
+                _place.Output(tw);
             }
 
             var levelPlusOne = (Level + 1).ToString();
             if (!string.IsNullOrWhiteSpace(_templeCode))
             {
-                sw.WriteLine();
-                sw.Write(levelPlusOne);
-                sw.Write(" TEMP ");
-                sw.Write(_templeCode);
+                tw.WriteLine();
+                tw.Write(levelPlusOne);
+                tw.Write(" TEMP ");
+                tw.Write(_templeCode);
             }
 
             if (_status != SpouseSealingDateStatus.NotSet)
             {
-                sw.WriteLine();
-                sw.Write(levelPlusOne);
-                sw.Write(" STAT ");
-                sw.Write(EnumHelper.ToDescription(_status));
+                tw.WriteLine();
+                tw.Write(levelPlusOne);
+                tw.Write(" STAT ");
+                tw.Write(EnumHelper.ToDescription(_status));
 
                 if (StatusChangeDate != null)
                 {
                     var levelPlusTwo = (Level + 2).ToString();
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" CHAN ");
-                    StatusChangeDate.Output(sw);
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" CHAN ");
+                    StatusChangeDate.Output(tw);
                 }
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
     }
 }

@@ -148,10 +148,10 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM format for this family event.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">Where to output the data to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             string levelPlusOne = null;
 
@@ -162,11 +162,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" HUSB ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" HUSB ");
 
-                HusbandAge.Output(sw, Level + 2);
+                HusbandAge.Output(tw, Level + 2);
             }
 
             if (WifeAge != null)
@@ -176,11 +176,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" WIFE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" WIFE ");
 
-                WifeAge.Output(sw, Level + 2);
+                WifeAge.Output(tw, Level + 2);
             }
         }
 

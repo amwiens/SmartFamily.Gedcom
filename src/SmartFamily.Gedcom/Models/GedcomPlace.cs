@@ -211,20 +211,20 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" PLAC ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" PLAC ");
 
             if (!string.IsNullOrEmpty(Name))
             {
                 string line = Name.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -237,10 +237,10 @@ namespace SmartFamily.Gedcom.Models
                 }
 
                 string line = Form.Replace("@", "@@");
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" FORM ");
-                sw.Write(line);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" FORM ");
+                tw.Write(line);
             }
 
             if (_phoneticVariations != null)
@@ -257,18 +257,18 @@ namespace SmartFamily.Gedcom.Models
 
                 foreach (GedcomVariation variation in PhoneticVariations)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" FONE ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" FONE ");
                     string line = variation.Value.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                     if (!string.IsNullOrEmpty(variation.VariationType))
                     {
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" TYPE ");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" TYPE ");
                         line = variation.VariationType.Replace("@", "@@");
-                        sw.Write(line);
+                        tw.Write(line);
                     }
                 }
             }
@@ -287,18 +287,18 @@ namespace SmartFamily.Gedcom.Models
 
                 foreach (GedcomVariation variation in RomanizedVariations)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" FONE ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" FONE ");
                     string line = variation.Value.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                     if (!string.IsNullOrEmpty(variation.VariationType))
                     {
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" TYPE ");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" TYPE ");
                         line = variation.VariationType.Replace("@", "@@");
-                        sw.Write(line);
+                        tw.Write(line);
                     }
                 }
             }
@@ -310,9 +310,9 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" MAP ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" MAP ");
                 if (!string.IsNullOrEmpty(Latitude))
                 {
                     if (levelPlusTwo == null)
@@ -320,11 +320,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" LATI ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" LATI ");
                     string line = Latitude.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
 
                 if (!string.IsNullOrEmpty(Longitude))
@@ -334,11 +334,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" LONG ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" LONG ");
                     string line = Longitude.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
             }
         }

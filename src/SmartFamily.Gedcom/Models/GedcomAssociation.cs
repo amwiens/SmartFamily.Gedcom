@@ -73,33 +73,33 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs a GEDCOM format version of this instance.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ASSO ");
-            sw.Write("@");
-            sw.Write(Individual);
-            sw.Write("@");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ASSO ");
+            tw.Write("@");
+            tw.Write(Individual);
+            tw.Write("@");
 
             string levelPlusOne = (Level + 1).ToString();
 
-            sw.Write(Environment.NewLine);
-            sw.Write(levelPlusOne);
-            sw.Write(" RELA ");
+            tw.Write(Environment.NewLine);
+            tw.Write(levelPlusOne);
+            tw.Write(" RELA ");
 
             string line = Description.Replace("@", "@@");
             if (line.Length > 25)
             {
-                Util.SplitText(sw, line, Level + 1, 25, 1, true);
+                Util.SplitText(tw, line, Level + 1, 25, 1, true);
             }
             else
             {
-                sw.Write(line);
+                tw.Write(line);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>

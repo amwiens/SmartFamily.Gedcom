@@ -266,22 +266,22 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this source citation as a GGEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" SOUR ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" SOUR ");
 
             // should always have a Source, but check anyway
             if (!string.IsNullOrEmpty(Source))
             {
-                sw.Write("@");
-                sw.Write(Source);
-                sw.Write("@");
+                tw.Write("@");
+                tw.Write(Source);
+                tw.Write("@");
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -293,11 +293,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" PAGE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" PAGE ");
                 string line = Page.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (!string.IsNullOrEmpty(EventType))
@@ -307,11 +307,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" EVEN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" EVEN ");
                 string line = EventType.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
 
                 if (!string.IsNullOrEmpty(Role))
                 {
@@ -320,11 +320,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" ROLE ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" ROLE ");
                     line = Role.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
             }
 
@@ -335,13 +335,13 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" DATA ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" DATA ");
 
                 if (Date != null)
                 {
-                    Date.Output(sw);
+                    Date.Output(tw);
                 }
 
                 if (!string.IsNullOrEmpty(Text))
@@ -351,11 +351,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" TEXT ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" TEXT ");
 
-                    Util.SplitLineText(sw, Text, Level + 2, 248);
+                    Util.SplitLineText(tw, Text, Level + 2, 248);
                 }
             }
 
@@ -366,10 +366,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" QUAY ");
-                sw.Write(((int)Certainty).ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" QUAY ");
+                tw.Write(((int)Certainty).ToString());
             }
         }
 
@@ -377,9 +377,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns>True if instance matches user data, otherwise false.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomSourceCitation) == 0;
@@ -389,9 +387,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSourceCitation to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns>True if instance matches user data, otherwise false.</returns>
         public bool Equals(GedcomSourceCitation other)
         {
             return IsEquivalentTo(other);
@@ -401,9 +397,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns>True if instance matches user data, otherwise false.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj);

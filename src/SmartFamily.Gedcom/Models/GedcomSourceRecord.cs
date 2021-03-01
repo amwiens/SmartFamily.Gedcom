@@ -505,10 +505,10 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this source record as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -522,9 +522,9 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" DATA ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" DATA ");
 
                 if (!string.IsNullOrEmpty(Agency))
                 {
@@ -533,11 +533,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" AGNC ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" AGNC ");
                     string line = Agency.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
 
                 if (DataNotes != null)
@@ -549,12 +549,12 @@ namespace SmartFamily.Gedcom.Models
 
                     foreach (string noteID in DataNotes)
                     {
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" NOTE ");
-                        sw.Write("@");
-                        sw.Write(noteID);
-                        sw.Write("@");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" NOTE ");
+                        tw.Write("@");
+                        tw.Write(noteID);
+                        tw.Write("@");
                     }
                 }
 
@@ -567,30 +567,30 @@ namespace SmartFamily.Gedcom.Models
 
                     foreach (GedcomRecordedEvent recordedEvent in EventsRecorded)
                     {
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" EVEN ");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" EVEN ");
                         bool first = true;
 
                         foreach (GedcomEventType eventType in recordedEvent.Types)
                         {
                             if (!first)
                             {
-                                sw.Write(",");
+                                tw.Write(",");
                             }
 
-                            sw.Write(GedcomEvent.TypeToTag(eventType));
+                            tw.Write(GedcomEvent.TypeToTag(eventType));
                             first = false;
                         }
 
                         if (recordedEvent.Date != null)
                         {
-                            recordedEvent.Date.Output(sw);
+                            recordedEvent.Date.Output(tw);
                         }
 
                         if (recordedEvent.Place != null)
                         {
-                            recordedEvent.Place.Output(sw);
+                            recordedEvent.Place.Output(tw);
                         }
                     }
                 }
@@ -603,10 +603,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" AUTH ");
-                Util.SplitLineText(sw, Originator, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" AUTH ");
+                Util.SplitLineText(tw, Originator, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(Title))
@@ -616,10 +616,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TITL ");
-                Util.SplitLineText(sw, Title, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TITL ");
+                Util.SplitLineText(tw, Title, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(FiledBy))
@@ -629,10 +629,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" ABBR ");
-                Util.SplitLineText(sw, FiledBy, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" ABBR ");
+                Util.SplitLineText(tw, FiledBy, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(PublicationFacts))
@@ -642,10 +642,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" PUBL ");
-                Util.SplitLineText(sw, PublicationFacts, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" PUBL ");
+                Util.SplitLineText(tw, PublicationFacts, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(Text))
@@ -655,17 +655,17 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TEXT ");
-                Util.SplitLineText(sw, Text, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TEXT ");
+                Util.SplitLineText(tw, Text, Level + 1, 248);
             }
 
             if (RepositoryCitations != null)
             {
                 foreach (GedcomRepositoryCitation citation in RepositoryCitations)
                 {
-                    citation.Output(sw);
+                    citation.Output(tw);
                 }
             }
         }

@@ -785,24 +785,24 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs the specified tw.
         /// </summary>
-        /// <param name="sw">The sw.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The tw.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
-            sw.Write(GedcomTag);
+            tw.Write(GedcomTag);
 
             if (!string.IsNullOrEmpty(_eventName))
             {
-                sw.Write(" ");
-                sw.Write(_eventName);
+                tw.Write(" ");
+                tw.Write(_eventName);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             string levelPlusOne = null;
 
@@ -813,25 +813,25 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TYPE ");
-                sw.Write(_classification);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TYPE ");
+                tw.Write(_classification);
             }
 
             if (_date != null)
             {
-                _date.Output(sw);
+                _date.Output(tw);
             }
 
             if (_place != null)
             {
-                _place.Output(sw);
+                _place.Output(tw);
             }
 
             if (_address != null)
             {
-                _address.Output(sw, Level + 1);
+                _address.Output(tw, Level + 1);
             }
 
             if (!string.IsNullOrEmpty(_responsibleAgency))
@@ -841,11 +841,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" AGNC ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" AGNC ");
                 string line = _responsibleAgency.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (!string.IsNullOrEmpty(_religiousAffiliation))
@@ -855,11 +855,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RELI ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RELI ");
                 string line = _religiousAffiliation.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (!string.IsNullOrEmpty(_cause))
@@ -869,11 +869,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" CAUS ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" CAUS ");
                 string line = _cause.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (RestrictionNotice != GedcomRestrictionNotice.None)
@@ -883,10 +883,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RESN ");
-                sw.Write(RestrictionNotice.ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RESN ");
+                tw.Write(RestrictionNotice.ToString());
             }
 
             // Quality of data should only be on source citations according to
@@ -900,10 +900,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" QUAY ");
-                sw.Write(((int)Certainty).ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" QUAY ");
+                tw.Write(((int)Certainty).ToString());
             }
         }
 

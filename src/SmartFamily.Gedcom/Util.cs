@@ -122,25 +122,25 @@ namespace SmartFamily.Gedcom
         /// <summary>
         /// Splits the line text.
         /// </summary>
-        /// <param name="sw">The writer.</param>
+        /// <param name="tw">The writer.</param>
         /// <param name="text">The text.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
-        public static void SplitLineText(TextWriter sw, string text, int level, int maxLen)
+        public static void SplitLineText(TextWriter tw, string text, int level, int maxLen)
         {
-            SplitLineText(sw, text, level, maxLen, int.MaxValue, false);
+            SplitLineText(tw, text, level, maxLen, int.MaxValue, false);
         }
 
         /// <summary>
         /// Splits the line text.
         /// </summary>
-        /// <param name="sw">The writer.</param>
+        /// <param name="tw">The writer.</param>
         /// <param name="text">The text.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
         /// <param name="maxSplits">The maximum splits.</param>
         /// <param name="cont">if set to <c>true</c> [cont].</param>
-        public static void SplitLineText(TextWriter sw, string text, int level, int maxLen, int maxSplits, bool cont)
+        public static void SplitLineText(TextWriter tw, string text, int level, int maxLen, int maxSplits, bool cont)
         {
             string line = text.Replace("@", "@@");
 
@@ -155,11 +155,11 @@ namespace SmartFamily.Gedcom
                 {
                     if (l.Length <= maxLen)
                     {
-                        sw.Write(l);
+                        tw.Write(l);
                     }
                     else
                     {
-                        SplitText(sw, l, level + 1, maxLen, maxSplits, cont);
+                        SplitText(tw, l, level + 1, maxLen, maxSplits, cont);
                     }
 
                     first = false;
@@ -171,16 +171,16 @@ namespace SmartFamily.Gedcom
                         levelPlusOne = (level + 1).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" CONT ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" CONT ");
                     if (l.Length <= maxLen)
                     {
-                        sw.Write(l);
+                        tw.Write(l);
                     }
                     else
                     {
-                        SplitText(sw, l, level + 1, maxLen, maxSplits, cont);
+                        SplitText(tw, l, level + 1, maxLen, maxSplits, cont);
                     }
                 }
             }
@@ -189,13 +189,13 @@ namespace SmartFamily.Gedcom
         /// <summary>
         /// Splits the text.
         /// </summary>
-        /// <param name="sw">The writer.</param>
+        /// <param name="tw">The writer.</param>
         /// <param name="line">The line.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
-        public static void SplitText(TextWriter sw, string line, int level, int maxLen)
+        public static void SplitText(TextWriter tw, string line, int level, int maxLen)
         {
-            SplitText(sw, line, level, maxLen, int.MaxValue, false);
+            SplitText(tw, line, level, maxLen, int.MaxValue, false);
         }
 
         // TODO: this is potentially bad, lots of substrings, only potentially though, large notes for example
@@ -204,13 +204,13 @@ namespace SmartFamily.Gedcom
         /// <summary>
         /// Splits the text.
         /// </summary>
-        /// <param name="sw">The writer.</param>
+        /// <param name="tw">The writer.</param>
         /// <param name="line">The line.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
         /// <param name="maxSplits">The maximum splits.</param>
         /// <param name="cont">if set to <c>true</c> [cont].</param>
-        public static void SplitText(TextWriter sw, string line, int level, int maxLen, int maxSplits, bool cont)
+        public static void SplitText(TextWriter tw, string line, int level, int maxLen, int maxSplits, bool cont)
         {
             bool firstSplit = true;
             int splits = 0;
@@ -234,7 +234,7 @@ namespace SmartFamily.Gedcom
                 {
                     if (firstSplit)
                     {
-                        sw.Write(line);
+                        tw.Write(line);
                         firstSplit = false;
                     }
                     else
@@ -244,10 +244,10 @@ namespace SmartFamily.Gedcom
                             levelStr = level.ToString();
                         }
 
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelStr);
-                        sw.Write(splitTag);
-                        sw.Write(line);
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelStr);
+                        tw.Write(splitTag);
+                        tw.Write(line);
                     }
 
                     line = string.Empty;
@@ -261,7 +261,7 @@ namespace SmartFamily.Gedcom
                     string tmp = line.Substring(0, space);
                     if (firstSplit)
                     {
-                        sw.Write(tmp);
+                        tw.Write(tmp);
                         firstSplit = false;
                     }
                     else
@@ -271,10 +271,10 @@ namespace SmartFamily.Gedcom
                             levelStr = level.ToString();
                         }
 
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelStr);
-                        sw.Write(splitTag);
-                        sw.Write(tmp);
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelStr);
+                        tw.Write(splitTag);
+                        tw.Write(tmp);
                     }
 
                     line = line.Substring(space + 1);
@@ -296,10 +296,10 @@ namespace SmartFamily.Gedcom
                     levelStr = level.ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelStr);
-                sw.Write(" CONC ");
-                sw.Write(line);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelStr);
+                tw.Write(" CONC ");
+                tw.Write(line);
             }
         }
     }

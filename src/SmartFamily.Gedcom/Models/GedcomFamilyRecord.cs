@@ -1012,55 +1012,55 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">Where to output the data to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             string levelPlusOne = (Level + 1).ToString();
 
             if (RestrictionNotice != GedcomRestrictionNotice.None)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RESN ");
-                sw.Write(RestrictionNotice.ToString().ToLower());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RESN ");
+                tw.Write(RestrictionNotice.ToString().ToLower());
             }
 
             foreach (GedcomFamilyEvent familyEvent in _events)
             {
-                familyEvent.Output(sw);
+                familyEvent.Output(tw);
             }
 
             if (!string.IsNullOrEmpty(_husband))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" HUSB ");
-                sw.Write("@");
-                sw.Write(_husband);
-                sw.Write("@");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" HUSB ");
+                tw.Write("@");
+                tw.Write(_husband);
+                tw.Write("@");
             }
 
             if (!string.IsNullOrEmpty(_wife))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" WIFE ");
-                sw.Write("@");
-                sw.Write(_wife);
-                sw.Write("@");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" WIFE ");
+                tw.Write("@");
+                tw.Write(_wife);
+                tw.Write("@");
             }
 
             string levelPlusTwo = (Level + 2).ToString();
             foreach (string childID in _children)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" CHIL ");
-                sw.Write("@");
-                sw.Write(childID);
-                sw.Write("@");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" CHIL ");
+                tw.Write("@");
+                tw.Write(childID);
+                tw.Write("@");
 
                 GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childID];
                 if (child != null)
@@ -1072,15 +1072,15 @@ namespace SmartFamily.Gedcom.Models
                         switch (link.Pedigree)
                         {
                             case PedigreeLinkageType.FatherAdopted:
-                                sw.Write(Environment.NewLine);
-                                sw.Write(levelPlusTwo);
-                                sw.Write("_FREL Adopted");
+                                tw.Write(Environment.NewLine);
+                                tw.Write(levelPlusTwo);
+                                tw.Write("_FREL Adopted");
                                 break;
 
                             case PedigreeLinkageType.MotherAdopted:
-                                sw.Write(Environment.NewLine);
-                                sw.Write(levelPlusTwo);
-                                sw.Write("_MREL Adopted");
+                                tw.Write(Environment.NewLine);
+                                tw.Write(levelPlusTwo);
+                                tw.Write("_MREL Adopted");
                                 break;
                         }
                     }
@@ -1097,38 +1097,38 @@ namespace SmartFamily.Gedcom.Models
 
             if (_numberOfChildren != 0)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" NCHI ");
-                sw.Write("@");
-                sw.Write(_numberOfChildren.ToString());
-                sw.Write("@");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" NCHI ");
+                tw.Write("@");
+                tw.Write(_numberOfChildren.ToString());
+                tw.Write("@");
             }
 
             if (_spouseSealing != null)
             {
-                _spouseSealing.Output(sw);
+                _spouseSealing.Output(tw);
             }
 
             if (_submitterRecords != null)
             {
                 foreach (string submitter in SubmitterRecords)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" SUBM ");
-                    sw.Write("@");
-                    sw.Write(submitter);
-                    sw.Write("@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" SUBM ");
+                    tw.Write("@");
+                    tw.Write(submitter);
+                    tw.Write("@");
                 }
             }
 
             if (StartStatus != MarriageStartStatus.Unknown)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" _MSTAT ");
-                sw.Write(StartStatus.ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" _MSTAT ");
+                tw.Write(StartStatus.ToString());
             }
         }
 
@@ -1136,9 +1136,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns>True if instance matches user data, otherwise false.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var family = obj as GedcomFamilyRecord;
@@ -1195,9 +1193,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomFamilyRecord to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns>True if instance matches user data, otherwise false.</returns>
         public bool Equals(GedcomFamilyRecord other)
         {
             return IsEquivalentTo(other);

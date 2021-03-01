@@ -722,34 +722,34 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">Where to output the data to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" DATE ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" DATE ");
 
             // only output type if it isn't the default (Gregorian)
             if (_dateType != GedcomDateType.Gregorian)
             {
-                sw.Write("@#D{0}@ ", _dateType.ToString());
+                tw.Write("@#D{0}@ ", _dateType.ToString());
             }
 
             if (!string.IsNullOrWhiteSpace(Period))
             {
                 var period = Period.Replace("@", "@@");
-                sw.Write(period);
+                tw.Write(period);
             }
 
             if (!string.IsNullOrEmpty(Time))
             {
                 var line = Time.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write("{0} TIME {1}", (Level + 1).ToString(), line);
+                tw.Write(Environment.NewLine);
+                tw.Write("{0} TIME {1}", (Level + 1).ToString(), line);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>

@@ -269,47 +269,47 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM formatted text representing the age.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
+        /// <param name="tw">The writer to output to.</param>
         /// <param name="level">The GEDCOM level.</param>
-        public void Output(TextWriter sw, int level)
+        public void Output(TextWriter tw, int level)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(level);
-            sw.Write(" AGE ");
+            tw.Write(Environment.NewLine);
+            tw.Write(level);
+            tw.Write(" AGE ");
 
             // never write out INFANT CHILD, this potentially loses information,
             // always write out < 1 or < 8 and includes months days if set
             if (StillBorn)
             {
-                sw.Write("STILLBORN");
+                tw.Write("STILLBORN");
             }
             else
             {
                 if (Equality < 0)
                 {
-                    sw.Write("< ");
+                    tw.Write("< ");
                 }
                 else if (Equality > 0)
                 {
-                    sw.Write("> ");
+                    tw.Write("> ");
                 }
 
                 if (Years != -1)
                 {
-                    sw.Write(Years.ToString());
-                    sw.Write("y ");
+                    tw.Write(Years.ToString());
+                    tw.Write("y ");
                 }
 
                 if (Months != -1)
                 {
-                    sw.Write(Months.ToString());
-                    sw.Write("m ");
+                    tw.Write(Months.ToString());
+                    tw.Write("m ");
                 }
                 // TODO: change this to just an if instead of else if?
                 else if (Days != -1)
                 {
-                    sw.Write(Days.ToString());
-                    sw.Write("d");
+                    tw.Write(Days.ToString());
+                    tw.Write("d");
                 }
             }
         }

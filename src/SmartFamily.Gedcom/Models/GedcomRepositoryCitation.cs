@@ -179,22 +179,22 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this repository citation as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
-            sw.Write(GedcomTag);
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
+            tw.Write(GedcomTag);
 
             if (!string.IsNullOrEmpty(Repository))
             {
-                sw.Write(" @");
-                sw.Write(Repository);
-                sw.Write("@ ");
+                tw.Write(" @");
+                tw.Write(Repository);
+                tw.Write("@ ");
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             if (CallNumbers.Count > 0)
             {
@@ -204,11 +204,11 @@ namespace SmartFamily.Gedcom.Models
                 int i = 0;
                 foreach (string callNumber in CallNumbers)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" CALN ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" CALN ");
                     string line = callNumber.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
 
                     SourceMediaType mediaType = MediaTypes[i];
                     int otherIndex = 0;
@@ -219,17 +219,17 @@ namespace SmartFamily.Gedcom.Models
                             levelPlusTwo = (Level + 2).ToString();
                         }
 
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" MEDI ");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" MEDI ");
                         if (mediaType != SourceMediaType.Other)
                         {
                             string type = mediaType.ToString().Replace('_', ' ');
-                            sw.Write(type);
+                            tw.Write(type);
                         }
                         else
                         {
-                            sw.Write(OtherMediaTypes[otherIndex++]);
+                            tw.Write(OtherMediaTypes[otherIndex++]);
                         }
                     }
 

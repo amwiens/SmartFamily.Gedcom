@@ -210,14 +210,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">Where to output the data to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             if (Age != null)
             {
-                Age.Output(sw, Level + 1);
+                Age.Output(tw, Level + 1);
             }
         }
     }

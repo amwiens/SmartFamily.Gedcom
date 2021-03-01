@@ -452,9 +452,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets a value indicating whether this is the individuals preferred name.
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [preferred name]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [preferred name]; otherwise, <c>false</c>.</value>
         public bool PreferredName { get; set; }
 
         private bool IsSet
@@ -679,13 +677,13 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" NAME ");
-            sw.Write(Name);
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" NAME ");
+            tw.Write(Name);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -697,22 +695,22 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TYPE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TYPE ");
                 string line = Type.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             // Gedcom 5.5.5 spec says to always output these fields, even if blank.
-            OutputNamePart(sw, "NPFX", Prefix, Level + 1);
-            OutputNamePart(sw, "GIVN", Given, Level + 1);
-            OutputNamePart(sw, "NICK", Nick, Level + 1);
-            OutputNamePart(sw, "SPFX", SurnamePrefix, Level + 1);
-            OutputNamePart(sw, "SURN", Surname, Level + 1);
-            OutputNamePart(sw, "NSFX", Suffix, Level + 1);
+            OutputNamePart(tw, "NPFX", Prefix, Level + 1);
+            OutputNamePart(tw, "GIVN", Given, Level + 1);
+            OutputNamePart(tw, "NICK", Nick, Level + 1);
+            OutputNamePart(tw, "SPFX", SurnamePrefix, Level + 1);
+            OutputNamePart(tw, "SURN", Surname, Level + 1);
+            OutputNamePart(tw, "NSFX", Suffix, Level + 1);
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             if (_phoneticVariations != null)
             {
@@ -728,18 +726,18 @@ namespace SmartFamily.Gedcom.Models
 
                 foreach (GedcomVariation variation in PhoneticVariations)
                 {
-                    sw.Write(levelPlusOne);
-                    sw.Write(" FONE ");
+                    tw.Write(levelPlusOne);
+                    tw.Write(" FONE ");
                     string line = variation.Value.Replace("@", "@@");
-                    sw.Write(line);
-                    sw.Write(Environment.NewLine);
+                    tw.Write(line);
+                    tw.Write(Environment.NewLine);
                     if (!string.IsNullOrEmpty(variation.VariationType))
                     {
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" TYPE ");
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" TYPE ");
                         line = variation.VariationType.Replace("@", "@@");
-                        sw.Write(line);
-                        sw.Write(Environment.NewLine);
+                        tw.Write(line);
+                        tw.Write(Environment.NewLine);
                     }
                 }
             }
@@ -758,30 +756,30 @@ namespace SmartFamily.Gedcom.Models
 
                 foreach (GedcomVariation variation in RomanizedVariations)
                 {
-                    sw.Write(levelPlusOne);
-                    sw.Write(" ROMN ");
+                    tw.Write(levelPlusOne);
+                    tw.Write(" ROMN ");
                     string line = variation.Value.Replace("@", "@@");
-                    sw.Write(line);
-                    sw.Write(Environment.NewLine);
+                    tw.Write(line);
+                    tw.Write(Environment.NewLine);
                     if (!string.IsNullOrEmpty(variation.VariationType))
                     {
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" TYPE ");
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" TYPE ");
                         line = variation.VariationType.Replace("@", "@@");
-                        sw.Write(line);
-                        sw.Write(Environment.NewLine);
+                        tw.Write(line);
+                        tw.Write(Environment.NewLine);
                     }
                 }
             }
         }
 
-        private void OutputNamePart(TextWriter sw, string tagName, string tagValue, int level)
+        private void OutputNamePart(TextWriter tw, string tagName, string tagValue, int level)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(level.ToString());
-            sw.Write(" " + tagName + " ");
+            tw.Write(Environment.NewLine);
+            tw.Write(level.ToString());
+            tw.Write(" " + tagName + " ");
             var line = tagValue.Replace("@", "@@");
-            sw.Write(line);
+            tw.Write(line);
         }
 
         private StringBuilder BuildName()
