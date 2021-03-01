@@ -4,4 +4,5 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using System.Diagnostics.CodeAnalysis;
+
 [assembly: SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Reviewed")]

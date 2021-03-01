@@ -145,7 +145,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override GedcomRecordType RecordType
         {
-            get  => GedcomRecordType.SpouseSealing;
+            get => GedcomRecordType.SpouseSealing;
         }
 
         /// <summary>

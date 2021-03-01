@@ -61,7 +61,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Name
         {
-            get=> _name;
+            get => _name;
             set
             {
                 if (value != _name)
