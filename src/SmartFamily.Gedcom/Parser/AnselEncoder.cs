@@ -8,7 +8,7 @@ namespace SmartFamily.Gedcom.Parser
     /// </summary>
     public class AnselEncoder : Encoding
     {
-        private readonly Decoder decoder = new AnselDecoder();
+        private readonly Decoder _decoder = new AnselDecoder();
 
         /// <summary>
         /// Gets the code page of ANSEL
@@ -39,7 +39,7 @@ namespace SmartFamily.Gedcom.Parser
         /// </returns>
         public override Decoder GetDecoder()
         {
-            return decoder;
+            return _decoder;
         }
 
         /// <summary>

@@ -10,9 +10,9 @@ namespace SmartFamily.Gedcom.Parser
     {
         // Push diacritic characters onto this stack so we can pull them off
         // after the Latin combining character has been written.
-        private readonly Stack<char> diacritics = new Stack<char>(2); // ANSEL has a maximum of 2 diacritics added to a Latin to form a precomposed character
+        private readonly Stack<char> _diacritics = new Stack<char>(2); // ANSEL has a maximum of 2 diacritics added to a Latin to form a precomposed character
 
-        private readonly ushort[] charMapping = new ushort[]
+        private readonly ushort[] _charMapping = new ushort[]
         {
             /* Fill any unused entries with the Unicode replacement character.
              * Unicode allows us to substitute this character for any unknown
@@ -165,10 +165,10 @@ namespace SmartFamily.Gedcom.Parser
                     numCharsDecoded++;
 
                     // Empty the diacritic stack into the char buffer
-                    while (diacritics.Count > 0)
+                    while (_diacritics.Count > 0)
                     {
                         // Unbox the char and append it to our result array
-                        chars[numCharsDecoded + charIndex] = diacritics.Pop();
+                        chars[numCharsDecoded + charIndex] = _diacritics.Pop();
 
                         numCharsDecoded++;
                     }
@@ -178,7 +178,7 @@ namespace SmartFamily.Gedcom.Parser
                     // Non-spacing combining character
 
                     // Box the char and place onto the stack
-                    diacritics.Push(unicodeChar);
+                    _diacritics.Push(unicodeChar);
                 }
             }
 
@@ -197,7 +197,7 @@ namespace SmartFamily.Gedcom.Parser
                 return (char)anselCodePoint;
             }
 
-            return (char)charMapping[anselCodePoint - 128];
+            return (char)_charMapping[anselCodePoint - 128];
         }
     }
 }

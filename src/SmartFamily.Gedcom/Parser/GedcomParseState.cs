@@ -11,7 +11,7 @@ namespace SmartFamily.Gedcom.Parser
     /// </summary>
     public class GedcomParseState
     {
-        private readonly GedcomTagLevel[] pairPool;
+        private readonly GedcomTagLevel[] _pairPool;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomParseState"/> class.
@@ -24,7 +24,7 @@ namespace SmartFamily.Gedcom.Parser
             // max level of 99, pre alloc size of stack
             PreviousTags = new Stack<GedcomTagLevel>(100);
 
-            pairPool = new GedcomTagLevel[100];
+            _pairPool = new GedcomTagLevel[100];
         }
 
         /// <summary>
@@ -116,11 +116,11 @@ namespace SmartFamily.Gedcom.Parser
             }
             else
             {
-                GedcomTagLevel pair = pairPool[level];
+                GedcomTagLevel pair = _pairPool[level];
                 if (pair == null)
                 {
                     pair = new GedcomTagLevel();
-                    pairPool[level] = pair;
+                    _pairPool[level] = pair;
                 }
 
                 pair.Name = name;

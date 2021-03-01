@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Parser
     /// <seealso cref="StreamWriter"/>
     internal class GedcomStreamWriter : StreamWriter
     {
-        //private int tabSize = 4;
-        private readonly string tab = "    ";
+        //private int _tabSize = 4;
+        private readonly string _tab = "    ";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomStreamWriter"/> class.
@@ -112,7 +112,7 @@ namespace SmartFamily.Gedcom.Parser
             }
             else if ((!AllowLineTabsSave && value == 0x0b) || (!AllowTabsSave && value == 0x09))
             {
-                base.Write(tab);
+                base.Write(_tab);
             }
             else
             {
@@ -155,12 +155,12 @@ namespace SmartFamily.Gedcom.Parser
 
             if (!AllowLineTabsSave)
             {
-                tmp = tmp.Replace("\x000b", tab);
+                tmp = tmp.Replace("\x000b", _tab);
             }
 
             if (!AllowTabsSave)
             {
-                tmp = tmp.Replace("\x0009", tab);
+                tmp = tmp.Replace("\x0009", _tab);
             }
 
             base.Write(tmp);
@@ -211,7 +211,7 @@ namespace SmartFamily.Gedcom.Parser
             }
             else if ((!AllowLineTabsSave && value == 0x0b) || (!AllowTabsSave && value == 0x09))
             {
-                base.WriteLine(tab);
+                base.WriteLine(_tab);
             }
             else
             {
@@ -254,12 +254,12 @@ namespace SmartFamily.Gedcom.Parser
 
             if (!AllowLineTabsSave)
             {
-                tmp = tmp.Replace("\x000b", tab);
+                tmp = tmp.Replace("\x000b", _tab);
             }
 
             if (!AllowTabsSave)
             {
-                tmp = tmp.Replace("\x0009", tab);
+                tmp = tmp.Replace("\x0009", _tab);
             }
 
             base.WriteLine(tmp);
