@@ -6,28 +6,28 @@ using System.Collections.Generic;
 namespace SmartFamily.Gedcom.Models
 {
     /// <summary>
-    /// The database for all the GEDCOM reocrds.
+    /// The database for all the GEDCOM records.
     /// This is currently just in memory. To implement a "real"
     /// database you should derive from this class and override
     /// the necessary methods / properties.
     /// </summary>
     public class GedcomDatabase
     {
-        private List<GedcomIndividualRecord> individuals;
-        private List<GedcomFamilyRecord> families;
-        private List<GedcomSourceRecord> sources;
-        private List<GedcomRepositoryRecord> repositories;
-        private List<GedcomMultimediaRecord> media;
-        private List<GedcomNoteRecord> notes;
-        private List<GedcomSubmitterRecord> submitters;
+        private readonly List<GedcomIndividualRecord> _individuals;
+        private readonly List<GedcomFamilyRecord> _families;
+        private readonly List<GedcomSourceRecord> _sources;
+        private readonly List<GedcomRepositoryRecord> _repositories;
+        private readonly List<GedcomMultimediaRecord> _media;
+        private readonly List<GedcomNoteRecord> _notes;
+        private readonly List<GedcomSubmitterRecord> _submitters;
 
-        private int xrefCounter = 0;
+        private int _xrefCounter = 0;
 
-        private IndexedKeyCollection placeNameCollection;
+        private readonly IndexedKeyCollection _placeNameCollection;
 
         // NOTE: having a collection for date strings saves memory
         // but kills GEDCOM reading time to an extent that it isn't worth it
-        private Dictionary<string, int> surnames;
+        private readonly Dictionary<string, int> _surnames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomDatabase"/> class.
@@ -35,17 +35,17 @@ namespace SmartFamily.Gedcom.Models
         public GedcomDatabase()
         {
             Table = new Hashtable();
-            individuals = new List<GedcomIndividualRecord>();
-            families = new List<GedcomFamilyRecord>();
-            sources = new List<GedcomSourceRecord>();
-            repositories = new List<GedcomRepositoryRecord>();
-            media = new List<GedcomMultimediaRecord>();
-            notes = new List<GedcomNoteRecord>();
-            submitters = new List<GedcomSubmitterRecord>();
+            _individuals = new List<GedcomIndividualRecord>();
+            _families = new List<GedcomFamilyRecord>();
+            _sources = new List<GedcomSourceRecord>();
+            _repositories = new List<GedcomRepositoryRecord>();
+            _media = new List<GedcomMultimediaRecord>();
+            _notes = new List<GedcomNoteRecord>();
+            _submitters = new List<GedcomSubmitterRecord>();
 
-            placeNameCollection = new IndexedKeyCollection();
+            _placeNameCollection = new IndexedKeyCollection();
 
-            surnames = new Dictionary<string, int>();
+            _surnames = new Dictionary<string, int>();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual int Count
         {
-            get { return Table.Count; }
+            get => Table.Count;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual object Current
         {
-            get { return Table.GetEnumerator().Current; }
+            get => Table.GetEnumerator().Current;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomIndividualRecord> Individuals
         {
-            get { return individuals; }
+            get => _individuals;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomFamilyRecord> Families
         {
-            get { return families; }
+            get => _families;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomSourceRecord> Sources
         {
-            get { return sources; }
+            get => _sources;
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomRepositoryRecord> Repositories
         {
-            get { return repositories; }
+            get => _repositories;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomMultimediaRecord> Media
         {
-            get { return media; }
+            get => _media;
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomNoteRecord> Notes
         {
-            get { return notes; }
+            get => _notes;
         }
 
         /// <summary>
@@ -129,13 +129,13 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual List<GedcomSubmitterRecord> Submitters
         {
-            get { return submitters; }
+            get => _submitters;
         }
 
         /// <summary>
         /// Gets or sets the name of the database, this is currently the full filename
         /// of the GEDCOM file the database was read from / saved to,
-        /// but could equally be a connection string for a real backend database.
+        /// but could equally be a connection string for a real back-end database.
         /// </summary>
         public virtual string Name { get; set; }
 
@@ -146,12 +146,12 @@ namespace SmartFamily.Gedcom.Models
         public IndexedKeyCollection NameCollection { get; } = new IndexedKeyCollection();
 
         /// <summary>
-        /// Gets all the place names used in the database, used primarly to save
+        /// Gets all the place names used in the database, used primarily to save
         /// memory by storing names only once.
         /// </summary>
         public IndexedKeyCollection PlaceNameCollection
         {
-            get { return placeNameCollection; }
+            get => _placeNameCollection;
         }
 
         /// <summary>
@@ -172,10 +172,7 @@ namespace SmartFamily.Gedcom.Models
         /// <returns></returns>
         public virtual GedcomRecord this[string key]
         {
-            get
-            {
-                return Table[key] as GedcomRecord;
-            }
+            get => Table[key] as GedcomRecord;
             set
             {
                 Remove(key, value);
@@ -187,7 +184,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determines whether the specified <see cref="object"/>, is equal (in contents, not structure) to this instance.
         /// </summary>
         /// <param name="gedcomDb">The <see cref="object"/> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>True</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
         public bool Equals(GedcomDatabase gedcomDb)
         {
             if (gedcomDb == null)
@@ -240,53 +237,53 @@ namespace SmartFamily.Gedcom.Models
             {
                 GedcomIndividualRecord indi = (GedcomIndividualRecord)record;
 
-                int pos = individuals.BinarySearch(indi);
+                int pos = _individuals.BinarySearch(indi);
                 if (pos < 0)
                 {
                     pos = ~pos;
                 }
 
-                individuals.Insert(pos, indi);
+                _individuals.Insert(pos, indi);
             }
             else if (record is GedcomFamilyRecord)
             {
-                families.Add((GedcomFamilyRecord)record);
+                _families.Add((GedcomFamilyRecord)record);
             }
             else if (record is GedcomSourceRecord)
             {
                 GedcomSourceRecord source = (GedcomSourceRecord)record;
 
-                int pos = sources.BinarySearch(source);
+                int pos = _sources.BinarySearch(source);
                 if (pos < 0)
                 {
                     pos = ~pos;
                 }
 
-                sources.Insert(pos, source);
+                _sources.Insert(pos, source);
             }
             else if (record is GedcomRepositoryRecord)
             {
                 GedcomRepositoryRecord repo = (GedcomRepositoryRecord)record;
 
-                int pos = repositories.BinarySearch(repo);
+                int pos = _repositories.BinarySearch(repo);
                 if (pos < 0)
                 {
                     pos = ~pos;
                 }
 
-                repositories.Insert(pos, repo);
+                _repositories.Insert(pos, repo);
             }
             else if (record is GedcomMultimediaRecord)
             {
-                media.Add((GedcomMultimediaRecord)record);
+                _media.Add((GedcomMultimediaRecord)record);
             }
             else if (record is GedcomNoteRecord)
             {
-                notes.Add((GedcomNoteRecord)record);
+                _notes.Add((GedcomNoteRecord)record);
             }
             else if (record is GedcomSubmitterRecord)
             {
-                submitters.Add((GedcomSubmitterRecord)record);
+                _submitters.Add((GedcomSubmitterRecord)record);
             }
 
             record.Database = this;
@@ -297,7 +294,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public virtual void BuildSurnameList()
         {
-            foreach (GedcomIndividualRecord indi in individuals)
+            foreach (GedcomIndividualRecord indi in _individuals)
             {
                 BuildSurnameList(indi);
             }
@@ -318,7 +315,7 @@ namespace SmartFamily.Gedcom.Models
                 {
                     GedcomIndividualRecord indi = (GedcomIndividualRecord)record;
 
-                    individuals.Remove(indi);
+                    _individuals.Remove(indi);
 
                     // remove names from surname cache
                     foreach (GedcomName name in indi.Names)
@@ -326,44 +323,44 @@ namespace SmartFamily.Gedcom.Models
                         // TODO: not right, need to include prefix + suffix
                         string surname = name.Surname;
 
-                        if (surnames.ContainsKey(surname))
+                        if (_surnames.ContainsKey(surname))
                         {
-                            int count = surnames[surname];
+                            int count = _surnames[surname];
                             count--;
                             if (count > 0)
                             {
-                                surnames[surname] = count;
+                                _surnames[surname] = count;
                             }
                             else
                             {
-                                surnames.Remove(surname);
+                                _surnames.Remove(surname);
                             }
                         }
                     }
                 }
                 else if (record is GedcomFamilyRecord)
                 {
-                    families.Remove((GedcomFamilyRecord)record);
+                    _families.Remove((GedcomFamilyRecord)record);
                 }
                 else if (record is GedcomSourceRecord)
                 {
-                    sources.Remove((GedcomSourceRecord)record);
+                    _sources.Remove((GedcomSourceRecord)record);
                 }
                 else if (record is GedcomRepositoryRecord)
                 {
-                    repositories.Remove((GedcomRepositoryRecord)record);
+                    _repositories.Remove((GedcomRepositoryRecord)record);
                 }
                 else if (record is GedcomMultimediaRecord)
                 {
-                    media.Remove((GedcomMultimediaRecord)record);
+                    _media.Remove((GedcomMultimediaRecord)record);
                 }
                 else if (record is GedcomNoteRecord)
                 {
-                    notes.Remove((GedcomNoteRecord)record);
+                    _notes.Remove((GedcomNoteRecord)record);
                 }
                 else if (record is GedcomSubmitterRecord)
                 {
-                    submitters.Remove((GedcomSubmitterRecord)record);
+                    _submitters.Remove((GedcomSubmitterRecord)record);
                 }
 
                 // TODO: should we set this to null? part of the deletion
@@ -418,7 +415,7 @@ namespace SmartFamily.Gedcom.Models
         /// <returns>A <see cref="string"/> TODO: Doc.</returns>
         public string GenerateXref(string prefix)
         {
-            return string.Format("{0}{1}", prefix, (++xrefCounter).ToString());
+            return string.Format("{0}{1}", prefix, (++_xrefCounter).ToString());
         }
 
         /// <summary>
@@ -463,13 +460,13 @@ namespace SmartFamily.Gedcom.Models
                 // TODO: not right, need to include prefix + suffix
                 string surname = name.Surname;
 
-                if (!surnames.ContainsKey(surname))
+                if (!_surnames.ContainsKey(surname))
                 {
-                    surnames[surname] = 1;
+                    _surnames[surname] = 1;
                 }
                 else
                 {
-                    surnames[surname] = 1 + surnames[surname];
+                    _surnames[surname] = 1 + _surnames[surname];
                 }
             }
         }

@@ -83,7 +83,7 @@
         FamilyLink,
 
         /// <summary>
-        /// Assoication
+        /// Association
         /// </summary>
         Association,
 
@@ -107,7 +107,7 @@
         /// </summary>
         RepositoryCitation,
 
-        // GEDCOM allows custom records, begining with _
+        // GEDCOM allows custom records, beginning with _
 
         /// <summary>
         /// Custom Record

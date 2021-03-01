@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Tests.Equality
     /// </summary>
     public class GedcomMultimediaFileTest
     {
-        private GedcomMultimediaFile file1;
-        private GedcomMultimediaFile file2;
+        private readonly GedcomMultimediaFile file1;
+        private readonly GedcomMultimediaFile file2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomMultimediaFileTest"/> class.

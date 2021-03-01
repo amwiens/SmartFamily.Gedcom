@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Tests.Equality
     /// </summary>
     public class GedcomHeaderTest
     {
-        private GedcomHeader header1;
-        private GedcomHeader header2;
+        private readonly GedcomHeader header1;
+        private readonly GedcomHeader header2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomHeaderTest"/> class.

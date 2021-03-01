@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Tests.Equality
     /// </summary>
     public class GedcomMultimediaRecordTest
     {
-        private GedcomMultimediaRecord multRec1;
-        private GedcomMultimediaRecord multRec2;
+        private readonly GedcomMultimediaRecord multRec1;
+        private readonly GedcomMultimediaRecord multRec2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomMultimediaRecordTest"/> class.

@@ -11,50 +11,42 @@ namespace SmartFamily.Gedcom
     /// <seealso cref="IndexedKeyCollection"/>
     public class XRefIndexedKeyCollection : IndexedKeyCollection
     {
-        private GedcomDatabase database;
+        private GedcomDatabase _database;
 
-        private List<string> replacementXRefs;
+        private readonly List<string> _replacementXRefs;
 
-        private bool replaceXrefs;
+        private bool _replaceXrefs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XRefIndexedKeyCollection"/> class.
         /// </summary>
         public XRefIndexedKeyCollection()
         {
-            replacementXRefs = new List<string>();
+            _replacementXRefs = new List<string>();
         }
 
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
         public GedcomDatabase Database
         {
-            get { return database; }
-            set { database = value; }
+            get => _database;
+            set => _database = value;
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether [replace x refs].
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [replace x refs]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [replace x refs]; otherwise, <c>false</c>.</value>
         public bool ReplaceXRefs
         {
-            get { return replaceXrefs; }
-            set { replaceXrefs = value; }
+            get => _replaceXrefs;
+            set => _replaceXrefs = value;
         }
 
         /// <summary>
         /// Gets the TODO: Doc
         /// </summary>
-        /// <value>
-        /// The <see cref="string"/>.
-        /// </value>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
@@ -63,15 +55,12 @@ namespace SmartFamily.Gedcom
         {
             get
             {
-                string ret = null;
-
-                int pos;
-                bool found = Find(str, startIndex, length, out pos);
+                bool found = Find(str, startIndex, length, out int pos);
 
                 if (!found)
                 {
                     Strings.Insert(pos, str.Substring(startIndex, length).Trim());
-                    if (replaceXrefs)
+                    if (_replaceXrefs)
                     {
                         int prefixLen = 0;
                         while (char.IsLetter(str[prefixLen]))
@@ -89,13 +78,14 @@ namespace SmartFamily.Gedcom
                             prefix = "XREF";
                         }
 
-                        replacementXRefs.Insert(pos, database.GenerateXref(prefix));
+                        _replacementXRefs.Insert(pos, _database.GenerateXref(prefix));
                     }
                 }
 
-                if (replaceXrefs)
+                string ret;
+                if (_replaceXrefs)
                 {
-                    ret = replacementXRefs[pos];
+                    ret = _replacementXRefs[pos];
                 }
                 else
                 {

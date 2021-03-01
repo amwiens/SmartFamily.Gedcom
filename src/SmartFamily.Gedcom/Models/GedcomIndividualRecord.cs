@@ -16,60 +16,63 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// Details about a given individual.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>, IEquatable<GedcomIndividualRecord>
     {
-        private GedcomRecordList<GedcomName> names;
-        private GedcomSex sex;
+        private readonly GedcomRecordList<GedcomName> _names;
+        private GedcomSex _sex;
 
-        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
-        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
+        /// <summary>
+        /// Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.
+        /// </summary>
+        public GedcomRecordList<GedcomCustomRecord> _custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
-        private GedcomRecordList<GedcomIndividualEvent> events;
-        private GedcomRecordList<GedcomIndividualEvent> attributes;
+        private readonly GedcomRecordList<GedcomIndividualEvent> _events;
+        private GedcomRecordList<GedcomIndividualEvent> _attributes;
 
         // TODO
-        private object lDSIndividualOrdinances;
+        //private object lDSIndividualOrdinances;
 
-        private GedcomRecordList<GedcomFamilyLink> childIn;
-        private GedcomRecordList<GedcomFamilyLink> spouseIn;
+        private readonly GedcomRecordList<GedcomFamilyLink> _childIn;
+        private readonly GedcomRecordList<GedcomFamilyLink> _spouseIn;
 
-        private GedcomRecordList<string> submitterRecords;
+        private GedcomRecordList<string> _submitterRecords;
 
-        private GedcomRecordList<GedcomAssociation> associations;
+        private GedcomRecordList<GedcomAssociation> _associations;
 
-        private GedcomRecordList<string> alia;
-        private GedcomRecordList<string> anci;
-        private GedcomRecordList<string> desi;
+        private GedcomRecordList<string> _alia;
+        private GedcomRecordList<string> _anci;
+        private GedcomRecordList<string> _desi;
 
-        private string permanentRecordFileNumber;
+        private string _permanentRecordFileNumber;
 
         /// <summary>
         /// The ancestral file number..
         /// </summary>
-        private string ancestralFileNumber;
+        private string _ancestralFileNumber;
 
         // This is a hack,  not according to the spec, but Family Tree Maker sticks
         // an address under an individual.
         // GedcomRecordReader will build the address up here, then create a RESI record from it
-        private GedcomAddress address;
+        private GedcomAddress _address;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomIndividualRecord"/> class.
         /// </summary>
         public GedcomIndividualRecord()
         {
-            names = new GedcomRecordList<GedcomName>();
-            names.CollectionChanged += ListChanged;
+            _names = new GedcomRecordList<GedcomName>();
+            _names.CollectionChanged += ListChanged;
 
             // do not set capacity on events, uses more memory, at least for Database1.ged
-            events = new GedcomRecordList<GedcomIndividualEvent>();
-            events.CollectionChanged += ListChanged;
+            _events = new GedcomRecordList<GedcomIndividualEvent>();
+            _events.CollectionChanged += ListChanged;
 
-            childIn = new GedcomRecordList<GedcomFamilyLink>();
-            childIn.CollectionChanged += ListChanged;
+            _childIn = new GedcomRecordList<GedcomFamilyLink>();
+            _childIn.CollectionChanged += ListChanged;
 
-            spouseIn = new GedcomRecordList<GedcomFamilyLink>();
-            spouseIn.CollectionChanged += ListChanged;
+            _spouseIn = new GedcomRecordList<GedcomFamilyLink>();
+            _spouseIn.CollectionChanged += ListChanged;
         }
 
         /// <summary>
@@ -94,11 +97,13 @@ namespace SmartFamily.Gedcom.Models
             Sex = GedcomSex.NotSet;
             XRefID = database.GenerateXref("I");
 
-            GedcomName name = new GedcomName();
-            name.Level = 1;
-            name.Database = database;
-            name.Name = "unknown /" + surname + "/";
-            name.PreferredName = true;
+            GedcomName name = new GedcomName
+            {
+                Level = 1,
+                Database = database,
+                Name = "unknown /" + surname + "/",
+                PreferredName = true
+            };
 
             Names.Add(name);
 
@@ -108,42 +113,30 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Individual; }
+            get => GedcomRecordType.Individual;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for an individual.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return "INDI"; }
+            get => "INDI";
         }
 
         /// <summary>
         /// Gets the individual's names.
         /// </summary>
-        /// <value>
-        /// The names of the individual.
-        /// </value>
         public GedcomRecordList<GedcomName> Names
         {
-            get { return names; }
+            get => _names;
         }
 
         /// <summary>
         /// Gets a single letter representing the individual's gender.
         /// </summary>
-        /// <value>
-        /// The gender character.
-        /// </value>
         public string SexChar
         {
             get
@@ -178,19 +171,12 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the sex.
         /// </summary>
-        /// <value>
-        /// The sex.
-        /// </value>
         public GedcomSex Sex
         {
-            get
-            {
-                return sex;
-            }
-
+            get => _sex;
             set
             {
-                if (value != sex)
+                if (value != _sex)
                 {
                     // walk through all families for the individual, where they are
                     // the only spouse switch them to be husband or wife, whichever
@@ -221,7 +207,7 @@ namespace SmartFamily.Gedcom.Models
                         }
                     }
 
-                    sex = value;
+                    _sex = value;
                     Changed();
                 }
             }
@@ -230,174 +216,140 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the events.
         /// </summary>
-        /// <value>
-        /// The events.
-        /// </value>
         public GedcomRecordList<GedcomIndividualEvent> Events
         {
-            get { return events; }
+            get => _events;
         }
 
         /// <summary>
         /// Gets the list of events.
         /// </summary>
-        /// <value>
-        /// The list of events.
-        /// </value>
         public GedcomRecordList<GedcomIndividualEvent> Attributes
         {
             get
             {
-                if (attributes == null)
+                if (_attributes == null)
                 {
-                    attributes = new GedcomRecordList<GedcomIndividualEvent>();
-                    attributes.CollectionChanged += ListChanged;
+                    _attributes = new GedcomRecordList<GedcomIndividualEvent>();
+                    _attributes.CollectionChanged += ListChanged;
                 }
 
-                return attributes;
+                return _attributes;
             }
         }
 
         /// <summary>
         /// Gets the child in.
         /// </summary>
-        /// <value>
-        /// The child in.
-        /// </value>
         public GedcomRecordList<GedcomFamilyLink> ChildIn
         {
-            get { return childIn; }
+            get => _childIn;
         }
 
         /// <summary>
         /// Gets the spouse in.
         /// </summary>
-        /// <value>
-        /// The spouse in.
-        /// </value>
         public GedcomRecordList<GedcomFamilyLink> SpouseIn
         {
-            get { return spouseIn; }
+            get => _spouseIn;
         }
 
         /// <summary>
         /// Gets the submitter records.
         /// </summary>
-        /// <value>
-        /// The submitter records.
-        /// </value>
         public GedcomRecordList<string> SubmitterRecords
         {
             get
             {
-                if (submitterRecords == null)
+                if (_submitterRecords == null)
                 {
-                    submitterRecords = new GedcomRecordList<string>();
-                    submitterRecords.CollectionChanged += ListChanged;
+                    _submitterRecords = new GedcomRecordList<string>();
+                    _submitterRecords.CollectionChanged += ListChanged;
                 }
 
-                return submitterRecords;
+                return _submitterRecords;
             }
         }
 
         /// <summary>
         /// Gets this individual's associations to others.
         /// </summary>
-        /// <value>
-        /// The associations.
-        /// </value>
         public GedcomRecordList<GedcomAssociation> Associations
         {
             get
             {
-                if (associations == null)
+                if (_associations == null)
                 {
-                    associations = new GedcomRecordList<GedcomAssociation>();
-                    associations.CollectionChanged += ListChanged;
+                    _associations = new GedcomRecordList<GedcomAssociation>();
+                    _associations.CollectionChanged += ListChanged;
                 }
 
-                return associations;
+                return _associations;
             }
         }
 
         /// <summary>
         /// Gets the list of aliases.
         /// </summary>
-        /// <value>
-        /// The list of aliases.
-        /// </value>
         public GedcomRecordList<string> Alia
         {
             get
             {
-                if (alia == null)
+                if (_alia == null)
                 {
-                    alia = new GedcomRecordList<string>();
-                    alia.CollectionChanged += ListChanged;
+                    _alia = new GedcomRecordList<string>();
+                    _alia.CollectionChanged += ListChanged;
                 }
 
-                return alia;
+                return _alia;
             }
         }
 
         /// <summary>
         /// Gets the anci.
         /// </summary>
-        /// <value>
-        /// The anci.
-        /// </value>
         public GedcomRecordList<string> Anci
         {
             get
             {
-                if (anci == null)
+                if (_anci == null)
                 {
-                    anci = new GedcomRecordList<string>();
-                    anci.CollectionChanged += ListChanged;
+                    _anci = new GedcomRecordList<string>();
+                    _anci.CollectionChanged += ListChanged;
                 }
 
-                return anci;
+                return _anci;
             }
         }
 
         /// <summary>
         /// Gets the desi.
         /// </summary>
-        /// <value>
-        /// The desi.
-        /// </value>
         public GedcomRecordList<string> Desi
         {
             get
             {
-                if (desi == null)
+                if (_desi == null)
                 {
-                    desi = new GedcomRecordList<string>();
-                    desi.CollectionChanged += ListChanged;
+                    _desi = new GedcomRecordList<string>();
+                    _desi.CollectionChanged += ListChanged;
                 }
 
-                return desi;
+                return _desi;
             }
         }
 
         /// <summary>
         /// Gets or sets the permanent record file number.
         /// </summary>
-        /// <value>
-        /// The permanent record file number.
-        /// </value>
         public string PermanentRecordFileNumber
         {
-            get
-            {
-                return permanentRecordFileNumber;
-            }
-
+            get => _permanentRecordFileNumber;
             set
             {
-                if (value != permanentRecordFileNumber)
+                if (value != _permanentRecordFileNumber)
                 {
-                    permanentRecordFileNumber = value;
+                    _permanentRecordFileNumber = value;
                     Changed();
                 }
             }
@@ -406,21 +358,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the ancestral file number.
         /// </summary>
-        /// <value>
-        /// The ancestral file number.
-        /// </value>
         public string AncestralFileNumber
         {
-            get
-            {
-                return ancestralFileNumber;
-            }
-
+            get => _ancestralFileNumber;
             set
             {
-                if (value != ancestralFileNumber)
+                if (value != _ancestralFileNumber)
                 {
-                    ancestralFileNumber = value;
+                    _ancestralFileNumber = value;
                     Changed();
                 }
             }
@@ -432,89 +377,64 @@ namespace SmartFamily.Gedcom.Models
         /// an address under an individual.
         /// GedcomRecordReader will build the address up here, then create a RESI record from it.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
-            get
-            {
-                return address;
-            }
-
+            get => _address;
             set
             {
-                if (value != address)
+                if (value != _address)
                 {
-                    address = value;
+                    _address = value;
                     Changed();
                 }
             }
         }
 
-        // Util properties to get specific events
+        // Utility properties to get specific events
 
         /// <summary>
         /// Gets the birth.
         /// </summary>
-        /// <value>
-        /// The birth.
-        /// </value>
         public GedcomIndividualEvent Birth
         {
-            get { return FindEvent(GedcomEventType.Birth); }
+            get => FindEvent(GedcomEventType.Birth);
         }
 
         /// <summary>
         /// Gets the death.
         /// </summary>
-        /// <value>
-        /// The death.
-        /// </value>
         public GedcomIndividualEvent Death
         {
-            get { return FindEvent(GedcomEventType.DEAT); }
+            get => FindEvent(GedcomEventType.DEAT);
         }
 
         /// <summary>
         /// Gets the height.
         /// </summary>
-        /// <value>
-        /// The height.
-        /// </value>
         public GedcomIndividualEvent Height
         {
-            get { return Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Height") == 0); }
+            get => Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Height") == 0);
         }
 
         /// <summary>
         /// Gets the weight.
         /// </summary>
-        /// <value>
-        /// The weight.
-        /// </value>
         public GedcomIndividualEvent Weight
         {
-            get { return Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Weight") == 0); }
+            get => Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Weight") == 0);
         }
 
         /// <summary>
         /// Gets the medical event.
         /// </summary>
-        /// <value>
-        /// The medical event.
-        /// </value>
         public GedcomIndividualEvent Medical
         {
-            get { return Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Medical") == 0); }
+            get => Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Medical") == 0);
         }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="GedcomIndividualRecord"/> is dead.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if dead; otherwise, <c>false</c>.
-        /// </value>
         public bool Dead
         {
             get
@@ -560,9 +480,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -641,11 +558,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <inheritdoc/>
@@ -671,7 +584,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares using user submitted data, not the internal ids which may change.
         /// </summary>
         /// <param name="obj">The object to compare the current individual instance against.</param>
-        /// <returns>True if they match, false otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>false</c> otherwise.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomIndividualRecord) == 0;
@@ -693,7 +606,7 @@ namespace SmartFamily.Gedcom.Models
              * These fields indicate interest in additional research for
              * ancestors and descendants, and don't contribute to equality.
              *
-             * Assocations are links to relatives, godparents, etc.
+             * Associations are links to relatives, godparents, etc.
              * They're part of the comparison currently, but not sure if they should be.
              */
 
@@ -782,7 +695,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares using user submitted data, not the internal ids which may change.
         /// </summary>
         /// <param name="other">The other individual to compare the current individual against.</param>
-        /// <returns>True if they match, false otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>false</c> otherwise.</returns>
         public bool Equals(GedcomIndividualRecord other)
         {
             return CompareTo(other) == 0;
@@ -798,7 +711,7 @@ namespace SmartFamily.Gedcom.Models
             // remove from families
             if (RefCount <= 0)
             {
-                if (spouseIn != null)
+                if (_spouseIn != null)
                 {
                     foreach (GedcomFamilyLink spouseLink in SpouseIn)
                     {
@@ -826,7 +739,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (childIn != null)
+                if (_childIn != null)
                 {
                     foreach (GedcomFamilyLink childLink in ChildIn)
                     {
@@ -847,33 +760,33 @@ namespace SmartFamily.Gedcom.Models
                 }
 
                 // remove related records, sources, notes, media etc.
-                if (names != null)
+                if (_names != null)
                 {
-                    foreach (GedcomName name in names)
+                    foreach (GedcomName name in _names)
                     {
                         name.Delete();
                     }
                 }
 
-                if (events != null)
+                if (_events != null)
                 {
-                    foreach (GedcomEvent ev in events)
+                    foreach (GedcomEvent ev in _events)
                     {
                         ev.Delete();
                     }
                 }
 
-                if (attributes != null)
+                if (_attributes != null)
                 {
-                    foreach (GedcomEvent ev in attributes)
+                    foreach (GedcomEvent ev in _attributes)
                     {
                         ev.Delete();
                     }
                 }
 
-                if (associations != null)
+                if (_associations != null)
                 {
-                    foreach (GedcomAssociation asso in associations)
+                    foreach (GedcomAssociation asso in _associations)
                     {
                         asso.Delete();
                     }
@@ -897,10 +810,10 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Sets the name of the prefered.
+        /// Sets the name of the preferred.
         /// </summary>
         /// <param name="name">The name.</param>
-        public void SetPreferedName(GedcomName name)
+        public void SetPreferredName(GedcomName name)
         {
             foreach (GedcomName n in Names)
             {
@@ -912,14 +825,10 @@ namespace SmartFamily.Gedcom.Models
         /// Determine whether a spouse is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>
-        /// True if spouse is in the family; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if spouse is in the family; otherwise <c>False</c>.</returns>
         public bool SpouseInFamily(string family)
         {
-            GedcomFamilyLink tmp;
-
-            return SpouseInFamily(family, out tmp);
+            return SpouseInFamily(family, out GedcomFamilyLink tmp);
         }
 
         /// <summary>
@@ -927,9 +836,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The family link.</param>
-        /// <returns>
-        /// True if spouse is in the family; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if spouse is in the family; otherwise <c>False</c>.</returns>
         public bool SpouseInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -952,14 +859,10 @@ namespace SmartFamily.Gedcom.Models
         /// Determine whether a child is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>
-        /// True if child is in the family; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if child is in the family; otherwise <c>False</c>.</returns>
         public bool ChildInFamily(string family)
         {
-            GedcomFamilyLink tmp;
-
-            return ChildInFamily(family, out tmp);
+            return ChildInFamily(family, out GedcomFamilyLink tmp);
         }
 
         /// <summary>
@@ -967,9 +870,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The fam link.</param>
-        /// <returns>
-        /// True if child is in the family; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if child is in the family; otherwise <c>False</c>.</returns>
         public bool ChildInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -991,17 +892,15 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the family.
         /// </summary>
-        /// <returns>
-        /// Family.
-        /// </returns>
+        /// <returns>Family.</returns>
         public GedcomFamilyRecord GetFamily()
         {
             GedcomFamilyRecord fam = null;
 
-            GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferedSpouse == true));
+            GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferredSpouse == true));
 
-            // shouldn't need this as we automatically set the prefered on loading
-            // do the check anyway though just incase.
+            // shouldn't need this as we automatically set the preferred on loading
+            // do the check anyway though just in case.
             if (link == null && SpouseIn.Count > 0)
             {
                 link = SpouseIn[0];
@@ -1027,11 +926,11 @@ namespace SmartFamily.Gedcom.Models
                 GedcomFamilyRecord famRec = Database[famID] as GedcomFamilyRecord;
                 if (famRec != null)
                 {
-                    link.PreferedSpouse = famRec.Husband == xrefID || famRec.Wife == xrefID;
+                    link.PreferredSpouse = famRec.Husband == xrefID || famRec.Wife == xrefID;
                 }
                 else
                 {
-                    link.PreferedSpouse = false;
+                    link.PreferredSpouse = false;
                     System.Diagnostics.Debug.WriteLine("Unable to find family for link with spouse: " + xrefID);
                 }
             }
@@ -1041,12 +940,10 @@ namespace SmartFamily.Gedcom.Models
         /// Finds the event.
         /// </summary>
         /// <param name="eventType">Type of the event.</param>
-        /// <returns>
-        /// The event if found; otherwise null.
-        /// </returns>
+        /// <returns>The event if found; otherwise null.</returns>
         public GedcomIndividualEvent FindEvent(GedcomEventType eventType)
         {
-            return events.FirstOrDefault(e => e.EventType == eventType);
+            return _events.FirstOrDefault(e => e.EventType == eventType);
         }
 
         /// <summary>
@@ -1054,9 +951,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>
-        /// True if the surname starts with prefix; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if the surname starts with prefix; otherwise <c>False</c>.</returns>
         public bool MatchSurname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1104,9 +999,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>
-        /// True if the firstname starts with prefix; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if the firstname starts with prefix; otherwise <c>False</c>.</returns>
         public bool MatchFirstname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1217,9 +1110,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets a "fake" family record that contains all of this individual's children.
         /// The record will only contain children.
         /// </summary>
-        /// <returns>
-        /// A <see cref="GedcomFamilyRecord"/>.
-        /// </returns>
+        /// <returns>A <see cref="GedcomFamilyRecord"/>.</returns>
         public GedcomFamilyRecord GetAllChildren()
         {
             GedcomFamilyRecord fam = new GedcomFamilyRecord();
@@ -1380,9 +1271,9 @@ namespace SmartFamily.Gedcom.Models
 #endif
 
         /// <summary>
-        /// Outputs this instance of an individual as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the individual record.
         /// </summary>
-        /// <param name="tw">The textwriter to output to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             base.Output(tw);
@@ -1393,7 +1284,7 @@ namespace SmartFamily.Gedcom.Models
                 preferedName.Output(tw);
             }
 
-            foreach (GedcomName name in names)
+            foreach (GedcomName name in _names)
             {
                 if (name != preferedName)
                 {
@@ -1440,20 +1331,20 @@ namespace SmartFamily.Gedcom.Models
                 tw.Write(RestrictionNotice.ToString().ToLower());
             }
 
-            foreach (GedcomIndividualEvent individualEvent in events)
+            foreach (GedcomIndividualEvent individualEvent in _events)
             {
                 individualEvent.Output(tw);
             }
 
-            if (attributes != null)
+            if (_attributes != null)
             {
-                foreach (GedcomIndividualEvent individualEvent in attributes)
+                foreach (GedcomIndividualEvent individualEvent in _attributes)
                 {
                     individualEvent.Output(tw);
                 }
             }
 
-            foreach (GedcomFamilyLink link in childIn)
+            foreach (GedcomFamilyLink link in _childIn)
             {
                 tw.Write(Environment.NewLine);
                 tw.Write(levelPlusOne);
@@ -1497,7 +1388,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            GedcomFamilyLink prefSpouse = SpouseIn.FirstOrDefault(s => s.PreferedSpouse == true);
+            GedcomFamilyLink prefSpouse = SpouseIn.FirstOrDefault(s => s.PreferredSpouse == true);
             if (prefSpouse != null)
             {
                 tw.Write(Environment.NewLine);
@@ -1508,7 +1399,7 @@ namespace SmartFamily.Gedcom.Models
                 tw.Write("@");
             }
 
-            foreach (GedcomFamilyLink link in spouseIn)
+            foreach (GedcomFamilyLink link in _spouseIn)
             {
                 if (link != prefSpouse)
                 {
@@ -1521,7 +1412,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (submitterRecords != null)
+            if (_submitterRecords != null)
             {
                 foreach (string submitter in SubmitterRecords)
                 {
@@ -1539,7 +1430,7 @@ namespace SmartFamily.Gedcom.Models
                 association.Output(tw);
             }
 
-            if (alia != null)
+            if (_alia != null)
             {
                 foreach (string aliaValue in Alia)
                 {
@@ -1552,7 +1443,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (anci != null)
+            if (_anci != null)
             {
                 foreach (string anciValue in Anci)
                 {
@@ -1565,7 +1456,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (desi != null)
+            if (_desi != null)
             {
                 foreach (string desiValue in Desi)
                 {

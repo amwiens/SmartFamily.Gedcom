@@ -10,11 +10,11 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomAge
     {
-        private int equality = 0; // -1 if <, 0 if =, 1 if >
+        private int _equality = 0; // -1 if <, 0 if =, 1 if >
 
-        private int years = -1;
-        private int months = -1;
-        private int days = -1;
+        private int _years = -1;
+        private int _months = -1;
+        private int _days = -1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomAge"/> class.
@@ -34,15 +34,12 @@ namespace SmartFamily.Gedcom.Models
         /// TODO: Docs
         public int Equality
         {
-            get
-            {
-                return equality;
-            }
+            get => _equality;
             set
             {
-                if (value != equality)
+                if (value != _equality)
                 {
-                    equality = value;
+                    _equality = value;
                     Changed();
                 }
             }
@@ -53,10 +50,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public bool StillBorn
         {
-            get
-            {
-                return equality == 0 && years == 0 && months == 0 && days == 0;
-            }
+            get => _equality == 0 && _years == 0 && _months == 0 && _days == 0;
         }
 
         /// <summary>
@@ -64,10 +58,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public bool Infant
         {
-            get
-            {
-                return equality == 0 && years < 1;
-            }
+            get => _equality == 0 && _years < 1;
         }
 
         /// <summary>
@@ -75,10 +66,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public bool Child
         {
-            get
-            {
-                return equality == 0 && years < 8;
-            }
+            get => _equality == 0 && _years < 8;
         }
 
         /// <summary>
@@ -86,53 +74,44 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public int Years
         {
-            get
-            {
-                return years;
-            }
+            get => _years;
             set
             {
-                if (value != years)
+                if (value != _years)
                 {
-                    years = value;
+                    _years = value;
                     Changed();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the mont portion of the individual's age.
+        /// Gets or sets the month portion of the individual's age.
         /// </summary>
         public int Months
         {
-            get
-            {
-                return months;
-            }
+            get => _months;
             set
             {
-                if (value != months)
+                if (value != _months)
                 {
-                    months = value;
+                    _months = value;
                     Changed();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the day portino of the individual's age.
+        /// Gets or sets the day portion of the individual's age.
         /// </summary>
         public int Days
         {
-            get
-            {
-                return days;
-            }
+            get => _days;
             set
             {
-                if (value != days)
+                if (value != _days)
                 {
-                    days = value;
+                    _days = value;
                     Changed();
                 }
             }
@@ -152,26 +131,32 @@ namespace SmartFamily.Gedcom.Models
 
             if (string.Compare(str, "INFANT", true) == 0)
             {
-                age = new GedcomAge();
-                age.Database = database;
-                age.Equality = -1;
-                age.Years = 1;
+                age = new GedcomAge
+                {
+                    Database = database,
+                    Equality = -1,
+                    Years = 1
+                };
             }
             else if (string.Compare(str, "CHILD", true) == 0)
             {
-                age = new GedcomAge();
-                age.Database = database;
-                age.Equality = -1;
-                age.Years = 8;
+                age = new GedcomAge
+                {
+                    Database = database,
+                    Equality = -1,
+                    Years = 8
+                };
             }
             else if (string.Compare(str, "STILLBORN", true) == 0)
             {
-                age = new GedcomAge();
-                age.Database = database;
-                age.Equality = 0;
-                age.Years = 0;
-                age.Months = 0;
-                age.Days = 0;
+                age = new GedcomAge
+                {
+                    Database = database,
+                    Equality = 0,
+                    Years = 0,
+                    Months = 0,
+                    Days = 0
+                };
             }
             else
             {
@@ -267,12 +252,14 @@ namespace SmartFamily.Gedcom.Models
 
                 if (isAge)
                 {
-                    age = new GedcomAge();
-                    age.Database = database;
-                    age.Equality = equality;
-                    age.Years = year;
-                    age.Months = month;
-                    age.Days = day;
+                    age = new GedcomAge
+                    {
+                        Database = database,
+                        Equality = equality,
+                        Years = year,
+                        Months = month,
+                        Days = day
+                    };
                 }
             }
 
@@ -282,47 +269,47 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Output GEDCOM formatted text representing the age.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
+        /// <param name="tw">The writer to output to.</param>
         /// <param name="level">The GEDCOM level.</param>
-        public void Output(TextWriter sw, int level)
+        public void Output(TextWriter tw, int level)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(level);
-            sw.Write(" AGE ");
+            tw.Write(Environment.NewLine);
+            tw.Write(level);
+            tw.Write(" AGE ");
 
             // never write out INFANT CHILD, this potentially loses information,
             // always write out < 1 or < 8 and includes months days if set
             if (StillBorn)
             {
-                sw.Write("STILLBORN");
+                tw.Write("STILLBORN");
             }
             else
             {
                 if (Equality < 0)
                 {
-                    sw.Write("< ");
+                    tw.Write("< ");
                 }
                 else if (Equality > 0)
                 {
-                    sw.Write("> ");
+                    tw.Write("> ");
                 }
 
                 if (Years != -1)
                 {
-                    sw.Write(Years.ToString());
-                    sw.Write("y ");
+                    tw.Write(Years.ToString());
+                    tw.Write("y ");
                 }
 
                 if (Months != -1)
                 {
-                    sw.Write(Months.ToString());
-                    sw.Write("m ");
+                    tw.Write(Months.ToString());
+                    tw.Write("m ");
                 }
                 // TODO: change this to just an if instead of else if?
                 else if (Days != -1)
                 {
-                    sw.Write(Days.ToString());
-                    sw.Write("d");
+                    tw.Write(Days.ToString());
+                    tw.Write("d");
                 }
             }
         }

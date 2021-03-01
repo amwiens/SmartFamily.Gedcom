@@ -10,28 +10,29 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IEquatable<GedcomDate>
     {
-        private GedcomDateType dateType;
-        private GedcomDatePeriod datePeriod;
+        private GedcomDateType _dateType;
+        private GedcomDatePeriod _datePeriod;
 
-        private string period = null;
-        private string time;
-        private string date1;
-        private int partsParsed1;
-        private string date2;
-        private int partsParsed2;
+        private string _period = null;
+        private string _time;
+        private string _date1;
+        private int _partsParsed1;
+        private string _date2;
+        private int _partsParsed2;
 
-        private DateTime? dateTime1;
-        private DateTime? dateTime2;
+        private DateTime? _dateTime1;
+        private DateTime? _dateTime2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomDate"/> class.
         /// </summary>
         public GedcomDate()
         {
-            date1 = string.Empty;
-            date2 = string.Empty;
+            _date1 = string.Empty;
+            _date2 = string.Empty;
         }
 
         /// <summary>
@@ -47,13 +48,13 @@ namespace SmartFamily.Gedcom.Models
         /// <inheritdoc/>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Date; }
+            get => GedcomRecordType.Date;
         }
 
         /// <inheritdoc/>
         public override string GedcomTag
         {
-            get { return "DATE"; }
+            get => "DATE";
         }
 
         /// <summary>
@@ -61,15 +62,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomDateType DateType
         {
-            get
-            {
-                return dateType;
-            }
+            get => _dateType;
             set
             {
-                if (value != dateType)
+                if (value != _dateType)
                 {
-                    dateType = value;
+                    _dateType = value;
                     Changed();
                 }
             }
@@ -80,16 +78,13 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomDatePeriod DatePeriod
         {
-            get
-            {
-                return datePeriod;
-            }
+            get => _datePeriod;
             set
             {
-                if (value != datePeriod)
+                if (value != _datePeriod)
                 {
-                    datePeriod = value;
-                    period = null;
+                    _datePeriod = value;
+                    _period = null;
                     Changed();
                 }
             }
@@ -100,15 +95,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Time
         {
-            get
-            {
-                return time;
-            }
+            get => _time;
             set
             {
-                if (value != time)
+                if (value != _time)
                 {
-                    time = value;
+                    _time = value;
                     Changed();
                 }
             }
@@ -119,16 +111,13 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Date1
         {
-            get
-            {
-                return date1;
-            }
+            get => _date1;
             set
             {
-                if (value != date1)
+                if (value != _date1)
                 {
-                    date1 = value;
-                    period = null;
+                    _date1 = value;
+                    _period = null;
                     Changed();
                 }
             }
@@ -139,7 +128,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public DateTime? DateTime1
         {
-            get { return dateTime1; }
+            get => _dateTime1;
         }
 
         /// <summary>
@@ -147,16 +136,13 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Date2
         {
-            get
-            {
-                return date2;
-            }
+            get => _date2;
             set
             {
-                if (value != date2)
+                if (value != _date2)
                 {
-                    date2 = value;
-                    period = null;
+                    _date2 = value;
+                    _period = null;
                     Changed();
                 }
             }
@@ -167,10 +153,10 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public DateTime? DateTime2
         {
-            get { return dateTime2; }
+            get => _dateTime2;
         }
 
-        // Util properties to get the date as a string
+        // Utility properties to get the date as a string
 
         /// <summary>
         /// Gets
@@ -204,67 +190,67 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (period == null)
+                if (_period == null)
                 {
-                    switch (datePeriod)
+                    switch (_datePeriod)
                     {
                         case GedcomDatePeriod.Exact:
-                            period = date1;
+                            _period = _date1;
                             break;
 
                         case GedcomDatePeriod.After:
-                            period = string.Format("AFT {0}", date1);
+                            _period = string.Format("AFT {0}", _date1);
                             break;
 
                         case GedcomDatePeriod.Before:
-                            period = string.Format("BEF {0}", date1);
+                            _period = string.Format("BEF {0}", _date1);
                             break;
 
                         case GedcomDatePeriod.Between:
                             // TODO: this is a hack as we don't parse _Date2 in
                             // properly yet and just end up with it all in _Date1
-                            if (string.IsNullOrEmpty(date2))
+                            if (string.IsNullOrEmpty(_date2))
                             {
-                                period = string.Format("BET {0}", date1);
+                                _period = string.Format("BET {0}", _date1);
                             }
                             else
                             {
-                                period = string.Format("BET {0} AND {1}", date1, date2);
+                                _period = string.Format("BET {0} AND {1}", _date1, _date2);
                             }
                             break;
 
                         case GedcomDatePeriod.About:
-                            period = string.Format("ABT {0}", date1);
+                            _period = string.Format("ABT {0}", _date1);
                             break;
 
                         case GedcomDatePeriod.Calculated:
-                            period = string.Format("CAL {0}", date1);
+                            _period = string.Format("CAL {0}", _date1);
                             break;
 
                         case GedcomDatePeriod.Estimate:
-                            period = string.Format("EST {0}", date1);
+                            _period = string.Format("EST {0}", _date1);
                             break;
 
                         case GedcomDatePeriod.Interpretation:
-                            period = string.Format("INT {0}", date1);
+                            _period = string.Format("INT {0}", _date1);
                             break;
 
                         case GedcomDatePeriod.Range:
                             // TODO: this is a hack as we don't parse _Date2 in
                             // properly yet and just end up with it all in _Date1
-                            if (string.IsNullOrEmpty(date2))
+                            if (string.IsNullOrEmpty(_date2))
                             {
-                                period = string.Format("FROM {0}", date1);
+                                _period = string.Format("FROM {0}", _date1);
                             }
                             else
                             {
-                                period = string.Format("FROM {0} TO {1}", date1, date2);
+                                _period = string.Format("FROM {0} TO {1}", _date1, _date2);
                             }
                             break;
                     }
                 }
 
-                return period;
+                return _period;
             }
         }
 
@@ -444,12 +430,12 @@ namespace SmartFamily.Gedcom.Models
         /// Returns a percentage based score on how similar the passed record is to the current instance.
         /// </summary>
         /// <param name="date">The date to compare this instance against.</param>
-        /// <returns>A score from 0 to 100 representing the percenage match.</returns>
+        /// <returns>A score from 0 to 100 representing the percentage match.</returns>
         public decimal CalculateSimilarityScore(GedcomDate date)
         {
             var match = decimal.Zero;
 
-            if (Date1 == date.Date1 && Date2 == date.Date2 && DatePeriod == date.datePeriod)
+            if (Date1 == date.Date1 && Date2 == date.Date2 && DatePeriod == date._datePeriod)
             {
                 return 100m;
             }
@@ -458,15 +444,12 @@ namespace SmartFamily.Gedcom.Models
             var matches = decimal.Zero;
             int parts = 0;
 
-            DateTime? dateDate1 = date.DateTime1;
-            DateTime? dateDate2 = date.DateTime2;
-
             // some type, nice and simple,
             // range is the same as between as far as we are concerned
             // for instance an Occupation could have been FROM a TO b
             // or BETWEEN a AND b
             // logic doesn't hold for one off events such as birth, but
-            // then a Range doesn't make sense for thos anyway so if
+            // then a Range doesn't make sense for those anyway so if
             // we have one should be safe to assume it is Between
             if (DateType == date.DateType &&
                 (DatePeriod == date.DatePeriod ||
@@ -478,19 +461,19 @@ namespace SmartFamily.Gedcom.Models
                 // checked 1 value
                 parts++;
 
-                parts += partsParsed1;
+                parts += _partsParsed1;
                 var date1Match = MatchDateTimes(DateTime1, date.DateTime1);
 
                 // correct for number of date parts parsed
-                date1Match *= partsParsed1 / 3m;
+                date1Match *= _partsParsed1 / 3m;
 
                 matches += date1Match;
 
-                parts += partsParsed2;
+                parts += _partsParsed2;
                 var date2Match = MatchDateTimes(DateTime2, date.DateTime2);
 
                 // correct for number of date parts parsed
-                date2Match *= partsParsed2 / 3m;
+                date2Match *= _partsParsed2 / 3m;
 
                 matches += date2Match;
 
@@ -561,7 +544,7 @@ namespace SmartFamily.Gedcom.Models
         public void ParseDateString(string inputDate)
         {
             // clear possible Period cached value;
-            this.period = null;
+            this._period = null;
 
             string dateType = string.Empty;
             var dataString = inputDate; // Preserve inputDate for feedback to the user if it is broken.
@@ -577,35 +560,17 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            switch (dateType)
+            DateType = dateType switch
             {
-                case "@#DGREGORIAN@":
-                    DateType = GedcomDateType.Gregorian;
-                    break;
-
-                case "@#DJULIAN@":
-                    DateType = GedcomDateType.Julian;
-                    break;
-
-                case "@#DHEBREW@":
-                    DateType = GedcomDateType.Hebrew;
-                    break;
-
-                case "@#DROMAN@":
-                    DateType = GedcomDateType.Roman;
-                    break;
-
-                case "@#DUNKNOWN@":
-                    DateType = GedcomDateType.Unknown;
-                    break;
-
-                default:
-                    DateType = GedcomDateType.Gregorian;
-                    break;
-            }
-
-            period = dataString;
-            var periodResult = ExtractDatePeriod(period);
+                "@#DGREGORIAN@" => GedcomDateType.Gregorian,
+                "@#DJULIAN@" => GedcomDateType.Julian,
+                "@#DHEBREW@" => GedcomDateType.Hebrew,
+                "@#DROMAN@" => GedcomDateType.Roman,
+                "@#DUNKNOWN@" => GedcomDateType.Unknown,
+                _ => GedcomDateType.Gregorian,
+            };
+            _period = dataString;
+            var periodResult = ExtractDatePeriod(_period);
             dataString = periodResult.DataAfterExtration;
             DatePeriod = periodResult.DatePeriod;
 
@@ -617,7 +582,6 @@ namespace SmartFamily.Gedcom.Models
                     // TODO: no FrenchCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
-                    break;
 
                 case GedcomDateType.Gregorian:
                     calendar = new GregorianCalendar();
@@ -638,41 +602,40 @@ namespace SmartFamily.Gedcom.Models
                     // TODO: no RomanCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
-                    break;
             }
 
             string[] dateSplit = SplitDateString(dataString);
 
-            dateTime1 = null;
-            dateTime2 = null;
+            _dateTime1 = null;
+            _dateTime2 = null;
 
-            partsParsed1 = 0;
-            partsParsed2 = 0;
+            _partsParsed1 = 0;
+            _partsParsed2 = 0;
 
             if (dateSplit.Length == 1)
             {
-                partsParsed1 = 1;
-                partsParsed2 = 0;
-                dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
-                if (dateTime1 != null)
+                _partsParsed1 = 1;
+                _partsParsed2 = 0;
+                _dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
+                if (_dateTime1 != null)
                 {
                     // We only got a year, so we need to interpret that as a range from the start to the end of the year.
-                    dateTime2 = dateTime1.Value.AddYears(1).AddSeconds(-1);
-                    partsParsed2 = 1;
-                    AddParserMessage(ParserMessageIds.InterpretedAsYearRange, inputDate, dateTime1, dateTime2);
+                    _dateTime2 = _dateTime1.Value.AddYears(1).AddSeconds(-1);
+                    _partsParsed2 = 1;
+                    AddParserMessage(ParserMessageIds.InterpretedAsYearRange, inputDate, _dateTime1, _dateTime2);
                 }
             }
             else if (dateSplit.Length == 2)
             {
-                partsParsed1 = 2;
-                partsParsed2 = 0;
-                dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar, inputDate);
-                if (dateTime1 != null)
+                _partsParsed1 = 2;
+                _partsParsed2 = 0;
+                _dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar, inputDate);
+                if (_dateTime1 != null)
                 {
                     // We only got a month and a year, so we need to interpret that as a range from the start to the end of the month.
-                    dateTime2 = dateTime1.Value.AddMonths(1).AddSeconds(-1);
-                    partsParsed2 = 2;
-                    AddParserMessage(ParserMessageIds.InterpretedAsMonthRange, inputDate, dateTime1, dateTime2);
+                    _dateTime2 = _dateTime1.Value.AddMonths(1).AddSeconds(-1);
+                    _partsParsed2 = 2;
+                    AddParserMessage(ParserMessageIds.InterpretedAsMonthRange, inputDate, _dateTime1, _dateTime2);
                 }
             }
             else if (dateSplit.Length == 3)
@@ -681,16 +644,16 @@ namespace SmartFamily.Gedcom.Models
                 if (string.Compare(dateSplit[1], "AND", true) != 0 &&
                     string.Compare(dateSplit[1], "TO", true) != 0)
                 {
-                    partsParsed1 = 1;
-                    partsParsed2 = 0;
-                    dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar, inputDate);
+                    _partsParsed1 = 1;
+                    _partsParsed2 = 0;
+                    _dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar, inputDate);
                 }
                 else
                 {
-                    partsParsed1 = 1;
-                    partsParsed2 = 1;
-                    dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
-                    dateTime2 = GetDateInfo(dateSplit, 2, 1, calendar, inputDate);
+                    _partsParsed1 = 1;
+                    _partsParsed2 = 1;
+                    _dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
+                    _dateTime2 = GetDateInfo(dateSplit, 2, 1, calendar, inputDate);
                 }
             }
             else if (dateSplit.Length > 4)
@@ -703,26 +666,26 @@ namespace SmartFamily.Gedcom.Models
                     if (string.Compare(dateSplit[1], "AND", true) == 0 ||
                         string.Compare(dateSplit[1], "TO", true) == 0)
                     {
-                        partsParsed1 = 1;
-                        partsParsed2 = 3;
-                        dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
-                        dateTime2 = GetDateInfo(dateSplit, 2, 3, calendar, inputDate);
+                        _partsParsed1 = 1;
+                        _partsParsed2 = 3;
+                        _dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
+                        _dateTime2 = GetDateInfo(dateSplit, 2, 3, calendar, inputDate);
                     }
                     else if (string.Compare(dateSplit[2], "AND", true) == 0 ||
                         string.Compare(dateSplit[2], "TO", true) == 0)
                     {
-                        partsParsed1 = 2;
-                        partsParsed2 = 3;
-                        dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar, inputDate);
-                        dateTime2 = GetDateInfo(dateSplit, 3, 3, calendar, inputDate);
+                        _partsParsed1 = 2;
+                        _partsParsed2 = 3;
+                        _dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar, inputDate);
+                        _dateTime2 = GetDateInfo(dateSplit, 3, 3, calendar, inputDate);
                     }
                     else
                     {
                         // lets assume dateSplit[3] is AND / TO
-                        partsParsed1 = 3;
-                        partsParsed2 = 3;
-                        dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar, inputDate);
-                        dateTime2 = GetDateInfo(dateSplit, 4, 3, calendar, inputDate);
+                        _partsParsed1 = 3;
+                        _partsParsed2 = 3;
+                        _dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar, inputDate);
+                        _dateTime2 = GetDateInfo(dateSplit, 4, 3, calendar, inputDate);
                     }
                 }
                 else
@@ -733,7 +696,7 @@ namespace SmartFamily.Gedcom.Models
             }
 
             if ((DatePeriod == GedcomDatePeriod.Exact &&
-                dateTime1 == null) || !dateTime1.HasValue)
+                _dateTime1 == null) || !_dateTime1.HasValue)
             {
                 // unable to parse, let's try some more methods
                 // as these dates are used for analysis it doesn't matter
@@ -742,12 +705,11 @@ namespace SmartFamily.Gedcom.Models
                 // throw away the original data at all or use these dates
                 // when writing the data back out
                 // TODO: format provider instead of null?
-                DateTime date;
-                if (DateTime.TryParseExact(dataString, new string[] { "d-M-yyyy", "M-d-yyyy", "yyyy-M-d", "d.M.yyyy", "M.d.yyyy", "yyyy.M.d" }, null, DateTimeStyles.None, out date))
+                if (DateTime.TryParseExact(dataString, new string[] { "d-M-yyyy", "M-d-yyyy", "yyyy-M-d", "d.M.yyyy", "M.d.yyyy", "yyyy.M.d" }, null, DateTimeStyles.None, out DateTime date))
                 {
-                    dateTime1 = date;
-                    partsParsed1 = 3;
-                    partsParsed2 = 0;
+                    _dateTime1 = date;
+                    _partsParsed1 = 3;
+                    _partsParsed2 = 0;
                 }
 
                 // other values seen, UNKNOWN, PRIVATE, DECEASED, DEAD
@@ -759,36 +721,36 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the date.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" DATE ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" DATE ");
 
             // only output type if it isn't the default (Gregorian)
-            if (dateType != GedcomDateType.Gregorian)
+            if (_dateType != GedcomDateType.Gregorian)
             {
-                sw.Write("@#D{0}@ ", dateType.ToString());
+                tw.Write("@#D{0}@ ", _dateType.ToString());
             }
 
             if (!string.IsNullOrWhiteSpace(Period))
             {
                 var period = Period.Replace("@", "@@");
-                sw.Write(period);
+                tw.Write(period);
             }
 
             if (!string.IsNullOrEmpty(Time))
             {
                 var line = Time.Replace("@", "@@");
 
-                sw.Write(Environment.NewLine);
-                sw.Write("{0} TIME {1}", (Level + 1).ToString(), line);
+                tw.Write(Environment.NewLine);
+                tw.Write("{0} TIME {1}", (Level + 1).ToString(), line);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>
@@ -916,7 +878,6 @@ namespace SmartFamily.Gedcom.Models
             string year = string.Empty;
             string month = string.Empty;
             string day = string.Empty;
-            //bool bc = false;
 
             DateTime? ret = null;
 
@@ -929,10 +890,8 @@ namespace SmartFamily.Gedcom.Models
                 {
                     // year only
                     year = dateSplit[start];
-                    //bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        //bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }
@@ -943,10 +902,8 @@ namespace SmartFamily.Gedcom.Models
 
                     // year
                     year = dateSplit[start + 1];
-                    //bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        //bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }
@@ -960,10 +917,8 @@ namespace SmartFamily.Gedcom.Models
 
                     //year
                     year = dateSplit[start + 2];
-                    //bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        //bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }

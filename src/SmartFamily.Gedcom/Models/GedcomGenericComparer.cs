@@ -45,7 +45,7 @@ namespace SmartFamily.Gedcom.Models
         /// <typeparam name="T">A type that implements IComparable.</typeparam>
         /// <param name="item1">The first record.</param>
         /// <param name="item2">The second record.</param>
-        /// <returns>REturns an integer that indicates their relative position in the sort order.</returns>
+        /// <returns>Returns an integer that indicates their relative position in the sort order.</returns>
         public static bool SafeEqualityCheck<T>(T item1, T item2)
             where T : IComparable<T>
         {

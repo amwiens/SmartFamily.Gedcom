@@ -10,13 +10,13 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomRecordedEvent : IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
     {
-        private GedcomDatabase database;
+        private GedcomDatabase _database;
 
-        private GedcomRecordList<GedcomEventType> types;
-        private GedcomDate date;
-        private GedcomPlace place;
+        private GedcomRecordList<GedcomEventType> _types;
+        private GedcomDate _date;
+        private GedcomPlace _place;
 
-        private GedcomChangeDate changeDate;
+        private GedcomChangeDate _changeDate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRecordedEvent"/> class.
@@ -28,45 +28,36 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date that this record was changed.
         /// </summary>
-        /// <value>
-        /// the date of the change.
-        /// </value>
         public GedcomChangeDate ChangeDate { get; set; }
 
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
         public GedcomDatabase Database
         {
-            get { return database; }
-            set { database = value; }
+            get => _database;
+            set => _database = value;
         }
 
         /// <summary>
         /// Gets or sets the types.
         /// </summary>
-        /// <value>
-        /// The types.
-        /// </value>
         public GedcomRecordList<GedcomEventType> Types
         {
             get
             {
-                if (types == null)
+                if (_types == null)
                 {
-                    types = new GedcomRecordList<GedcomEventType>();
+                    _types = new GedcomRecordList<GedcomEventType>();
                 }
 
-                return types;
+                return _types;
             }
             set
             {
-                if (types != value)
+                if (_types != value)
                 {
-                    types = value;
+                    _types = value;
                     Changed();
                 }
             }
@@ -75,20 +66,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
         public GedcomDate Date
         {
-            get
-            {
-                return date;
-            }
+            get => _date;
             set
             {
-                if (value != date)
+                if (value != _date)
                 {
-                    date = value;
+                    _date = value;
                     Changed();
                 }
             }
@@ -97,20 +82,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the place.
         /// </summary>
-        /// <value>
-        /// The place.
-        /// </value>
         public GedcomPlace Place
         {
-            get
-            {
-                return place;
-            }
+            get => _place;
             set
             {
-                if (value != place)
+                if (value != _place)
                 {
-                    place = value;
+                    _place = value;
                     Changed();
                 }
             }
@@ -171,7 +150,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the GedcomRecordedEvent against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The other instance to compare this instance against.</param>
-        /// <returns>True if other instance matches this instance, otherwise False.</returns>
+        /// <returns><c>True</c> if other instance matches this instance, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomRecordedEvent other)
         {
             return CompareTo(other) == 0;
@@ -181,7 +160,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the GedcomREcordedEvent against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The other instance to compare this instance against.</param>
-        /// <returns>True if other instance matches this instance, otherwise False.</returns>
+        /// <returns><c>True</c> if other instance matches this instance, otherwise <c>False</c>.</returns>
         public override bool Equals(object obj)
         {
             return CompareTo(obj as GedcomRecordedEvent) == 0;
@@ -202,7 +181,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         protected virtual void Changed()
         {
-            if (database == null)
+            if (_database == null)
             {
                 //System.Console.WriteLine("Changed() called on record with no database set");
 
@@ -212,17 +191,17 @@ namespace SmartFamily.Gedcom.Models
                 //    System.Console.WriteLine(f);
                 //}
             }
-            else if (!database.Loading)
+            else if (!_database.Loading)
             {
-                if (changeDate == null)
+                if (_changeDate == null)
                 {
-                    changeDate = new GedcomChangeDate(Database); // TODO: what level?
+                    _changeDate = new GedcomChangeDate(Database); // TODO: what level?
                 }
 
                 DateTime now = DateTime.Now;
 
-                changeDate.Date1 = now.ToString("dd MMM yyyy");
-                changeDate.Time = now.ToString("hh:mm:ss");
+                _changeDate.Date1 = now.ToString("dd MMM yyyy");
+                _changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
 

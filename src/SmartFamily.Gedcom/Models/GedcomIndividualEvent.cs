@@ -14,10 +14,11 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// An event relating to a given individual.
     /// </summary>
+    /// <seealso cref="GedcomEvent"/>
     public class GedcomIndividualEvent : GedcomEvent
     {
-        private GedcomAge age;
-        private string famc;
+        private GedcomAge _age;
+        private string _famc;
 
         private GedcomAdoptionType adoptedBy;
 
@@ -31,31 +32,22 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type fo the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.IndividualEvent; }
+            get => GedcomRecordType.IndividualEvent;
         }
 
         /// <summary>
         /// Gets or sets the age.
         /// </summary>
-        /// <value>
-        /// The age.
-        /// </value>
         public GedcomAge Age
         {
-            get
-            {
-                return age;
-            }
+            get => _age;
             set
             {
-                if (value != age)
+                if (value != _age)
                 {
-                    age = value;
+                    _age = value;
                 }
             }
         }
@@ -65,15 +57,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Famc
         {
-            get
-            {
-                return famc;
-            }
+            get => _famc;
             set
             {
-                if (value != famc)
+                if (value != _famc)
                 {
-                    famc = value;
+                    _famc = value;
                     Changed();
                 }
             }
@@ -84,10 +73,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomAdoptionType AdoptedBy
         {
-            get
-            {
-                return adoptedBy;
-            }
+            get => adoptedBy;
             set
             {
                 if (value != adoptedBy)
@@ -98,7 +84,7 @@ namespace SmartFamily.Gedcom.Models
             }
         }
 
-        // util backpointer to the individual for this event
+        // utility backpointer to the individual for this event
 
         /// <summary>
         /// Gets or sets the individual's record.
@@ -106,10 +92,7 @@ namespace SmartFamily.Gedcom.Models
         /// <exception cref="Exception">Must set a GedcomIndividualRecord on a GedcomIndividualEvent.</exception>
         public GedcomIndividualRecord IndiRecord
         {
-            get
-            {
-                return (GedcomIndividualRecord)Record;
-            }
+            get => (GedcomIndividualRecord)Record;
             set
             {
                 if (value != Record)
@@ -137,18 +120,15 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (age != null)
+                if (_age != null)
                 {
-                    childChangeDate = age.ChangeDate;
+                    childChangeDate = _age.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
@@ -162,10 +142,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
 #if !XML_NODE_UNDEFINED
@@ -223,16 +200,16 @@ namespace SmartFamily.Gedcom.Models
 #endif
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the individual event.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             if (Age != null)
             {
-                Age.Output(sw, Level + 1);
+                Age.Output(tw, Level + 1);
             }
         }
     }

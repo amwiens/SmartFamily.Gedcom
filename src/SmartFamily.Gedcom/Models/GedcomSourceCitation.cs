@@ -13,17 +13,17 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="GedcomRecord"/>
     public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitation>, IComparable<GedcomSourceCitation>, IComparable
     {
-        private string source;
+        private string _source;
 
         // source citation fields
-        private string page;
+        private string _page;
 
-        private string eventType;
-        private string role;
-        private GedcomCertainty certainty = GedcomCertainty.Unknown;
+        private string _eventType;
+        private string _role;
+        private GedcomCertainty _certainty = GedcomCertainty.Unknown;
 
-        private GedcomDate date;
-        private string text;
+        private GedcomDate _date;
+        private string _text;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSourceCitation"/> class.
@@ -40,39 +40,27 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.SourceCitation; }
+            get => GedcomRecordType.SourceCitation;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for a source citation.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag => "SOUR";
 
         /// <summary>
         /// Gets or sets the source.
         /// </summary>
-        /// <value>
-        /// The source.
-        /// </value>
         public string Source
         {
-            get
-            {
-                return source;
-            }
+            get => _source;
             set
             {
-                if (value != source)
+                if (value != _source)
                 {
-                    source = value;
+                    _source = value;
                     Changed();
                 }
             }
@@ -81,20 +69,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the page.
         /// </summary>
-        /// <value>
-        /// The page.
-        /// </value>
         public string Page
         {
-            get
-            {
-                return page;
-            }
+            get => _page;
             set
             {
-                if (value != page)
+                if (value != _page)
                 {
-                    page = value;
+                    _page = value;
                     Changed();
                 }
             }
@@ -103,20 +85,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the event.
         /// </summary>
-        /// <value>
-        /// The type of the event.
-        /// </value>
         public string EventType
         {
-            get
-            {
-                return eventType;
-            }
+            get => _eventType;
             set
             {
-                if (value != eventType)
+                if (value != _eventType)
                 {
-                    eventType = value;
+                    _eventType = value;
                     Changed();
                 }
             }
@@ -125,20 +101,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the role.
         /// </summary>
-        /// <value>
-        /// The role.
-        /// </value>
         public string Role
         {
-            get
-            {
-                return role;
-            }
+            get => _role;
             set
             {
-                if (value != role)
+                if (value != _role)
                 {
-                    role = value;
+                    _role = value;
                     Changed();
                 }
             }
@@ -147,20 +117,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the certainty.
         /// </summary>
-        /// <value>
-        /// The certainty.
-        /// </value>
         public GedcomCertainty Certainty
         {
-            get
-            {
-                return certainty;
-            }
+            get => _certainty;
             set
             {
-                if (value != certainty)
+                if (value != _certainty)
                 {
-                    certainty = value;
+                    _certainty = value;
                     Changed();
                 }
             }
@@ -169,20 +133,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        /// <value>
-        /// Teh date.
-        /// </value>
         public GedcomDate Date
         {
-            get
-            {
-                return date;
-            }
+            get => _date;
             set
             {
-                if (value != date)
+                if (value != _date)
                 {
-                    date = value;
+                    _date = value;
                     Changed();
                 }
             }
@@ -191,20 +149,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => _text;
             set
             {
-                if (value != text)
+                if (value != _text)
                 {
-                    text = value;
+                    _text = value;
                     Changed();
                 }
             }
@@ -258,7 +210,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant source");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent source");
                 }
 
                 if (!string.IsNullOrEmpty(Page))
@@ -285,24 +237,24 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this source citation as a GGEDCOM record.
+        /// Output GEDCOM formatted text representing the source citation.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" SOUR ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" SOUR ");
 
             // should always have a Source, but check anyway
             if (!string.IsNullOrEmpty(Source))
             {
-                sw.Write("@");
-                sw.Write(Source);
-                sw.Write("@");
+                tw.Write("@");
+                tw.Write(Source);
+                tw.Write("@");
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -314,11 +266,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" PAGE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" PAGE ");
                 string line = Page.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (!string.IsNullOrEmpty(EventType))
@@ -328,11 +280,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" EVEN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" EVEN ");
                 string line = EventType.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
 
                 if (!string.IsNullOrEmpty(Role))
                 {
@@ -341,11 +293,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" ROLE ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" ROLE ");
                     line = Role.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
             }
 
@@ -356,13 +308,13 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" DATA ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" DATA ");
 
                 if (Date != null)
                 {
-                    Date.Output(sw);
+                    Date.Output(tw);
                 }
 
                 if (!string.IsNullOrEmpty(Text))
@@ -372,11 +324,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" TEXT ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" TEXT ");
 
-                    Util.SplitLineText(sw, Text, Level + 2, 248);
+                    Util.SplitLineText(tw, Text, Level + 2, 248);
                 }
             }
 
@@ -387,10 +339,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" QUAY ");
-                sw.Write(((int)Certainty).ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" QUAY ");
+                tw.Write(((int)Certainty).ToString());
             }
         }
 
@@ -398,9 +350,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomSourceCitation) == 0;
@@ -410,9 +360,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSourceCitation to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSourceCitation other)
         {
             return IsEquivalentTo(other);
@@ -422,9 +370,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj);
@@ -436,7 +382,7 @@ namespace SmartFamily.Gedcom.Models
         /// <param name="citation">A citation.</param>
         /// <returns>
         /// &lt;0 if this citation precedes the other in the sort order;
-        /// &gt;0 if the other citation preceds this one;
+        /// &gt;0 if the other citation precedes this one;
         /// 0 if the citations are equal
         /// </returns>
         public int CompareTo(GedcomSourceCitation citation)
@@ -490,7 +436,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="obj">A citation.</param>
         /// <returns>
-        /// &lt;0 if this object preceds the other in the sort order;
+        /// &lt;0 if this object precedes the other in the sort order;
         /// &gt;0 if the other object precedes this one;
         /// 0 if the objects are equal
         /// </returns>

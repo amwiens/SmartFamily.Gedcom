@@ -18,42 +18,42 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Level
         /// </summary>
-        private int level;
+        private int _level;
 
         /// <summary>
         /// User reference number
         /// </summary>
-        private string userReferenceNumber;
+        private string _userReferenceNumber;
 
         /// <summary>
         /// User reference type
         /// </summary>
-        private string userReferenceType;
+        private string _userReferenceType;
 
         /// <summary>
         /// Automated record identifier
         /// </summary>
-        private string automatedRecordId;
+        private string _automatedRecordId;
 
         /// <summary>
         /// Change date
         /// </summary>
-        private GedcomChangeDate changeDate;
+        private GedcomChangeDate _changeDate;
 
         /// <summary>
         /// Notes
         /// </summary>
-        private GedcomRecordList<string> notes;
+        private GedcomRecordList<string> _notes;
 
         /// <summary>
         /// Multimedia
         /// </summary>
-        private GedcomRecordList<string> multimedia;
+        private GedcomRecordList<string> _multimedia;
 
         /// <summary>
         /// Sources
         /// </summary>
-        private GedcomRecordList<GedcomSourceCitation> sources;
+        private GedcomRecordList<GedcomSourceCitation> _sources;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRecord"/> class.
@@ -75,40 +75,28 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public virtual GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.GenericRecord; }
+            get => GedcomRecordType.GenericRecord;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public virtual string GedcomTag
         {
-            get { return "_UNKN"; }
+            get => "_UNKN";
         }
 
         /// <summary>
         /// Gets or sets the level.
         /// </summary>
-        /// <value>
-        /// The level.
-        /// </value>
         public int Level
         {
-            get
-            {
-                return level;
-            }
+            get => _level;
             set
             {
-                level = value;
+                _level = value;
                 ParsingLevel = value;
             }
         }
@@ -126,32 +114,23 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the x reference identifier.
         /// </summary>
-        /// <value>
-        /// The x reference identifier.
-        /// </value>
         public string XRefID
         {
-            get { return XrefId; }
-            set { XrefId = value; }
+            get => XrefId;
+            set => XrefId = value;
         }
 
         /// <summary>
         /// Gets or sets the user reference number.
         /// </summary>
-        /// <value>
-        /// The user reference number.
-        /// </value>
         public string UserReferenceNumber
         {
-            get
-            {
-                return userReferenceNumber;
-            }
+            get => _userReferenceNumber;
             set
             {
-                if (value != userReferenceNumber)
+                if (value != _userReferenceNumber)
                 {
-                    userReferenceNumber = value;
+                    _userReferenceNumber = value;
                     Changed();
                 }
             }
@@ -160,20 +139,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the user reference.
         /// </summary>
-        /// <value>
-        /// The type of the user reference.
-        /// </value>
         public string UserReferenceType
         {
-            get
-            {
-                return userReferenceType;
-            }
+            get => _userReferenceType;
             set
             {
-                if (value != userReferenceType)
+                if (value != _userReferenceType)
                 {
-                    userReferenceType = value;
+                    _userReferenceType = value;
                     Changed();
                 }
             }
@@ -182,20 +155,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the automated record identifier.
         /// </summary>
-        /// <value>
-        /// The automated record identifier.
-        /// </value>
         public string AutomatedRecordId
         {
-            get
-            {
-                return automatedRecordId;
-            }
+            get => _automatedRecordId;
             set
             {
-                if (value != automatedRecordId)
+                if (value != _automatedRecordId)
                 {
-                    automatedRecordId = value;
+                    _automatedRecordId = value;
                     Changed();
                 }
             }
@@ -204,15 +171,12 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         /// <exception cref="Exception">MISSING DATABASE: " + this.RecordType.ToString()</exception>
         public virtual GedcomChangeDate ChangeDate
         {
             get
             {
-                GedcomChangeDate realChangeDate = changeDate;
+                GedcomChangeDate realChangeDate = _changeDate;
                 GedcomRecord record;
                 GedcomChangeDate childChangeDate;
                 if (Database == null)
@@ -221,7 +185,7 @@ namespace SmartFamily.Gedcom.Models
                     throw new Exception($"MISSING DATABASE: {this.RecordType.ToString()}");
                 }
 
-                if (notes != null)
+                if (_notes != null)
                 {
                     foreach (string noteID in Notes)
                     {
@@ -241,7 +205,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (multimedia != null)
+                if (_multimedia != null)
                 {
                     foreach (string mediaID in Multimedia)
                     {
@@ -261,7 +225,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (sources != null)
+                if (_sources != null)
                 {
                     foreach (GedcomSourceCitation citation in Sources)
                     {
@@ -280,10 +244,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                changeDate = value;
-            }
+            set => _changeDate = value;
         }
 
         /// <summary>
@@ -294,62 +255,53 @@ namespace SmartFamily.Gedcom.Models
             // TODO: This lookup is not easy to use, can we simplify this to a list of note records?
             get
             {
-                if (notes == null)
+                if (_notes == null)
                 {
-                    notes = new GedcomRecordList<string>();
-                    notes.CollectionChanged += ListChanged;
+                    _notes = new GedcomRecordList<string>();
+                    _notes.CollectionChanged += ListChanged;
                 }
 
-                return notes;
+                return _notes;
             }
         }
 
         /// <summary>
         /// Gets the multimedia.
         /// </summary>
-        /// <value>
-        /// The multimedia.
-        /// </value>
         public GedcomRecordList<string> Multimedia
         {
             get
             {
-                if (multimedia == null)
+                if (_multimedia == null)
                 {
-                    multimedia = new GedcomRecordList<string>();
-                    multimedia.CollectionChanged += ListChanged;
+                    _multimedia = new GedcomRecordList<string>();
+                    _multimedia.CollectionChanged += ListChanged;
                 }
 
-                return multimedia;
+                return _multimedia;
             }
         }
 
         /// <summary>
         /// Gets the sources.
         /// </summary>
-        /// <value>
-        /// The sources.
-        /// </value>
         public GedcomRecordList<GedcomSourceCitation> Sources
         {
             get
             {
-                if (sources == null)
+                if (_sources == null)
                 {
-                    sources = new GedcomRecordList<GedcomSourceCitation>();
-                    sources.CollectionChanged += ListChanged;
+                    _sources = new GedcomRecordList<GedcomSourceCitation>();
+                    _sources.CollectionChanged += ListChanged;
                 }
 
-                return sources;
+                return _sources;
             }
         }
 
         /// <summary>
         /// Gets or sets the reference count.
         /// </summary>
-        /// <value>
-        /// The reference count.
-        /// </value>
         public int RefCount { get; set; }
 
         /// <summary>
@@ -358,15 +310,9 @@ namespace SmartFamily.Gedcom.Models
         /// <remarks>
         /// Not standard GEDCOM, but no reason not to put a restriction notice at this level.
         /// </remarks>
-        /// <value>
-        /// The restriction notice.
-        /// </value>
         public GedcomRestrictionNotice RestrictionNotice
         {
-            get
-            {
-                return restrictionNotice;
-            }
+            get => restrictionNotice;
             set
             {
                 if (value != restrictionNotice)
@@ -397,26 +343,26 @@ namespace SmartFamily.Gedcom.Models
             RefCount--;
             if (RefCount <= 0)
             {
-                if (multimedia != null)
+                if (_multimedia != null)
                 {
-                    foreach (string objeID in multimedia)
+                    foreach (string objeID in _multimedia)
                     {
                         GedcomMultimediaRecord obje = (GedcomMultimediaRecord)Database[objeID];
                         obje.Delete();
                     }
                 }
 
-                if (sources != null)
+                if (_sources != null)
                 {
-                    foreach (GedcomSourceCitation citation in sources)
+                    foreach (GedcomSourceCitation citation in _sources)
                     {
                         citation.Delete();
                     }
                 }
 
-                if (notes != null)
+                if (_notes != null)
                 {
-                    foreach (string noteID in notes)
+                    foreach (string noteID in _notes)
                     {
                         GedcomNoteRecord note = (GedcomNoteRecord)Database[noteID];
                         note.Delete();
@@ -453,7 +399,7 @@ namespace SmartFamily.Gedcom.Models
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant note");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent note");
                 }
             }
         }
@@ -516,37 +462,37 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public virtual void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public virtual void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
             {
-                sw.Write("@");
-                sw.Write(XrefId);
-                sw.Write("@ ");
+                tw.Write("@");
+                tw.Write(XrefId);
+                tw.Write("@ ");
             }
 
-            sw.Write(GedcomTag);
+            tw.Write(GedcomTag);
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>
         /// Must be overridden in derived classes to compare the user entered data for that instance.
-        /// Called from the <see cref="Equals(GedcomRecord)" /> method before it checks comman
+        /// Called from the <see cref="Equals(GedcomRecord)" /> method before it checks common
         /// data elements (notes, sources etc.).
         /// We use the word equivalent so that we avoid using the word equals. This is because we are
         /// checking user entered data only and as far as the end user cares, two records can be equivalent
         /// (matching) but they might be two different individuals / families etc.
         /// </summary>
-        /// <param name="obj">The object to compare this instnce against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public abstract bool IsEquivalentTo(object obj);
 
         /// <summary>
@@ -555,7 +501,7 @@ namespace SmartFamily.Gedcom.Models
         /// against this instance (Source etc. which are common to all inheritors).
         /// </summary>
         /// <param name="obj">The GedcomRecord to compare against.</param>
-        /// <returns>True if the cord base properties match, otherwise False.</returns>
+        /// <returns><c>True</c> if the cord base properties match, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomRecord obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -591,7 +537,7 @@ namespace SmartFamily.Gedcom.Models
                 return false;
             }
 
-            // TODO: NOtes are hard work, we need to do lookups by xref instead of just having a list of GedcomNote records attached. Need to fix this as a pain to test and use as well.
+            // TODO: Notes are hard work, we need to do lookups by xref instead of just having a list of GedcomNote records attached. Need to fix this as a pain to test and use as well.
             //if (!GedcomGenericListComparer.CompareLists(Notes, record.Notes))
             //{
             //    return false;
@@ -670,17 +616,19 @@ namespace SmartFamily.Gedcom.Models
             }
             else if (!Database.Loading)
             {
-                if (changeDate == null)
+                if (_changeDate == null)
                 {
-                    changeDate = new GedcomChangeDate(Database);
-                    changeDate.Level = Level + 1;
+                    _changeDate = new GedcomChangeDate(Database)
+                    {
+                        Level = Level + 1
+                    };
                 }
 
                 DateTime now = SystemTime.Now;
 
-                changeDate.Date1 = now.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-                changeDate.Time = now.ToString("HH:mm:ss");
-                changeDate.DatePeriod = GedcomDatePeriod.Exact;
+                _changeDate.Date1 = now.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+                _changeDate.Time = now.ToString("HH:mm:ss");
+                _changeDate.DatePeriod = GedcomDatePeriod.Exact;
             }
         }
 
@@ -691,14 +639,14 @@ namespace SmartFamily.Gedcom.Models
         /// <param name="line">The line.</param>
         protected void SplitText(StreamWriter sw, string line)
         {
-            Gedcom.Util.SplitText(sw, line, Level + 1, 248, int.MaxValue, false);
+            Util.SplitText(sw, line, Level + 1, 248, int.MaxValue, false);
         }
 
         /// <summary>
-        /// Outputs the standard.
+        /// Output GEDCOM formatted text representing the standard data.
         /// </summary>
-        /// <param name="sw">The writer.</param>
-        protected void OutputStandard(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        protected void OutputStandard(TextWriter tw)
         {
             string levelPlusOne = null;
 
@@ -709,14 +657,14 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" CHAN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" CHAN ");
 
-                ChangeDate.Output(sw);
+                ChangeDate.Output(tw);
             }
 
-            if (notes != null)
+            if (_notes != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -725,20 +673,20 @@ namespace SmartFamily.Gedcom.Models
 
                 foreach (string noteID in Notes)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write($"{levelPlusOne} NOTE @{noteID}@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write($"{levelPlusOne} NOTE @{noteID}@");
                 }
             }
 
-            if (sources != null)
+            if (_sources != null)
             {
                 foreach (GedcomSourceCitation citation in Sources)
                 {
-                    citation.Output(sw);
+                    citation.Output(tw);
                 }
             }
 
-            if (multimedia != null)
+            if (_multimedia != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -747,8 +695,8 @@ namespace SmartFamily.Gedcom.Models
 
                 foreach (string multimediaID in Multimedia)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write($"{levelPlusOne} OBJE @{multimediaID}@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write($"{levelPlusOne} OBJE @{multimediaID}@");
                 }
             }
 
@@ -759,19 +707,19 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" REFN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" REFN ");
                 string line = UserReferenceNumber.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
 
                 if (!string.IsNullOrEmpty(UserReferenceType))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write((Level + 1).ToString());
-                    sw.Write(" REFN ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write((Level + 1).ToString());
+                    tw.Write(" REFN ");
                     line = UserReferenceType.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
             }
 
@@ -782,11 +730,11 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RIN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RIN ");
                 string line = AutomatedRecordId.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
         }
     }

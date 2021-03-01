@@ -8,21 +8,22 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// The header from / for a GEDCOM file.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomHeader : GedcomRecord, IEquatable<GedcomHeader>
     {
-        private GedcomNoteRecord contentDescription;
+        private GedcomNoteRecord _contentDescription;
 
-        private string submitterXRefID;
+        private string _submitterXRefID;
 
-        private GedcomDate transmissionDate;
+        private GedcomDate _transmissionDate;
 
-        private string copyright;
+        private string _copyright;
 
-        private string language;
+        private string _language;
 
-        private string sourceName = string.Empty;
-        private GedcomDate sourceDate;
-        private string sourceCopyright;
+        private string _sourceName = string.Empty;
+        private GedcomDate _sourceDate;
+        private string _sourceCopyright;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomHeader"/> class.
@@ -34,16 +35,10 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
-        /// <exception cref="Exception">Databse can only have one header.</exception>
+        /// <exception cref="Exception">Database can only have one header.</exception>
         public override GedcomDatabase Database
         {
-            get
-            {
-                return base.Database;
-            }
+            get => base.Database;
             set
             {
                 base.Database = value;
@@ -62,60 +57,39 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name of the application.
         /// </summary>
-        /// <value>
-        /// The name of the application.
-        /// </value>
         public string ApplicationName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the application version.
         /// </summary>
-        /// <value>
-        /// The application version.
-        /// </value>
         public string ApplicationVersion { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the application system identifier.
         /// </summary>
-        /// <value>
-        /// The application system identifier.
-        /// </value>
         public string ApplicationSystemId { get; set; } = "SmartFamily.Gedcom";
 
         /// <summary>
         /// Gets or sets the corporation.
         /// </summary>
-        /// <value>
-        /// The corporation.
-        /// </value>
         public string Corporation { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the corporation address.
         /// </summary>
-        /// <value>
-        /// The corporation address.
-        /// </value>
         public GedcomAddress CorporationAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the content description.
         /// </summary>
-        /// <value>
-        /// The content description.
-        /// </value>
         public GedcomNoteRecord ContentDescription
         {
-            get
-            {
-                return contentDescription;
-            }
+            get => _contentDescription;
             set
             {
-                if (value != contentDescription)
+                if (value != _contentDescription)
                 {
-                    contentDescription = value;
+                    _contentDescription = value;
                     Changed();
                 }
             }
@@ -124,25 +98,19 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the submitter x reference identifier.
         /// </summary>
-        /// <value>
-        /// The submitter x reference identifier.
-        /// </value>
         public string SubmitterXRefID
         {
-            get
-            {
-                return submitterXRefID;
-            }
+            get => _submitterXRefID;
             set
             {
-                if (submitterXRefID != value)
+                if (_submitterXRefID != value)
                 {
-                    if (!string.IsNullOrEmpty(submitterXRefID))
+                    if (!string.IsNullOrEmpty(_submitterXRefID))
                     {
                         Submitter.Delete();
                     }
 
-                    submitterXRefID = value;
+                    _submitterXRefID = value;
                     Changed();
                 }
             }
@@ -151,15 +119,9 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the submitter.
         /// </summary>
-        /// <value>
-        /// The submitter.
-        /// </value>
         public GedcomSubmitterRecord Submitter
         {
-            get
-            {
-                return Database[SubmitterXRefID] as GedcomSubmitterRecord;
-            }
+            get => Database[SubmitterXRefID] as GedcomSubmitterRecord;
             set
             {
                 if (value == null)
@@ -176,20 +138,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the transmission date.
         /// </summary>
-        /// <value>
-        /// The transmission date.
-        /// </value>
         public GedcomDate TransmissionDate
         {
-            get
-            {
-                return transmissionDate;
-            }
+            get => _transmissionDate;
             set
             {
-                if (transmissionDate != value)
+                if (_transmissionDate != value)
                 {
-                    transmissionDate = value;
+                    _transmissionDate = value;
                     Changed();
                 }
             }
@@ -198,20 +154,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the copyright.
         /// </summary>
-        /// <value>
-        /// The copyright.
-        /// </value>
         public string Copyright
         {
-            get
-            {
-                return copyright;
-            }
+            get => _copyright;
             set
             {
-                if (copyright != value)
+                if (_copyright != value)
                 {
-                    copyright = value;
+                    _copyright = value;
                     Changed();
                 }
             }
@@ -220,20 +170,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the language.
         /// </summary>
-        /// <value>
-        /// The language.
-        /// </value>
         public string Language
         {
-            get
-            {
-                return language;
-            }
+            get => _language;
             set
             {
-                if (language != value)
+                if (_language != value)
                 {
-                    language = value;
+                    _language = value;
                     Changed();
                 }
             }
@@ -242,28 +186,19 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the filename.
         /// </summary>
-        /// <value>
-        /// The filename.
-        /// </value>
         public string Filename { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the source.
         /// </summary>
-        /// <value>
-        /// The name of the source.
-        /// </value>
         public string SourceName
         {
-            get
-            {
-                return sourceName;
-            }
+            get => _sourceName;
             set
             {
-                if (sourceName != value)
+                if (_sourceName != value)
                 {
-                    sourceName = value;
+                    _sourceName = value;
                     Changed();
                 }
             }
@@ -272,20 +207,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the source date.
         /// </summary>
-        /// <value>
-        /// The source date.
-        /// </value>
         public GedcomDate SourceDate
         {
-            get
-            {
-                return sourceDate;
-            }
+            get => _sourceDate;
             set
             {
-                if (sourceDate != value)
+                if (_sourceDate != value)
                 {
-                    sourceDate = value;
+                    _sourceDate = value;
                     Changed();
                 }
             }
@@ -294,20 +223,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the source copyright.
         /// </summary>
-        /// <value>
-        /// The source copyright.
-        /// </value>
         public string SourceCopyright
         {
-            get
-            {
-                return sourceCopyright;
-            }
+            get => _sourceCopyright;
             set
             {
-                if (sourceCopyright != value)
+                if (_sourceCopyright != value)
                 {
-                    sourceCopyright = value;
+                    _sourceCopyright = value;
                     Changed();
                 }
             }
@@ -316,109 +239,106 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Header; }
+            get => GedcomRecordType.Header;
         }
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the header.
         /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write("0 HEAD");
+            tw.Write("0 HEAD");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 SOUR {0}", ApplicationSystemId);
+            tw.Write(Environment.NewLine);
+            tw.Write("1 SOUR {0}", ApplicationSystemId);
 
             if (!string.IsNullOrEmpty(ApplicationName))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 NAME {0}", ApplicationName);
+                tw.Write(Environment.NewLine);
+                tw.Write("2 NAME {0}", ApplicationName);
             }
 
             if (!string.IsNullOrEmpty(ApplicationVersion))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 VERS {0}", ApplicationVersion);
+                tw.Write(Environment.NewLine);
+                tw.Write("2 VERS {0}", ApplicationVersion);
             }
 
             if (!string.IsNullOrEmpty(Corporation))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 CORP {0}", Corporation);
+                tw.Write(Environment.NewLine);
+                tw.Write("2 CORP {0}", Corporation);
             }
 
             if (CorporationAddress != null)
             {
-                CorporationAddress.Output(sw, 3);
+                CorporationAddress.Output(tw, 3);
             }
 
             if (!string.IsNullOrEmpty(SourceName) ||
                 !string.IsNullOrEmpty(SourceCopyright) ||
                 SourceDate != null)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 DATA");
+                tw.Write(Environment.NewLine);
+                tw.Write("2 DATA");
                 if (!string.IsNullOrEmpty(SourceName))
                 {
-                    sw.Write(" ");
-                    sw.Write(SourceName);
+                    tw.Write(" ");
+                    tw.Write(SourceName);
                 }
 
                 if (!string.IsNullOrEmpty(SourceCopyright))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write("3 COPR ");
-                    sw.Write(SourceCopyright);
+                    tw.Write(Environment.NewLine);
+                    tw.Write("3 COPR ");
+                    tw.Write(SourceCopyright);
                 }
 
                 if (SourceDate != null)
                 {
-                    SourceDate.Output(sw);
+                    SourceDate.Output(tw);
                 }
             }
 
             if (TransmissionDate != null)
             {
-                TransmissionDate.Output(sw);
+                TransmissionDate.Output(tw);
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 FILE {0}", Filename);
+            tw.Write(Environment.NewLine);
+            tw.Write("1 FILE {0}", Filename);
 
             if (ContentDescription != null)
             {
-                ContentDescription.Output(sw);
+                ContentDescription.Output(tw);
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 GEDC");
+            tw.Write(Environment.NewLine);
+            tw.Write("1 GEDC");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("2 VERS 5.5.1");
+            tw.Write(Environment.NewLine);
+            tw.Write("2 VERS 5.5.1");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("2 FORM LINEAGE-LINKED");
+            tw.Write(Environment.NewLine);
+            tw.Write("2 FORM LINEAGE-LINKED");
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 CHAR UTF-8");
+            tw.Write(Environment.NewLine);
+            tw.Write("1 CHAR UTF-8");
 
-            sw.Write(Environment.NewLine);
+            tw.Write(Environment.NewLine);
             if (!string.IsNullOrWhiteSpace(Language))
             {
-                sw.Write($"1 LANG {Language}");
+                tw.Write($"1 LANG {Language}");
             }
 
-            bool hasSubmitter = !string.IsNullOrEmpty(submitterXRefID);
+            bool hasSubmitter = !string.IsNullOrEmpty(_submitterXRefID);
             if (hasSubmitter)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write($"1 SUBM @{submitterXRefID}@");
+                tw.Write(Environment.NewLine);
+                tw.Write($"1 SUBM @{_submitterXRefID}@");
             }
         }
 
@@ -427,10 +347,10 @@ namespace SmartFamily.Gedcom.Models
         /// If new fields are added to the header they should also be added in here for comparison.
         /// </summary>
         /// <param name="obj">The object to compare against this instance.</param>
-        /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
+        /// <returns>Returns <c>true</c> if headers match in user entered content, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var header = obj as GedcomHeader;
+            GedcomHeader header = obj as GedcomHeader;
 
             if (header == null)
             {
@@ -510,7 +430,7 @@ namespace SmartFamily.Gedcom.Models
         /// If new fields are added to the header they should also be added in here for comparison.
         /// </summary>
         /// <param name="other">The GedcomHeader to compare against this instance.</param>
-        /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
+        /// <returns>Returns <c>true</c> if headers match in user entered content, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomHeader other)
         {
             return IsEquivalentTo(other);

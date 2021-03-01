@@ -12,13 +12,13 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="GedcomRecord"/>
     public class GedcomSubmitterRecord : GedcomRecord, IEquatable<GedcomSubmitterRecord>
     {
-        private string name;
-        private GedcomAddress address;
-        private List<string> languagePreferences;
-        private string registeredRFN;
+        private string _name;
+        private GedcomAddress _address;
+        private List<string> _languagePreferences;
+        private string _registeredRFN;
 
         /// <summary>
-        /// Initializaes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
+        /// Initializes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
         /// </summary>
         public GedcomSubmitterRecord()
         {
@@ -43,42 +43,30 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Submitter; }
+            get => GedcomRecordType.Submitter;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for a submitter record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return "SUBM"; }
+            get => "SUBM";
         }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     Changed();
                 }
             }
@@ -87,20 +75,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
-            get
-            {
-                return address;
-            }
+            get => _address;
             set
             {
-                if (value != address)
+                if (value != _address)
                 {
-                    address = value;
+                    _address = value;
                     Changed();
                 }
             }
@@ -109,20 +91,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the language preferences.
         /// </summary>
-        /// <value>
-        /// The language preferences.
-        /// </value>
         public List<string> LanguagePreferences
         {
-            get
-            {
-                return languagePreferences;
-            }
+            get => _languagePreferences;
             set
             {
-                if (value != languagePreferences)
+                if (value != _languagePreferences)
                 {
-                    languagePreferences = value;
+                    _languagePreferences = value;
                     Changed();
                 }
             }
@@ -131,20 +107,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the registered RFN.
         /// </summary>
-        /// <value>
-        /// The registered RFN.
-        /// </value>
         public string RegisteredRFN
         {
-            get
-            {
-                return registeredRFN;
-            }
+            get => _registeredRFN;
             set
             {
-                if (value != registeredRFN)
+                if (value != _registeredRFN)
                 {
-                    registeredRFN = value;
+                    _registeredRFN = value;
                     Changed();
                 }
             }
@@ -153,9 +123,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -178,30 +145,27 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
-        /// Outputs this submitter record as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the submitter record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
             {
-                sw.Write("@");
-                sw.Write(XrefId);
-                sw.Write("@ ");
+                tw.Write("@");
+                tw.Write(XrefId);
+                tw.Write("@ ");
             }
 
-            sw.Write(GedcomTag);
+            tw.Write(GedcomTag);
 
             string levelPlusOne = (Level + 1).ToString();
 
@@ -211,46 +175,46 @@ namespace SmartFamily.Gedcom.Models
                 name = "Unknown";
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write(levelPlusOne);
-            sw.Write(" NAME ");
-            sw.Write(name);
+            tw.Write(Environment.NewLine);
+            tw.Write(levelPlusOne);
+            tw.Write(" NAME ");
+            tw.Write(name);
 
             if (Address != null)
             {
-                Address.Output(sw, Level + 1);
+                Address.Output(tw, Level + 1);
             }
 
             foreach (string languagePreference in LanguagePreferences)
             {
                 if (!string.IsNullOrEmpty(languagePreference))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" LANG ");
-                    sw.Write(languagePreference);
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" LANG ");
+                    tw.Write(languagePreference);
                 }
             }
 
             if (!string.IsNullOrEmpty(RegisteredRFN))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RFN ");
-                sw.Write(RegisteredRFN);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RFN ");
+                tw.Write(RegisteredRFN);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var submitter = obj as GedcomSubmitterRecord;
+            GedcomSubmitterRecord submitter = obj as GedcomSubmitterRecord;
 
             if (submitter == null)
             {
@@ -284,7 +248,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSubmitterRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSubmitterRecord other)
         {
             return IsEquivalentTo(other);

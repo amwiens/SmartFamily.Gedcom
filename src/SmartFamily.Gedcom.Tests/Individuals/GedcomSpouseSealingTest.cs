@@ -16,9 +16,10 @@ namespace SmartFamily.Gedcom.Tests.Individuals
         [Fact]
         private void Sealing_can_be_added_to_family_record_directly()
         {
-            var family = new GedcomFamilyRecord();
-
-            family.SpouseSealing = new GedcomSpouseSealingRecord();
+            var family = new GedcomFamilyRecord
+            {
+                SpouseSealing = new GedcomSpouseSealingRecord()
+            };
 
             Assert.NotNull(family.SpouseSealing);
         }

@@ -14,10 +14,11 @@ namespace SmartFamily.Gedcom.Parser
         {
             var encoder = new ASCIIEncoding();
 
-            var parser = new GedcomParser();
-
-            parser.AllowTabs = false;
-            parser.AllowHyphenOrUnderscoreInTag = false;
+            var parser = new GedcomParser
+            {
+                AllowTabs = false,
+                AllowHyphenOrUnderscoreInTag = false
+            };
 
             var dir = ".\\Data";
             var gedcomFile = Path.Combine(dir, file);

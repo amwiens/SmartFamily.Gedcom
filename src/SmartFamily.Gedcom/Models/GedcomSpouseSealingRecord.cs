@@ -11,52 +11,50 @@ namespace SmartFamily.Gedcom.Models
     /// Sealing is a ritual performed by Latter Day Saint temples to seal familial relationships and
     /// the promise of family relationships throughout eternity.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomSpouseSealingRecord : GedcomRecord, IComparable, IComparable<GedcomSpouseSealingRecord>, IEquatable<GedcomSpouseSealingRecord>
     {
         /// <summary>
         /// The date that this sealing occurred on.
         /// </summary>
-        private GedcomDate date;
+        private GedcomDate _date;
 
         /// <summary>
         /// The description for this sealing event.
         /// </summary>
-        private string description;
+        private string _description;
 
         /// <summary>
         /// The place at which this sealing occurred.
         /// </summary>
-        private GedcomPlace place;
+        private GedcomPlace _place;
 
         /// <summary>
         /// The status of this sealing.
         /// </summary>
-        private SpouseSealingDateStatus status;
+        private SpouseSealingDateStatus _status;
 
         /// <summary>
         /// The date that the status was last changed.
         /// </summary>
-        private GedcomChangeDate statusChangeDate;
+        private GedcomChangeDate _statusChangeDate;
 
         /// <summary>
         /// The temple code.
         /// </summary>
-        private string templeCode;
+        private string _templeCode;
 
         /// <summary>
         /// Gets or sets the date that this sealing occurred on.
         /// </summary>
         public GedcomDate Date
         {
-            get
-            {
-                return date;
-            }
+            get => _date;
             set
             {
-                if (value != date)
+                if (value != _date)
                 {
-                    date = value;
+                    _date = value;
                     Changed();
                 }
             }
@@ -67,15 +65,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get => _description;
             set
             {
-                if (value != description)
+                if (value != _description)
                 {
-                    description = value;
+                    _description = value;
                     Changed();
                 }
             }
@@ -86,15 +81,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomPlace Place
         {
-            get
-            {
-                return place;
-            }
+            get => _place;
             set
             {
-                if (value != place)
+                if (value != _place)
                 {
-                    place = value;
+                    _place = value;
                     Changed();
                 }
             }
@@ -105,15 +97,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public SpouseSealingDateStatus Status
         {
-            get
-            {
-                return status;
-            }
+            get => _status;
             set
             {
-                if (value != status)
+                if (value != _status)
                 {
-                    status = value;
+                    _status = value;
                     Changed();
                 }
             }
@@ -124,15 +113,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomChangeDate StatusChangeDate
         {
-            get
-            {
-                return statusChangeDate;
-            }
+            get => _statusChangeDate;
             set
             {
-                if (value != statusChangeDate)
+                if (value != _statusChangeDate)
                 {
-                    statusChangeDate = value;
+                    _statusChangeDate = value;
                     Changed();
                 }
             }
@@ -143,15 +129,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string TempleCode
         {
-            get
-            {
-                return templeCode;
-            }
+            get => _templeCode;
             set
             {
-                if (value != templeCode)
+                if (value != _templeCode)
                 {
-                    templeCode = value;
+                    _templeCode = value;
                     Changed();
                 }
             }
@@ -162,7 +145,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.SpouseSealing; }
+            get => GedcomRecordType.SpouseSealing;
         }
 
         /// <summary>
@@ -170,7 +153,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override string GedcomTag
         {
-            get { return "SLGS"; }
+            get => "SLGS";
         }
 
         /// <summary>
@@ -197,7 +180,7 @@ namespace SmartFamily.Gedcom.Models
                 return 1;
             }
 
-            int ret = recorda.Date.CompareTo(recordb.date);
+            int ret = recorda.Date.CompareTo(recordb._date);
             if (ret == 0)
             {
                 ret = recorda.TempleCode.CompareTo(recordb.TempleCode);
@@ -226,7 +209,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomSpouseSealingRecord) == 0;
@@ -236,7 +219,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determines whether the specified <see cref="object"/>, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>True</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return this == (GedcomSpouseSealingRecord)obj;
@@ -266,7 +249,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in sealing record to see if they are the same.
         /// </summary>
         /// <param name="otherRecord">The sealing record to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomSpouseSealingRecord otherRecord)
         {
             return this == otherRecord;
@@ -280,66 +263,66 @@ namespace SmartFamily.Gedcom.Models
             {
                 int hash = 17;
 
-                hash *= 23 + date.GetHashCode();
-                hash *= 23 + templeCode.GetHashCode();
+                hash *= 23 + _date.GetHashCode();
+                hash *= 23 + _templeCode.GetHashCode();
 
                 return hash;
             }
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the spouse sealing record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.WriteLine();
-            sw.Write(Level.ToString());
-            sw.Write(" SLGS ");
+            tw.WriteLine();
+            tw.Write(Level.ToString());
+            tw.Write(" SLGS ");
 
             if (!string.IsNullOrEmpty(Description))
             {
-                sw.Write(Description);
+                tw.Write(Description);
             }
 
-            if (date != null)
+            if (_date != null)
             {
-                date.Output(sw);
+                _date.Output(tw);
             }
 
-            if (place != null)
+            if (_place != null)
             {
-                place.Output(sw);
+                _place.Output(tw);
             }
 
             var levelPlusOne = (Level + 1).ToString();
-            if (!string.IsNullOrWhiteSpace(templeCode))
+            if (!string.IsNullOrWhiteSpace(_templeCode))
             {
-                sw.WriteLine();
-                sw.Write(levelPlusOne);
-                sw.Write(" TEMP ");
-                sw.Write(templeCode);
+                tw.WriteLine();
+                tw.Write(levelPlusOne);
+                tw.Write(" TEMP ");
+                tw.Write(_templeCode);
             }
 
-            if (status != SpouseSealingDateStatus.NotSet)
+            if (_status != SpouseSealingDateStatus.NotSet)
             {
-                sw.WriteLine();
-                sw.Write(levelPlusOne);
-                sw.Write(" STAT ");
-                sw.Write(EnumHelper.ToDescription(status));
+                tw.WriteLine();
+                tw.Write(levelPlusOne);
+                tw.Write(" STAT ");
+                tw.Write(EnumHelper.ToDescription(_status));
 
                 if (StatusChangeDate != null)
                 {
                     var levelPlusTwo = (Level + 2).ToString();
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" CHAN ");
-                    StatusChangeDate.Output(sw);
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" CHAN ");
+                    StatusChangeDate.Output(tw);
                 }
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
     }
 }

@@ -10,9 +10,10 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// Defines a generic event or fact.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, IEquatable<GedcomEvent>
     {
-        private static string[] typeStrings = new string[]
+        private static readonly string[] _typeStrings = new string[]
         {
             "EVEN",
 
@@ -73,7 +74,7 @@ namespace SmartFamily.Gedcom.Models
             "_UNKN",
         };
 
-        private static List<string> typeDescriptions = new List<string>()
+        private static readonly List<string> typeDescriptions = new List<string>()
         {
             "Other Event",
             "Annulment",
@@ -83,7 +84,7 @@ namespace SmartFamily.Gedcom.Models
             "Engagement",
             "Marriage Bann",
             "Marriage Contract",
-            "Marriate",
+            "Marriage",
             "Marriage License",
             "Marriage Settlement",
             "Residence",
@@ -129,62 +130,62 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// The GEDCOM event type
         /// </summary>
-        private GedcomEventType eventType;
+        private GedcomEventType _eventType;
 
         /// <summary>
         /// The classification
         /// </summary>
-        private string classification;
+        private string _classification;
 
         /// <summary>
         /// The certainty
         /// </summary>
-        private GedcomCertainty certainty = GedcomCertainty.Unknown;
+        private GedcomCertainty _certainty = GedcomCertainty.Unknown;
 
         /// <summary>
         /// The record
         /// </summary>
-        private GedcomRecord record;
+        private GedcomRecord _record;
 
         /// <summary>
         /// Used for Gedcom 6 XML output
         /// </summary>
-        private string eventXRefID;
+        private string _eventXRefID;
 
         /// <summary>
         /// The event name
         /// </summary>
-        private string eventName;
+        private string _eventName;
 
         /// <summary>
         /// The date
         /// </summary>
-        private GedcomDate date;
+        private GedcomDate _date;
 
         /// <summary>
         /// The place
         /// </summary>
-        private GedcomPlace place;
+        private GedcomPlace _place;
 
         /// <summary>
         /// The address
         /// </summary>
-        private GedcomAddress address;
+        private GedcomAddress _address;
 
         /// <summary>
         /// The responsible agency
         /// </summary>
-        private string responsibleAgency;
+        private string _responsibleAgency;
 
         /// <summary>
         /// The religious affiliation
         /// </summary>
-        private string religiousAffiliation;
+        private string _religiousAffiliation;
 
         /// <summary>
         /// The cause
         /// </summary>
-        private string cause;
+        private string _cause;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomEvent"/> class.
@@ -198,42 +199,30 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Event; }
+            get => GedcomRecordType.Event;
         }
 
         /// <summary>
         /// Gets the gedcom tag.
         /// </summary>
-        /// <value>
-        /// The gedcom tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return GedcomEvent.TypeToTag(EventType); }
+            get => GedcomEvent.TypeToTag(EventType);
         }
 
         /// <summary>
         /// Gets or sets the type of the event.
         /// </summary>
-        /// <value>
-        /// The type of the event.
-        /// </value>
         public GedcomEventType EventType
         {
-            get
-            {
-                return eventType;
-            }
+            get => _eventType;
             set
             {
-                if (value != eventType)
+                if (value != _eventType)
                 {
-                    eventType = value;
+                    _eventType = value;
                     Changed();
                 }
             }
@@ -242,20 +231,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name of the event.
         /// </summary>
-        /// <value>
-        /// The name of the event.
-        /// </value>
         public string EventName
         {
-            get
-            {
-                return eventName;
-            }
+            get => _eventName;
             set
             {
-                if (value != eventName)
+                if (value != _eventName)
                 {
-                    eventName = value;
+                    _eventName = value;
                     Changed();
                 }
             }
@@ -264,20 +247,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the classification.
         /// </summary>
-        /// <value>
-        /// The classification.
-        /// </value>
         public string Classification
         {
-            get
-            {
-                return classification;
-            }
+            get => _classification;
             set
             {
-                if (value != classification)
+                if (value != _classification)
                 {
-                    classification = value;
+                    _classification = value;
                     Changed();
                 }
             }
@@ -286,20 +263,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
         public GedcomDate Date
         {
-            get
-            {
-                return date;
-            }
+            get => _date;
             set
             {
-                if (value != date)
+                if (value != _date)
                 {
-                    date = value;
+                    _date = value;
                     Changed();
                 }
             }
@@ -310,15 +281,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomPlace Place
         {
-            get
-            {
-                return place;
-            }
+            get => _place;
             set
             {
-                if (value != place)
+                if (value != _place)
                 {
-                    place = value;
+                    _place = value;
                     Changed();
                 }
             }
@@ -327,20 +295,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
-            get
-            {
-                return address;
-            }
+            get => _address;
             set
             {
-                if (value != address)
+                if (value != _address)
                 {
-                    address = value;
+                    _address = value;
                     Changed();
                 }
             }
@@ -349,20 +311,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the responsible agency.
         /// </summary>
-        /// <value>
-        /// The responsible agency.
-        /// </value>
         public string ResponsibleAgency
         {
-            get
-            {
-                return responsibleAgency;
-            }
+            get => _responsibleAgency;
             set
             {
-                if (value != responsibleAgency)
+                if (value != _responsibleAgency)
                 {
-                    responsibleAgency = value;
+                    _responsibleAgency = value;
                     Changed();
                 }
             }
@@ -371,20 +327,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the religious affiliation.
         /// </summary>
-        /// <value>
-        /// The religious affiliation.
-        /// </value>
         public string ReligiousAffiliation
         {
-            get
-            {
-                return religiousAffiliation;
-            }
+            get => _religiousAffiliation;
             set
             {
-                if (value != religiousAffiliation)
+                if (value != _religiousAffiliation)
                 {
-                    religiousAffiliation = value;
+                    _religiousAffiliation = value;
                     Changed();
                 }
             }
@@ -393,20 +343,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the cause.
         /// </summary>
-        /// <value>
-        /// The cause.
-        /// </value>
         public string Cause
         {
-            get
-            {
-                return cause;
-            }
+            get => _cause;
             set
             {
-                if (value != cause)
+                if (value != _cause)
                 {
-                    cause = value;
+                    _cause = value;
                     Changed();
                 }
             }
@@ -415,20 +359,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the certainty.
         /// </summary>
-        /// <value>
-        /// The certainty.
-        /// </value>
         public GedcomCertainty Certainty
         {
-            get
-            {
-                return certainty;
-            }
+            get => _certainty;
             set
             {
-                if (value != certainty)
+                if (value != _certainty)
                 {
-                    certainty = value;
+                    _certainty = value;
                     Changed();
                 }
             }
@@ -437,20 +375,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the event x reference identifier.
         /// </summary>
-        /// <value>
-        /// The event x reference identifier.
-        /// </value>
         public string EventXRefID
         {
-            get
-            {
-                return eventXRefID;
-            }
+            get => _eventXRefID;
             set
             {
-                if (value != eventXRefID)
+                if (value != _eventXRefID)
                 {
-                    eventXRefID = value;
+                    _eventXRefID = value;
                     Changed();
                 }
             }
@@ -459,20 +391,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the record.
         /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
         public GedcomRecord Record
         {
-            get
-            {
-                return record;
-            }
+            get => _record;
             set
             {
-                if (value != record)
+                if (value != _record)
                 {
-                    record = value;
+                    _record = value;
                     Changed();
                 }
             }
@@ -481,9 +407,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -524,10 +447,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -547,11 +467,11 @@ namespace SmartFamily.Gedcom.Models
         /// <returns>The tag for a given GedcomEventType.</returns>
         public static string TypeToTag(GedcomEventType eventType)
         {
-            return typeStrings[(int)eventType];
+            return _typeStrings[(int)eventType];
         }
 
         /// <summary>
-        /// Attempts to determin a standard event type from a textual
+        /// Attempts to determine a standard event type from a textual
         /// description. Always returns GenericEvent if one can't be found
         /// even though where the string came from maybe a FACT
         /// </summary>
@@ -577,14 +497,14 @@ namespace SmartFamily.Gedcom.Models
         {
             base.Delete();
 
-            if (date != null)
+            if (_date != null)
             {
-                date.Delete();
+                _date.Delete();
             }
 
-            if (place != null)
+            if (_place != null)
             {
-                place.Delete();
+                _place.Delete();
             }
         }
 
@@ -626,7 +546,7 @@ namespace SmartFamily.Gedcom.Models
                 return compare;
             }
 
-            return string.Compare(eventName, eventToCompare.EventName);
+            return string.Compare(_eventName, eventToCompare.EventName);
         }
 
         /// <summary>
@@ -729,7 +649,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                     }
                 }
 
@@ -757,7 +677,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                     }
                 }
 
@@ -824,95 +744,95 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Output GEDCOM formatted text representing the event.
         /// </summary>
-        /// <param name="sw">The sw.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
-            sw.Write(GedcomTag);
+            tw.Write(GedcomTag);
 
-            if (!string.IsNullOrEmpty(eventName))
+            if (!string.IsNullOrEmpty(_eventName))
             {
-                sw.Write(" ");
-                sw.Write(eventName);
+                tw.Write(" ");
+                tw.Write(_eventName);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
 
             string levelPlusOne = null;
 
-            if (!string.IsNullOrEmpty(classification))
+            if (!string.IsNullOrEmpty(_classification))
             {
                 if (levelPlusOne == null)
                 {
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TYPE ");
-                sw.Write(classification);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TYPE ");
+                tw.Write(_classification);
             }
 
-            if (date != null)
+            if (_date != null)
             {
-                date.Output(sw);
+                _date.Output(tw);
             }
 
-            if (place != null)
+            if (_place != null)
             {
-                place.Output(sw);
+                _place.Output(tw);
             }
 
-            if (address != null)
+            if (_address != null)
             {
-                address.Output(sw, Level + 1);
+                _address.Output(tw, Level + 1);
             }
 
-            if (!string.IsNullOrEmpty(responsibleAgency))
-            {
-                if (levelPlusOne == null)
-                {
-                    levelPlusOne = (Level + 1).ToString();
-                }
-
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" AGNC ");
-                string line = responsibleAgency.Replace("@", "@@");
-                sw.Write(line);
-            }
-
-            if (!string.IsNullOrEmpty(religiousAffiliation))
+            if (!string.IsNullOrEmpty(_responsibleAgency))
             {
                 if (levelPlusOne == null)
                 {
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RELI ");
-                string line = religiousAffiliation.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" AGNC ");
+                string line = _responsibleAgency.Replace("@", "@@");
+                tw.Write(line);
             }
 
-            if (!string.IsNullOrEmpty(cause))
+            if (!string.IsNullOrEmpty(_religiousAffiliation))
             {
                 if (levelPlusOne == null)
                 {
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" CAUS ");
-                string line = cause.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RELI ");
+                string line = _religiousAffiliation.Replace("@", "@@");
+                tw.Write(line);
+            }
+
+            if (!string.IsNullOrEmpty(_cause))
+            {
+                if (levelPlusOne == null)
+                {
+                    levelPlusOne = (Level + 1).ToString();
+                }
+
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" CAUS ");
+                string line = _cause.Replace("@", "@@");
+                tw.Write(line);
             }
 
             if (RestrictionNotice != GedcomRestrictionNotice.None)
@@ -922,16 +842,16 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RESN ");
-                sw.Write(RestrictionNotice.ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RESN ");
+                tw.Write(RestrictionNotice.ToString());
             }
 
             // Quality of data should only be on source citations according to
             // the spec.
             // We output it on events as well as it has been seen in GEDCOM
-            // files from other apps
+            // files from other apps.
             if (Certainty != GedcomCertainty.Unknown)
             {
                 if (levelPlusOne == null)
@@ -939,10 +859,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" QUAY ");
-                sw.Write(((int)Certainty).ToString());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" QUAY ");
+                tw.Write(((int)Certainty).ToString());
             }
         }
 
@@ -950,7 +870,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var eventRecord = obj as GedcomEvent;
@@ -1017,7 +937,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomEvent to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomEvent other)
         {
             return IsEquivalentTo(other);

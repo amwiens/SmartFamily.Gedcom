@@ -3,7 +3,7 @@
 namespace SmartFamily.Gedcom.Models
 {
     /// <summary>
-    /// Teh result of parsing and extracting a date period from a string.
+    /// The result of parsing and extracting a date period from a string.
     /// </summary>
     public class GedcomDatePeriodParseResult
     {

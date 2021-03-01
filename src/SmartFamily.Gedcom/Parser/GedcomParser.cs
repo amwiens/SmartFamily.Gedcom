@@ -9,17 +9,17 @@ namespace SmartFamily.Gedcom.Parser
     /// GedcomParser is responsible for parsing GEDCOM files.
     /// This class implements GEDCOM 5.5 grammar rules.
     /// This is probably not the class you want to use unless writing a
-    /// validtor application. GedcomRecordReader makes use of this
+    /// validator application. GedcomRecordReader makes use of this
     /// class for building up a GedcomDatabase.
     /// </summary>
     public class GedcomParser
     {
-        // arbitary magic max level number
-        private const int MaxLevel = 99;
+        // arbitrary magic max level number
+        private const int _maxLevel = 99;
 
-        private const int MaxXRefLength = 22;
+        private const int _maxXRefLength = 22;
 
-        private static char[] validOtherChar = new char[]
+        private static readonly char[] _validOtherChar = new char[]
         {
             '!', '\"', '$', '%', '&', '\'', '(',
             ')', '*', '+', ',', '-', '.', '/', ':',
@@ -27,8 +27,8 @@ namespace SmartFamily.Gedcom.Parser
             '|', '^', '`', '{', '|', '}', '~',
         };
 
-        private int previousLevel = -1;
-        private string previousTag = string.Empty;
+        private int _previousLevel = -1;
+        private string _previousTag = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomParser"/> class.
@@ -222,9 +222,9 @@ namespace SmartFamily.Gedcom.Parser
                         if (!hadLevel)
                         {
                             if (ApplyConcContOnNewLineHack &&
-                                (previousTag == "CONC" || previousTag == "CONT"))
+                                (_previousTag == "CONC" || _previousTag == "CONT"))
                             {
-                                Level = previousLevel;
+                                Level = _previousLevel;
                                 Tag = "CONC";
                                 State = GedcomState.LineValue;
                             }
@@ -248,7 +248,7 @@ namespace SmartFamily.Gedcom.Parser
                         {
                             Level = lvl;
 
-                            if (Level > MaxLevel)
+                            if (Level > _maxLevel)
                             {
                                 ErrorState = GedcomErrorState.LevelInvalid;
                                 Level = -1;
@@ -308,7 +308,7 @@ namespace SmartFamily.Gedcom.Parser
                                 temp++;
                             }
 
-                            if ((temp - i) > MaxXRefLength)
+                            if ((temp - i) > _maxXRefLength)
                             {
                                 ErrorState = GedcomErrorState.XrefIDTooLong;
                             }
@@ -498,7 +498,7 @@ namespace SmartFamily.Gedcom.Parser
 
                                 // TODO: no line value, but have hit the terminator
                                 // what should this be allowed for?
-                                // Family Tree Maker outputs emtpy CONT (and CONC?)
+                                // Family Tree Maker outputs empty CONT (and CONC?)
                                 else if (Tag == "CONT" || Tag == "CONC")
                                 {
                                     LineValue = " ";
@@ -514,8 +514,8 @@ namespace SmartFamily.Gedcom.Parser
                         if (ErrorState == GedcomErrorState.NoError)
                         {
                             // can't use FoundTag here, may not want to reset
-                            previousLevel = Level;
-                            previousTag = Tag;
+                            _previousLevel = Level;
+                            _previousTag = Tag;
 
                             if (TagFound != null)
                             {
@@ -608,9 +608,9 @@ namespace SmartFamily.Gedcom.Parser
 
             if (!ret && c != ' ')
             {
-                for (int i = 0; i < validOtherChar.Length; i++)
+                for (int i = 0; i < _validOtherChar.Length; i++)
                 {
-                    if (c == validOtherChar[i])
+                    if (c == _validOtherChar[i])
                     {
                         ret = true;
                         break;
@@ -758,8 +758,8 @@ namespace SmartFamily.Gedcom.Parser
             // end of data + end tag
             TagFound?.Invoke(this, EventArgs.Empty);
 
-            previousLevel = Level;
-            previousTag = Tag;
+            _previousLevel = Level;
+            _previousTag = Tag;
 
             // reset states
             ResetParseState(false);
@@ -781,8 +781,8 @@ namespace SmartFamily.Gedcom.Parser
             if (resetLevel)
             {
                 Level = -1;
-                previousLevel = -1;
-                previousTag = string.Empty;
+                _previousLevel = -1;
+                _previousTag = string.Empty;
             }
 
             LineValueType = GedcomLineValueType.NoType;

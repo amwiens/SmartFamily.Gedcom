@@ -14,10 +14,10 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="IComparable"/>
     public class GedcomRepositoryRecord : GedcomRecord, IComparable, IComparable<GedcomRepositoryRecord>, IEquatable<GedcomRepositoryRecord>
     {
-        private string name;
-        private GedcomAddress address;
+        private string _name;
+        private GedcomAddress _address;
 
-        private GedcomRecordList<GedcomRepositoryCitation> citations;
+        private GedcomRecordList<GedcomRepositoryCitation> _citations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRepositoryRecord"/> class.
@@ -45,42 +45,30 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Repository; }
+            get => GedcomRecordType.Repository;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for a repository record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return "REPO"; }
+            get => "REPO";
         }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     Changed();
                 }
             }
@@ -89,20 +77,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
-            get
-            {
-                return address;
-            }
+            get => _address;
             set
             {
-                if (value != address)
+                if (value != _address)
                 {
-                    address = value;
+                    _address = value;
                     Changed();
                 }
             }
@@ -111,29 +93,23 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the citations.
         /// </summary>
-        /// <value>
-        /// The citations.
-        /// </value>
         public GedcomRecordList<GedcomRepositoryCitation> Citations
         {
             get
             {
-                if (citations == null)
+                if (_citations == null)
                 {
-                    citations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    citations.CollectionChanged += ListChanged;
+                    _citations = new GedcomRecordList<GedcomRepositoryCitation>();
+                    _citations.CollectionChanged += ListChanged;
                 }
 
-                return citations;
+                return _citations;
             }
         }
 
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -165,10 +141,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -235,25 +208,25 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this repository record as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the repository record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             if (!string.IsNullOrEmpty(Name))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write((Level + 1).ToString());
-                sw.Write(" NAME ");
+                tw.Write(Environment.NewLine);
+                tw.Write((Level + 1).ToString());
+                tw.Write(" NAME ");
                 string line = Name.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (Address != null)
             {
-                Address.Output(sw, Level + 1);
+                Address.Output(tw, Level + 1);
             }
         }
 
@@ -261,10 +234,10 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var repository = obj as GedcomRepositoryRecord;
+            GedcomRepositoryRecord repository = obj as GedcomRepositoryRecord;
 
             if (repository == null)
             {
@@ -307,7 +280,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomRepositoryRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomRepositoryRecord other)
         {
             return IsEquivalentTo(other);

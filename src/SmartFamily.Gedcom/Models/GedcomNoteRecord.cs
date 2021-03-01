@@ -10,9 +10,10 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// GEDCOM Note Record
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomNoteRecord : GedcomRecord, IEquatable<GedcomNoteRecord>
     {
-        private string text;
+        private string _text;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomNoteRecord"/> class.
@@ -45,42 +46,30 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Note; }
+            get => GedcomRecordType.Note;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for a note record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return "NOTE"; }
+            get => "NOTE";
         }
 
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => _text;
             set
             {
-                if (value != text)
+                if (value != _text)
                 {
-                    text = value;
+                    _text = value;
                     Changed();
                 }
             }
@@ -103,37 +92,37 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the note record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
             {
-                sw.Write("@");
-                sw.Write(XrefId);
-                sw.Write("@ ");
+                tw.Write("@");
+                tw.Write(XrefId);
+                tw.Write("@ ");
             }
 
-            sw.Write("NOTE ");
+            tw.Write("NOTE ");
 
             if (!string.IsNullOrEmpty(Text))
             {
-                Util.SplitLineText(sw, Text, Level, 248);
+                Util.SplitLineText(tw, Text, Level, 248);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var note = obj as GedcomNoteRecord;
@@ -155,7 +144,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomNoteRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomNoteRecord other)
         {
             return IsEquivalentTo(other);

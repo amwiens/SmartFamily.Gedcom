@@ -9,11 +9,12 @@ namespace SmartFamily.Gedcom.Models
     /// How the given individual is associated to another.
     /// Each GedcomIndividual contains a list of these.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomAssociation : GedcomRecord, IComparable, IComparable<GedcomAssociation>, IEquatable<GedcomAssociation>
     {
-        private string description;
+        private string _description;
 
-        private string individual;
+        private string _individual;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomAssociation"/> class.
@@ -27,7 +28,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Association; }
+            get => GedcomRecordType.Association;
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override string GedcomTag
         {
-            get { return "ASSO"; }
+            get => "ASSO";
         }
 
         /// <summary>
@@ -43,15 +44,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get => _description;
             set
             {
-                if (value != description)
+                if (value != _description)
                 {
-                    description = value;
+                    _description = value;
                     Changed();
                 }
             }
@@ -62,57 +60,54 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Individual
         {
-            get
-            {
-                return individual;
-            }
+            get => _individual;
             set
             {
-                if (value != individual)
+                if (value != _individual)
                 {
-                    individual = value;
+                    _individual = value;
                     Changed();
                 }
             }
         }
 
         /// <summary>
-        /// Outputs a GEDCOM format version of this instance.
+        /// Output GEDCOM formatted text representing the association.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            sw.Write(Environment.NewLine);
-            sw.Write(Level.ToString());
-            sw.Write(" ASSO ");
-            sw.Write("@");
-            sw.Write(Individual);
-            sw.Write("@");
+            tw.Write(Environment.NewLine);
+            tw.Write(Level.ToString());
+            tw.Write(" ASSO ");
+            tw.Write("@");
+            tw.Write(Individual);
+            tw.Write("@");
 
             string levelPlusOne = (Level + 1).ToString();
 
-            sw.Write(Environment.NewLine);
-            sw.Write(levelPlusOne);
-            sw.Write(" RELA ");
+            tw.Write(Environment.NewLine);
+            tw.Write(levelPlusOne);
+            tw.Write(" RELA ");
 
             string line = Description.Replace("@", "@@");
             if (line.Length > 25)
             {
-                Util.SplitText(sw, line, Level + 1, 25, 1, true);
+                Util.SplitText(tw, line, Level + 1, 25, 1, true);
             }
             else
             {
-                sw.Write(line);
+                tw.Write(line);
             }
 
-            OutputStandard(sw);
+            OutputStandard(tw);
         }
 
         /// <summary>
         /// Compare the user-entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomAssociation) == 0;
@@ -132,7 +127,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in association to see if they are the same.
         /// </summary>
         /// <param name="other">The association to compare the current instance against.</param>
-        /// <returns>A 32-bit signed integer that indicates whether this instance preceds, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(GedcomAssociation other)
         {
             if (other == null)
@@ -159,7 +154,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in association to see if they are the same.
         /// </summary>
         /// <param name="other">The association to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomAssociation other)
         {
             return CompareTo(other) == 0;
@@ -169,7 +164,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in object to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as GedcomAssociation);

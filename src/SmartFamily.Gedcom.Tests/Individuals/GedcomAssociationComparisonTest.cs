@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Tests.Individuals
     /// </summary>
     public class GedcomAssociationComparisonTest
     {
-        private GedcomAssociation assoc1;
-        private GedcomAssociation assoc2;
+        private readonly GedcomAssociation assoc1;
+        private readonly GedcomAssociation assoc2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomAssociationComparisonTest"/>

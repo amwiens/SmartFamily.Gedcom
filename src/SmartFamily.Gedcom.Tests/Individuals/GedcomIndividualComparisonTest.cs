@@ -2,9 +2,7 @@
 using SmartFamily.Gedcom.Models;
 using SmartFamily.Gedcom.Tests.DataHelperExtensions;
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Xunit;
 
@@ -327,8 +325,8 @@ namespace SmartFamily.Gedcom.Tests.Individuals
             var person1 = gedcomDb.NamedPerson("Ryan");
             var person2 = gedcomDb.NamedPerson("Ryan");
 
-            person1.SpouseIn.Add(new GedcomFamilyLink { PreferedSpouse = pref1 });
-            person2.SpouseIn.Add(new GedcomFamilyLink { PreferedSpouse = pref2 });
+            person1.SpouseIn.Add(new GedcomFamilyLink { PreferredSpouse = pref1 });
+            person2.SpouseIn.Add(new GedcomFamilyLink { PreferredSpouse = pref2 });
 
             Assert.Equal(expectedRelativePosition, person1.CompareTo(person2));
         }

@@ -7,55 +7,47 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// How an individual is linked to a family.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable, IEquatable<GedcomFamilyLink>
     {
-        private string family;
-        private string indi;
+        private string _family;
+        private string _indi;
 
-        private PedigreeLinkageType pedigree;
-        private ChildLinkageStatus status;
+        private PedigreeLinkageType _pedigree;
+        private ChildLinkageStatus _status;
 
-        private PedigreeLinkageType fatherPedigree;
-        private PedigreeLinkageType motherPedigree;
+        private PedigreeLinkageType _fatherPedigree;
+        private PedigreeLinkageType _motherPedigree;
 
-        private bool preferedSpouse;
+        private bool _preferredSpouse;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomFamilyLink"/> class.
         /// </summary>
         public GedcomFamilyLink()
         {
-            pedigree = PedigreeLinkageType.Unknown;
+            _pedigree = PedigreeLinkageType.Unknown;
         }
 
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.FamilyLink; }
+            get => GedcomRecordType.FamilyLink;
         }
 
         /// <summary>
         /// Gets or sets the family.
         /// </summary>
-        /// <value>
-        /// The family.
-        /// </value>
         public string Family
         {
-            get
-            {
-                return family;
-            }
+            get => _family;
             set
             {
-                if (value != family)
+                if (value != _family)
                 {
-                    family = value;
+                    _family = value;
                     Changed();
                 }
             }
@@ -66,15 +58,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Individual
         {
-            get
-            {
-                return indi;
-            }
+            get => _indi;
             set
             {
-                if (value != indi)
+                if (value != _indi)
                 {
-                    indi = value;
+                    _indi = value;
                     Changed();
                 }
             }
@@ -83,20 +72,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the pedigree.
         /// </summary>
-        /// <value>
-        /// The pedigree.
-        /// </value>
         public PedigreeLinkageType Pedigree
         {
-            get
-            {
-                return pedigree;
-            }
+            get => _pedigree;
             set
             {
-                if (value != pedigree)
+                if (value != _pedigree)
                 {
-                    pedigree = value;
+                    _pedigree = value;
                     FatherPedigree = value;
                     MotherPedigree = value;
                     Changed();
@@ -107,20 +90,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the father pedigree.
         /// </summary>
-        /// <value>
-        /// The father pedigree.
-        /// </value>
         public PedigreeLinkageType FatherPedigree
         {
-            get
-            {
-                return fatherPedigree;
-            }
+            get => _fatherPedigree;
             set
             {
-                if (value != fatherPedigree)
+                if (value != _fatherPedigree)
                 {
-                    fatherPedigree = value;
+                    _fatherPedigree = value;
                     Changed();
                 }
             }
@@ -129,20 +106,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the mother pedigree.
         /// </summary>
-        /// <value>
-        /// The mother pedigree.
-        /// </value>
         public PedigreeLinkageType MotherPedigree
         {
-            get
-            {
-                return motherPedigree;
-            }
+            get => _motherPedigree;
             set
             {
-                if (value != motherPedigree)
+                if (value != _motherPedigree)
                 {
-                    motherPedigree = value;
+                    _motherPedigree = value;
                     Changed();
                 }
             }
@@ -151,35 +122,26 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the status.
         /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
         public ChildLinkageStatus Status
         {
-            get
-            {
-                return status;
-            }
+            get => _status;
             set
             {
-                if (value != status)
+                if (value != _status)
                 {
-                    status = value;
+                    _status = value;
                     Changed();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [prefered spouse].
+        /// Gets or sets a value indicating whether [preferred spouse].
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [prefered spouse]; otherwise, <c>false</c>.
-        /// </value>
-        public bool PreferedSpouse
+        public bool PreferredSpouse
         {
-            get { return preferedSpouse; }
-            set { preferedSpouse = value; }
+            get => _preferredSpouse;
+            set => _preferredSpouse = value;
         }
 
         /// <summary>
@@ -195,7 +157,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Compares the current and passed family link to see if they are the same.
         /// </summary>
-        /// <param name="link">Teh family link to compare the current instance against.</param>
+        /// <param name="link">The family link to compare the current instance against.</param>
         /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(GedcomFamilyLink link)
         {
@@ -226,7 +188,7 @@ namespace SmartFamily.Gedcom.Models
                 return compare;
             }
 
-            compare = PreferedSpouse.CompareTo(link.PreferedSpouse);
+            compare = PreferredSpouse.CompareTo(link.PreferredSpouse);
             if (compare != 0)
             {
                 return compare;
@@ -255,7 +217,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed family link to see if they are the same.
         /// </summary>
         /// <param name="other">The GedcomFamilyLink to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomFamilyLink other)
         {
             return CompareTo(other) == 0;
@@ -265,7 +227,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in object to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as GedcomFamilyLink);
@@ -278,7 +240,7 @@ namespace SmartFamily.Gedcom.Models
                 FatherPedigree,
                 MotherPedigree,
                 Pedigree,
-                PreferedSpouse,
+                PreferredSpouse,
                 Status,
             }.GetHashCode();
         }

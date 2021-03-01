@@ -9,8 +9,8 @@ namespace SmartFamily.Gedcom.Parser
     /// <seealso cref="StreamWriter"/>
     internal class GedcomStreamWriter : StreamWriter
     {
-        //private int tabSize = 4;
-        private string tab = "    ";
+        //private int _tabSize = 4;
+        private readonly string _tab = "    ";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomStreamWriter"/> class.
@@ -56,7 +56,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="stream">The stream to write to.</param>
         /// <param name="encoding">The character encoding to use.</param>
         /// <param name="bufferSize">The buffer size, in bytes.</param>
-        /// <param name="leaveOpen">true to leave the sream open after the <see cref="StreamWriter"/> object is disposed; otherwise, false.</param>
+        /// <param name="leaveOpen">true to leave the stream open after the <see cref="StreamWriter"/> object is disposed; otherwise, false.</param>
         public GedcomStreamWriter(Stream stream, Encoding encoding, int bufferSize, bool leaveOpen)
             : base(stream, encoding, bufferSize, leaveOpen)
         {
@@ -65,7 +65,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomStreamWriter"/> class.
         /// </summary>
-        /// <param name="path">The comlete file path to write to.</param>
+        /// <param name="path">The complete file path to write to.</param>
         /// <param name="append">true to append data to the file; false to overwrite the file. If the specified file does not exist, this parameter has no effect, and the constructor creates a new file.</param>
         /// <param name="encoding">The character encoding to use.</param>
         public GedcomStreamWriter(string path, bool append, Encoding encoding)
@@ -112,7 +112,7 @@ namespace SmartFamily.Gedcom.Parser
             }
             else if ((!AllowLineTabsSave && value == 0x0b) || (!AllowTabsSave && value == 0x09))
             {
-                base.Write(tab);
+                base.Write(_tab);
             }
             else
             {
@@ -155,12 +155,12 @@ namespace SmartFamily.Gedcom.Parser
 
             if (!AllowLineTabsSave)
             {
-                tmp = tmp.Replace("\x000b", tab);
+                tmp = tmp.Replace("\x000b", _tab);
             }
 
             if (!AllowTabsSave)
             {
-                tmp = tmp.Replace("\x0009", tab);
+                tmp = tmp.Replace("\x0009", _tab);
             }
 
             base.Write(tmp);
@@ -211,7 +211,7 @@ namespace SmartFamily.Gedcom.Parser
             }
             else if ((!AllowLineTabsSave && value == 0x0b) || (!AllowTabsSave && value == 0x09))
             {
-                base.WriteLine(tab);
+                base.WriteLine(_tab);
             }
             else
             {
@@ -254,12 +254,12 @@ namespace SmartFamily.Gedcom.Parser
 
             if (!AllowLineTabsSave)
             {
-                tmp = tmp.Replace("\x000b", tab);
+                tmp = tmp.Replace("\x000b", _tab);
             }
 
             if (!AllowTabsSave)
             {
-                tmp = tmp.Replace("\x0009", tab);
+                tmp = tmp.Replace("\x0009", _tab);
             }
 
             base.WriteLine(tmp);

@@ -13,7 +13,7 @@ namespace SmartFamily.Gedcom.Enums
         NotSet = 0,
 
         /// <summary>
-        /// Cancelled and considered invalid.
+        /// Canceled and considered invalid.
         /// </summary>
         CANCELED = 1,
 
@@ -33,7 +33,7 @@ namespace SmartFamily.Gedcom.Enums
         DNS = 4,
 
         /// <summary>
-        /// This ordinance is not authorized, previous sealing cancelled.
+        /// This ordinance is not authorized, previous sealing canceled.
         /// </summary>
         [Description("DNS/CAN")]
         DNS_CAN = 5,

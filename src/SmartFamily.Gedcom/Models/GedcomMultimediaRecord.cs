@@ -10,19 +10,20 @@ namespace SmartFamily.Gedcom.Models
     /// A multimedia record, this can consist of any number of files
     /// of varying types
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
     {
-        private GedcomRecordList<GedcomMultimediaFile> files;
+        private readonly GedcomRecordList<GedcomMultimediaFile> _files;
 
-        private string title;
+        private string _title;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomMultimediaRecord"/> class.
         /// </summary>
         public GedcomMultimediaRecord()
         {
-            files = new GedcomRecordList<GedcomMultimediaFile>();
-            files.CollectionChanged += ListChanged;
+            _files = new GedcomRecordList<GedcomMultimediaFile>();
+            _files.CollectionChanged += ListChanged;
         }
 
         /// <summary>
@@ -42,50 +43,38 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Multimedia; }
+            get => GedcomRecordType.Multimedia;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for a multimedia record.
         /// </summary>
-        /// <value>
-        /// The GGEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return "OBJE"; }
+            get => "OBJE";
         }
 
         /// <summary>
         /// Gets the multimedia files.
         /// </summary>
-        /// <value>
-        /// The multimedia files.
-        /// </value>
         public GedcomRecordList<GedcomMultimediaFile> Files
         {
-            get { return files; }
+            get => _files;
         }
 
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
         public string Title
         {
             get
             {
-                if (string.IsNullOrEmpty(title))
+                if (string.IsNullOrEmpty(_title))
                 {
                     StringBuilder sb = new StringBuilder();
-                    foreach (GedcomMultimediaFile file in files)
+                    foreach (GedcomMultimediaFile file in _files)
                     {
                         if (sb.Length > 0)
                         {
@@ -95,16 +84,16 @@ namespace SmartFamily.Gedcom.Models
                         sb.Append(file.Filename);
                     }
 
-                    title = sb.ToString();
+                    _title = sb.ToString();
                 }
 
-                return title;
+                return _title;
             }
             set
             {
-                if (value != title)
+                if (value != _title)
                 {
-                    title = value;
+                    _title = value;
                     Changed();
                 }
             }
@@ -113,9 +102,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -138,10 +124,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -167,27 +150,29 @@ namespace SmartFamily.Gedcom.Models
         {
             FileInfo info = new FileInfo(filename);
 
-            GedcomMultimediaFile file = new GedcomMultimediaFile();
-            file.Database = Database;
+            GedcomMultimediaFile file = new GedcomMultimediaFile
+            {
+                Database = Database,
 
-            file.Filename = filename;
-            file.Format = info.Extension;
+                Filename = filename,
+                Format = info.Extension
+            };
 
-            files.Add(file);
+            _files.Add(file);
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the multimedia record.
         /// </summary>
-        /// <param name="sw"></param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
 
-            foreach (GedcomMultimediaFile file in files)
+            foreach (GedcomMultimediaFile file in _files)
             {
                 if (levelPlusOne == null)
                 {
@@ -195,34 +180,34 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusTwo = (Level + 2).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" FILE ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" FILE ");
 
                 // TODO: we don't support BLOB so we can end up without a filename
                 if (!string.IsNullOrEmpty(file.Filename))
                 {
-                    sw.Write(file.Filename);
+                    tw.Write(file.Filename);
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusTwo);
-                sw.Write(" FORM ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusTwo);
+                tw.Write(" FORM ");
                 if (!string.IsNullOrEmpty(file.Format))
                 {
-                    sw.Write(file.Format);
+                    tw.Write(file.Format);
                 }
                 else
                 {
-                    sw.Write("Unknown");
+                    tw.Write("Unknown");
                 }
 
                 if (!string.IsNullOrEmpty(file.SourceMediaType))
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" MEDI ");
-                    sw.Write(file.SourceMediaType);
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" MEDI ");
+                    tw.Write(file.SourceMediaType);
                 }
             }
         }
@@ -231,7 +216,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var media = obj as GedcomMultimediaRecord;
@@ -258,7 +243,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomMultimediaRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomMultimediaRecord other)
         {
             return IsEquivalentTo(other);
@@ -268,7 +253,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj);

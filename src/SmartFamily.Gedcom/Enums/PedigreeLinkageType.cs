@@ -31,7 +31,7 @@
         Sealing,
 
         // not part of standard GEDCOM
-        // Family Tree Maker (at least in some versions) has cutom _FREL and _MREL tags
+        // Family Tree Maker (at least in some versions) has custom _FREL and _MREL tags
         // on CHIL in the FAM record
 
         /// <summary>

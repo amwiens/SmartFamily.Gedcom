@@ -53,25 +53,22 @@ namespace SmartFamily.Gedcom.Parser
         /// <summary>
         /// Gets or sets the corporation address.
         /// </summary>
-        /// <summary>
-        /// The corporation address.
-        /// </summary>
         public GedcomAddress CorporationAddress { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to use the information separator when saving.
         /// </summary>
-        /// <summary>
+        /// <remarks>
         /// <c>true</c> if [allow information separator on save]; otherwise, <c>false</c>.
-        /// </summary>
+        /// </remarks>
         public bool AllowInformationSeparatorOnSave { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [allow line tabs save].
         /// </summary>
-        /// <summary>
-        ///   <c>true</c> if [allow line tabs save]; otherwise, <c>false</c>.
-        /// </summary>
+        /// <remarks>
+        /// <c>true</c> if [allow line tabs save]; otherwise, <c>false</c>.
+        /// </remarks>
         public bool AllowLineTabsSave { get; set; }
 
         /// <summary>
@@ -105,7 +102,7 @@ namespace SmartFamily.Gedcom.Parser
         }
 
         /// <summary>
-        /// Outputs the currently set GedcomDatabase to the currently set file
+        /// Outputs the currently set GedcomDatabase to the currently set file.
         /// </summary>
         public void WriteGedcom()
         {

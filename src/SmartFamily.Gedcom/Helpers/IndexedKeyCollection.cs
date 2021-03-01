@@ -55,8 +55,7 @@ namespace SmartFamily.Gedcom.Helpers
         {
             get
             {
-                string ret = null;
-
+                string ret;
                 if (length == 0)
                 {
                     ret = string.Empty;
@@ -112,7 +111,7 @@ namespace SmartFamily.Gedcom.Helpers
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <param name="pos">The position the string was found at.</param>
-        /// <returns>True if string found, false otherwise.</returns>
+        /// <returns><c>True</c> if string found, <c>false</c> otherwise.</returns>
         public virtual bool Find(string str, int startIndex, int length, out int pos)
         {
             // TODO: Needs unit testing and benchmarking.

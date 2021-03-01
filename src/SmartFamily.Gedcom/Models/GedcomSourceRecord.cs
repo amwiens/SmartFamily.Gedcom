@@ -18,47 +18,47 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// The events recorded.
         /// </summary>
-        private ObservableCollection<GedcomRecordedEvent> eventsRecorded;
+        private ObservableCollection<GedcomRecordedEvent> _eventsRecorded;
 
         /// <summary>
         /// The agency.
         /// </summary>
-        private string agency;
+        private string _agency;
 
         /// <summary>
         /// The data notes.
         /// </summary>
-        private GedcomRecordList<string> dataNotes;
+        private GedcomRecordList<string> _dataNotes;
 
         /// <summary>
         /// the originator.
         /// </summary>
-        private string originator;
+        private string _originator;
 
         /// <summary>
         /// The title.
         /// </summary>
-        private string title;
+        private string _title;
 
         /// <summary>
         /// The filed by.
         /// </summary>
-        private string filedBy;
+        private string _filedBy;
 
         /// <summary>
         /// The publication facts.
         /// </summary>
-        private string publicationFacts;
+        private string _publicationFacts;
 
         /// <summary>
         /// The text.
         /// </summary>
-        private string text;
+        private string _text;
 
         /// <summary>
         /// The repository citations.
         /// </summary>
-        private GedcomRecordList<GedcomRepositoryCitation> repositoryCitations;
+        private GedcomRecordList<GedcomRepositoryCitation> _repositoryCitations;
 
         /// <summary>
         /// The citations.
@@ -82,7 +82,7 @@ namespace SmartFamily.Gedcom.Models
             Database = database;
             Level = 0;
 
-            title = "New Source";
+            _title = "New Source";
 
             // default to filer being current user
 #if __MonoCS__
@@ -122,62 +122,47 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Source; }
+            get => GedcomRecordType.Source;
         }
 
         /// <summary>
         /// Gets the GEDCOM tag for a source record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
-            get { return "SOUR"; }
+            get => "SOUR";
         }
 
         /// <summary>
         /// Gets the events recorded.
         /// </summary>
-        /// <value>
-        /// The events recorded.
-        /// </value>
         public ObservableCollection<GedcomRecordedEvent> EventsRecorded
         {
             get
             {
-                if (eventsRecorded == null)
+                if (_eventsRecorded == null)
                 {
-                    eventsRecorded = new ObservableCollection<GedcomRecordedEvent>();
-                    eventsRecorded.CollectionChanged += ListChanged;
+                    _eventsRecorded = new ObservableCollection<GedcomRecordedEvent>();
+                    _eventsRecorded.CollectionChanged += ListChanged;
                 }
 
-                return eventsRecorded;
+                return _eventsRecorded;
             }
         }
 
         /// <summary>
         /// Gets or sets the agency.
         /// </summary>
-        /// <value>
-        /// The agency.
-        /// </value>
         public string Agency
         {
-            get
-            {
-                return agency;
-            }
+            get => _agency;
             set
             {
-                if (value != agency)
+                if (value != _agency)
                 {
-                    agency = value;
+                    _agency = value;
                     Changed();
                 }
             }
@@ -186,40 +171,31 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the data notes.
         /// </summary>
-        /// <value>
-        /// The data notes.
-        /// </value>
         public GedcomRecordList<string> DataNotes
         {
             get
             {
-                if (dataNotes == null)
+                if (_dataNotes == null)
                 {
-                    dataNotes = new GedcomRecordList<string>();
-                    dataNotes.CollectionChanged += ListChanged;
+                    _dataNotes = new GedcomRecordList<string>();
+                    _dataNotes.CollectionChanged += ListChanged;
                 }
 
-                return dataNotes;
+                return _dataNotes;
             }
         }
 
         /// <summary>
         /// Gets or sets the originator.
         /// </summary>
-        /// <value>
-        /// The originator.
-        /// </value>
         public string Originator
         {
-            get
-            {
-                return originator;
-            }
+            get => _originator;
             set
             {
-                if (value != originator)
+                if (value != _originator)
                 {
-                    originator = value;
+                    _originator = value;
                     Changed();
                 }
             }
@@ -228,20 +204,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
         public string Title
         {
-            get
-            {
-                return title;
-            }
+            get => _title;
             set
             {
-                if (value != title)
+                if (value != _title)
                 {
-                    title = value;
+                    _title = value;
                     Changed();
                 }
             }
@@ -250,20 +220,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the filed by.
         /// </summary>
-        /// <value>
-        /// The filed by.
-        /// </value>
         public string FiledBy
         {
-            get
-            {
-                return filedBy;
-            }
+            get => _filedBy;
             set
             {
-                if (value != filedBy)
+                if (value != _filedBy)
                 {
-                    filedBy = value;
+                    _filedBy = value;
                     Changed();
                 }
             }
@@ -272,20 +236,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the publication facts
         /// </summary>
-        /// <value>
-        /// The publication facts.
-        /// </value>
         public string PublicationFacts
         {
-            get
-            {
-                return publicationFacts;
-            }
+            get => _publicationFacts;
             set
             {
-                if (value != publicationFacts)
+                if (value != _publicationFacts)
                 {
-                    publicationFacts = value;
+                    _publicationFacts = value;
                     Changed();
                 }
             }
@@ -294,20 +252,14 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => _text;
             set
             {
-                if (value != text)
+                if (value != _text)
                 {
-                    text = value;
+                    _text = value;
                     Changed();
                 }
             }
@@ -316,29 +268,23 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the repository citations.
         /// </summary>
-        /// <value>
-        /// The repository citations.
-        /// </value>
         public GedcomRecordList<GedcomRepositoryCitation> RepositoryCitations
         {
             get
             {
-                if (repositoryCitations == null)
+                if (_repositoryCitations == null)
                 {
-                    repositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    repositoryCitations.CollectionChanged += ListChanged;
+                    _repositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
+                    _repositoryCitations.CollectionChanged += ListChanged;
                 }
 
-                return repositoryCitations;
+                return _repositoryCitations;
             }
         }
 
         /// <summary>
         /// Gets the citations.
         /// </summary>
-        /// <value>
-        /// The citations.
-        /// </value>
         public GedcomRecordList<GedcomSourceCitation> Citations
         {
             get
@@ -356,9 +302,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -402,10 +345,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -471,7 +411,7 @@ namespace SmartFamily.Gedcom.Models
 
             // TODO: Type attribute, GEDCOM 6 mapping problem, Type
             // appears to be a media type, but that is held in the repo citations
-            // even worse is that ther can be multiple media types per citation
+            // even worse is that there can be multiple media types per citation
             node.Attributes.Append(attr);
 
             if (RepositoryCitations != null)
@@ -524,12 +464,12 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this source record as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the source record.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The writer to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
             string levelPlusOne = null;
             string levelPlusTwo = null;
@@ -543,9 +483,9 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" DATA ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" DATA ");
 
                 if (!string.IsNullOrEmpty(Agency))
                 {
@@ -554,11 +494,11 @@ namespace SmartFamily.Gedcom.Models
                         levelPlusTwo = (Level + 2).ToString();
                     }
 
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" AGNC ");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusTwo);
+                    tw.Write(" AGNC ");
                     string line = Agency.Replace("@", "@@");
-                    sw.Write(line);
+                    tw.Write(line);
                 }
 
                 if (DataNotes != null)
@@ -570,12 +510,12 @@ namespace SmartFamily.Gedcom.Models
 
                     foreach (string noteID in DataNotes)
                     {
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" NOTE ");
-                        sw.Write("@");
-                        sw.Write(noteID);
-                        sw.Write("@");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" NOTE ");
+                        tw.Write("@");
+                        tw.Write(noteID);
+                        tw.Write("@");
                     }
                 }
 
@@ -588,30 +528,30 @@ namespace SmartFamily.Gedcom.Models
 
                     foreach (GedcomRecordedEvent recordedEvent in EventsRecorded)
                     {
-                        sw.Write(Environment.NewLine);
-                        sw.Write(levelPlusTwo);
-                        sw.Write(" EVEN ");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(levelPlusTwo);
+                        tw.Write(" EVEN ");
                         bool first = true;
 
                         foreach (GedcomEventType eventType in recordedEvent.Types)
                         {
                             if (!first)
                             {
-                                sw.Write(",");
+                                tw.Write(",");
                             }
 
-                            sw.Write(GedcomEvent.TypeToTag(eventType));
+                            tw.Write(GedcomEvent.TypeToTag(eventType));
                             first = false;
                         }
 
                         if (recordedEvent.Date != null)
                         {
-                            recordedEvent.Date.Output(sw);
+                            recordedEvent.Date.Output(tw);
                         }
 
                         if (recordedEvent.Place != null)
                         {
-                            recordedEvent.Place.Output(sw);
+                            recordedEvent.Place.Output(tw);
                         }
                     }
                 }
@@ -624,10 +564,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" AUTH ");
-                Util.SplitLineText(sw, Originator, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" AUTH ");
+                Util.SplitLineText(tw, Originator, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(Title))
@@ -637,10 +577,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TITL ");
-                Util.SplitLineText(sw, Title, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TITL ");
+                Util.SplitLineText(tw, Title, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(FiledBy))
@@ -650,10 +590,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" ABBR ");
-                Util.SplitLineText(sw, FiledBy, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" ABBR ");
+                Util.SplitLineText(tw, FiledBy, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(PublicationFacts))
@@ -663,10 +603,10 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" PUBL ");
-                Util.SplitLineText(sw, PublicationFacts, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" PUBL ");
+                Util.SplitLineText(tw, PublicationFacts, Level + 1, 248);
             }
 
             if (!string.IsNullOrEmpty(Text))
@@ -676,17 +616,17 @@ namespace SmartFamily.Gedcom.Models
                     levelPlusOne = (Level + 1).ToString();
                 }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" TEXT ");
-                Util.SplitLineText(sw, Text, Level + 1, 248);
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" TEXT ");
+                Util.SplitLineText(tw, Text, Level + 1, 248);
             }
 
             if (RepositoryCitations != null)
             {
                 foreach (GedcomRepositoryCitation citation in RepositoryCitations)
                 {
-                    citation.Output(sw);
+                    citation.Output(tw);
                 }
             }
         }
@@ -695,7 +635,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var source = obj as GedcomSourceRecord;
@@ -801,7 +741,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSourceRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSourceRecord other)
         {
             return IsEquivalentTo(other);
@@ -811,7 +751,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The GedcomSourceRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj as GedcomSourceRecord);
