@@ -10,8 +10,8 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomFamilyEvent : GedcomEvent, IEquatable<GedcomFamilyEvent>
     {
-        private GedcomAge husbandAge;
-        private GedcomAge wifeAge;
+        private GedcomAge _husbandAge;
+        private GedcomAge _wifeAge;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomFamilyEvent"/> class.
@@ -28,7 +28,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.FamilyEvent; }
+            get => GedcomRecordType.FamilyEvent;
         }
 
         /// <summary>
@@ -39,15 +39,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomAge HusbandAge
         {
-            get
-            {
-                return husbandAge;
-            }
+            get => _husbandAge;
             set
             {
-                if (value != husbandAge)
+                if (value != _husbandAge)
                 {
-                    husbandAge = value;
+                    _husbandAge = value;
                     Changed();
                 }
             }
@@ -61,15 +58,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomAge WifeAge
         {
-            get
-            {
-                return wifeAge;
-            }
+            get => _wifeAge;
             set
             {
-                if (value != wifeAge)
+                if (value != _wifeAge)
                 {
-                    wifeAge = value;
+                    _wifeAge = value;
                     Changed();
                 }
             }
@@ -86,11 +80,7 @@ namespace SmartFamily.Gedcom.Models
         /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent.</exception>
         public GedcomFamilyRecord FamRecord
         {
-            get
-            {
-                return (GedcomFamilyRecord)Record;
-            }
-
+            get => (GedcomFamilyRecord)Record;
             set
             {
                 if (value != Record)
@@ -127,18 +117,18 @@ namespace SmartFamily.Gedcom.Models
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (husbandAge != null)
+                if (_husbandAge != null)
                 {
-                    childChangeDate = husbandAge.ChangeDate;
+                    childChangeDate = _husbandAge.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
                     }
                 }
 
-                if (wifeAge != null)
+                if (_wifeAge != null)
                 {
-                    childChangeDate = wifeAge.ChangeDate;
+                    childChangeDate = _wifeAge.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
@@ -152,10 +142,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>

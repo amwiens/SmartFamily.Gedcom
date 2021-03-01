@@ -12,10 +12,10 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="GedcomRecord"/>
     public class GedcomSubmitterRecord : GedcomRecord, IEquatable<GedcomSubmitterRecord>
     {
-        private string name;
-        private GedcomAddress address;
-        private List<string> languagePreferences;
-        private string registeredRFN;
+        private string _name;
+        private GedcomAddress _address;
+        private List<string> _languagePreferences;
+        private string _registeredRFN;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
@@ -48,7 +48,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Submitter; }
+            get => GedcomRecordType.Submitter;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "SUBM"; }
+            get => "SUBM";
         }
 
         /// <summary>
@@ -70,15 +70,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get=> _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     Changed();
                 }
             }
@@ -92,15 +89,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomAddress Address
         {
-            get
-            {
-                return address;
-            }
+            get => _address;
             set
             {
-                if (value != address)
+                if (value != _address)
                 {
-                    address = value;
+                    _address = value;
                     Changed();
                 }
             }
@@ -114,15 +108,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public List<string> LanguagePreferences
         {
-            get
-            {
-                return languagePreferences;
-            }
+            get => _languagePreferences;
             set
             {
-                if (value != languagePreferences)
+                if (value != _languagePreferences)
                 {
-                    languagePreferences = value;
+                    _languagePreferences = value;
                     Changed();
                 }
             }
@@ -136,15 +127,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string RegisteredRFN
         {
-            get
-            {
-                return registeredRFN;
-            }
+            get => _registeredRFN;
             set
             {
-                if (value != registeredRFN)
+                if (value != _registeredRFN)
                 {
-                    registeredRFN = value;
+                    _registeredRFN = value;
                     Changed();
                 }
             }
@@ -178,10 +166,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>

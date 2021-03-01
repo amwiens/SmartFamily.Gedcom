@@ -11,14 +11,14 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="GedcomRecord"/>
     public class GedcomPlace : GedcomRecord, IEquatable<GedcomPlace>, IComparable<GedcomPlace>, IComparable
     {
-        private string name;
-        private string form;
+        private string _name;
+        private string _form;
 
-        private GedcomRecordList<GedcomVariation> phoneticVariations;
-        private GedcomRecordList<GedcomVariation> romanizedVariations;
+        private GedcomRecordList<GedcomVariation> _phoneticVariations;
+        private GedcomRecordList<GedcomVariation> _romanizedVariations;
 
-        private string latitude;
-        private string longitude;
+        private string _latitude;
+        private string _longitude;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomPlace"/> class.
@@ -35,7 +35,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Place; }
+            get => GedcomRecordType.Place;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override string GedcomTag
         {
-            get { return "PLAC"; }
+            get => "PLAC";
         }
 
         /// <summary>
@@ -54,15 +54,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     Changed();
                 }
             }
@@ -76,15 +73,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Form
         {
-            get
-            {
-                return form;
-            }
+            get => _form;
             set
             {
-                if (value != form)
+                if (value != _form)
                 {
-                    form = value;
+                    _form = value;
                     Changed();
                 }
             }
@@ -100,13 +94,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (phoneticVariations == null)
+                if (_phoneticVariations == null)
                 {
-                    phoneticVariations = new GedcomRecordList<GedcomVariation>();
-                    phoneticVariations.CollectionChanged += ListChanged;
+                    _phoneticVariations = new GedcomRecordList<GedcomVariation>();
+                    _phoneticVariations.CollectionChanged += ListChanged;
                 }
 
-                return phoneticVariations;
+                return _phoneticVariations;
             }
         }
 
@@ -120,13 +114,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (romanizedVariations == null)
+                if (_romanizedVariations == null)
                 {
-                    romanizedVariations = new GedcomRecordList<GedcomVariation>();
-                    romanizedVariations.CollectionChanged += ListChanged;
+                    _romanizedVariations = new GedcomRecordList<GedcomVariation>();
+                    _romanizedVariations.CollectionChanged += ListChanged;
                 }
 
-                return romanizedVariations;
+                return _romanizedVariations;
             }
         }
 
@@ -138,15 +132,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Latitude
         {
-            get
-            {
-                return latitude;
-            }
+            get => _latitude;
             set
             {
-                if (value != latitude)
+                if (value != _latitude)
                 {
-                    latitude = value;
+                    _latitude = value;
                     Changed();
                 }
             }
@@ -160,15 +151,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Longitude
         {
-            get
-            {
-                return longitude;
-            }
+            get => _longitude;
             set
             {
-                if (value != longitude)
+                if (value != _longitude)
                 {
-                    longitude = value;
+                    _longitude = value;
                     Changed();
                 }
             }
@@ -186,9 +174,9 @@ namespace SmartFamily.Gedcom.Models
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (phoneticVariations != null)
+                if (_phoneticVariations != null)
                 {
-                    foreach (GedcomVariation variation in phoneticVariations)
+                    foreach (GedcomVariation variation in _phoneticVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -198,9 +186,9 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (romanizedVariations != null)
+                if (_romanizedVariations != null)
                 {
-                    foreach (GedcomVariation variation in romanizedVariations)
+                    foreach (GedcomVariation variation in _romanizedVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -217,10 +205,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -258,7 +243,7 @@ namespace SmartFamily.Gedcom.Models
                 sw.Write(line);
             }
 
-            if (phoneticVariations != null)
+            if (_phoneticVariations != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -288,7 +273,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (romanizedVariations != null)
+            if (_romanizedVariations != null)
             {
                 if (levelPlusOne == null)
                 {

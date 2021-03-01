@@ -23,13 +23,13 @@ namespace SmartFamily.Gedcom.Models
         /// <inheritdoc/>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.CustomRecord; }
+            get => GedcomRecordType.CustomRecord;
         }
 
         /// <inheritdoc/>
         public override string GedcomTag
         {
-            get { return Tag; }
+            get => Tag;
         }
 
         /// <summary>

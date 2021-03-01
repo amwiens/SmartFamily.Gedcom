@@ -18,42 +18,42 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Level
         /// </summary>
-        private int level;
+        private int _level;
 
         /// <summary>
         /// User reference number
         /// </summary>
-        private string userReferenceNumber;
+        private string _userReferenceNumber;
 
         /// <summary>
         /// User reference type
         /// </summary>
-        private string userReferenceType;
+        private string _userReferenceType;
 
         /// <summary>
         /// Automated record identifier
         /// </summary>
-        private string automatedRecordId;
+        private string _automatedRecordId;
 
         /// <summary>
         /// Change date
         /// </summary>
-        private GedcomChangeDate changeDate;
+        private GedcomChangeDate _changeDate;
 
         /// <summary>
         /// Notes
         /// </summary>
-        private GedcomRecordList<string> notes;
+        private GedcomRecordList<string> _notes;
 
         /// <summary>
         /// Multimedia
         /// </summary>
-        private GedcomRecordList<string> multimedia;
+        private GedcomRecordList<string> _multimedia;
 
         /// <summary>
         /// Sources
         /// </summary>
-        private GedcomRecordList<GedcomSourceCitation> sources;
+        private GedcomRecordList<GedcomSourceCitation> _sources;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRecord"/> class.
@@ -80,7 +80,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public virtual GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.GenericRecord; }
+            get => GedcomRecordType.GenericRecord;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public virtual string GedcomTag
         {
-            get { return "_UNKN"; }
+            get => "_UNKN";
         }
 
         /// <summary>
@@ -102,13 +102,10 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public int Level
         {
-            get
-            {
-                return level;
-            }
+            get => _level;
             set
             {
-                level = value;
+                _level = value;
                 ParsingLevel = value;
             }
         }
@@ -131,8 +128,8 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string XRefID
         {
-            get { return XrefId; }
-            set { XrefId = value; }
+            get => XrefId;
+            set => XrefId = value;
         }
 
         /// <summary>
@@ -143,15 +140,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string UserReferenceNumber
         {
-            get
-            {
-                return userReferenceNumber;
-            }
+            get => _userReferenceNumber;
             set
             {
-                if (value != userReferenceNumber)
+                if (value != _userReferenceNumber)
                 {
-                    userReferenceNumber = value;
+                    _userReferenceNumber = value;
                     Changed();
                 }
             }
@@ -165,15 +159,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string UserReferenceType
         {
-            get
-            {
-                return userReferenceType;
-            }
+            get => _userReferenceType;
             set
             {
-                if (value != userReferenceType)
+                if (value != _userReferenceType)
                 {
-                    userReferenceType = value;
+                    _userReferenceType = value;
                     Changed();
                 }
             }
@@ -187,15 +178,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string AutomatedRecordId
         {
-            get
-            {
-                return automatedRecordId;
-            }
+            get => _automatedRecordId;
             set
             {
-                if (value != automatedRecordId)
+                if (value != _automatedRecordId)
                 {
-                    automatedRecordId = value;
+                    _automatedRecordId = value;
                     Changed();
                 }
             }
@@ -212,7 +200,7 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                GedcomChangeDate realChangeDate = changeDate;
+                GedcomChangeDate realChangeDate = _changeDate;
                 GedcomRecord record;
                 GedcomChangeDate childChangeDate;
                 if (Database == null)
@@ -221,7 +209,7 @@ namespace SmartFamily.Gedcom.Models
                     throw new Exception($"MISSING DATABASE: {this.RecordType.ToString()}");
                 }
 
-                if (notes != null)
+                if (_notes != null)
                 {
                     foreach (string noteID in Notes)
                     {
@@ -241,7 +229,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (multimedia != null)
+                if (_multimedia != null)
                 {
                     foreach (string mediaID in Multimedia)
                     {
@@ -261,7 +249,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (sources != null)
+                if (_sources != null)
                 {
                     foreach (GedcomSourceCitation citation in Sources)
                     {
@@ -280,10 +268,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                changeDate = value;
-            }
+            set => _changeDate = value;
         }
 
         /// <summary>
@@ -294,13 +279,13 @@ namespace SmartFamily.Gedcom.Models
             // TODO: This lookup is not easy to use, can we simplify this to a list of note records?
             get
             {
-                if (notes == null)
+                if (_notes == null)
                 {
-                    notes = new GedcomRecordList<string>();
-                    notes.CollectionChanged += ListChanged;
+                    _notes = new GedcomRecordList<string>();
+                    _notes.CollectionChanged += ListChanged;
                 }
 
-                return notes;
+                return _notes;
             }
         }
 
@@ -314,13 +299,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (multimedia == null)
+                if (_multimedia == null)
                 {
-                    multimedia = new GedcomRecordList<string>();
-                    multimedia.CollectionChanged += ListChanged;
+                    _multimedia = new GedcomRecordList<string>();
+                    _multimedia.CollectionChanged += ListChanged;
                 }
 
-                return multimedia;
+                return _multimedia;
             }
         }
 
@@ -334,13 +319,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (sources == null)
+                if (_sources == null)
                 {
-                    sources = new GedcomRecordList<GedcomSourceCitation>();
-                    sources.CollectionChanged += ListChanged;
+                    _sources = new GedcomRecordList<GedcomSourceCitation>();
+                    _sources.CollectionChanged += ListChanged;
                 }
 
-                return sources;
+                return _sources;
             }
         }
 
@@ -363,10 +348,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomRestrictionNotice RestrictionNotice
         {
-            get
-            {
-                return restrictionNotice;
-            }
+            get => restrictionNotice;
             set
             {
                 if (value != restrictionNotice)
@@ -397,26 +379,26 @@ namespace SmartFamily.Gedcom.Models
             RefCount--;
             if (RefCount <= 0)
             {
-                if (multimedia != null)
+                if (_multimedia != null)
                 {
-                    foreach (string objeID in multimedia)
+                    foreach (string objeID in _multimedia)
                     {
                         GedcomMultimediaRecord obje = (GedcomMultimediaRecord)Database[objeID];
                         obje.Delete();
                     }
                 }
 
-                if (sources != null)
+                if (_sources != null)
                 {
-                    foreach (GedcomSourceCitation citation in sources)
+                    foreach (GedcomSourceCitation citation in _sources)
                     {
                         citation.Delete();
                     }
                 }
 
-                if (notes != null)
+                if (_notes != null)
                 {
-                    foreach (string noteID in notes)
+                    foreach (string noteID in _notes)
                     {
                         GedcomNoteRecord note = (GedcomNoteRecord)Database[noteID];
                         note.Delete();
@@ -670,9 +652,9 @@ namespace SmartFamily.Gedcom.Models
             }
             else if (!Database.Loading)
             {
-                if (changeDate == null)
+                if (_changeDate == null)
                 {
-                    changeDate = new GedcomChangeDate(Database)
+                    _changeDate = new GedcomChangeDate(Database)
                     {
                         Level = Level + 1
                     };
@@ -680,9 +662,9 @@ namespace SmartFamily.Gedcom.Models
 
                 DateTime now = SystemTime.Now;
 
-                changeDate.Date1 = now.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-                changeDate.Time = now.ToString("HH:mm:ss");
-                changeDate.DatePeriod = GedcomDatePeriod.Exact;
+                _changeDate.Date1 = now.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+                _changeDate.Time = now.ToString("HH:mm:ss");
+                _changeDate.DatePeriod = GedcomDatePeriod.Exact;
             }
         }
 
@@ -718,7 +700,7 @@ namespace SmartFamily.Gedcom.Models
                 ChangeDate.Output(sw);
             }
 
-            if (notes != null)
+            if (_notes != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -732,7 +714,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (sources != null)
+            if (_sources != null)
             {
                 foreach (GedcomSourceCitation citation in Sources)
                 {
@@ -740,7 +722,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (multimedia != null)
+            if (_multimedia != null)
             {
                 if (levelPlusOne == null)
                 {

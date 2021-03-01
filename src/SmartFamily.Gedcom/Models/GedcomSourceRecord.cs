@@ -18,47 +18,47 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// The events recorded.
         /// </summary>
-        private ObservableCollection<GedcomRecordedEvent> eventsRecorded;
+        private ObservableCollection<GedcomRecordedEvent> _eventsRecorded;
 
         /// <summary>
         /// The agency.
         /// </summary>
-        private string agency;
+        private string _agency;
 
         /// <summary>
         /// The data notes.
         /// </summary>
-        private GedcomRecordList<string> dataNotes;
+        private GedcomRecordList<string> _dataNotes;
 
         /// <summary>
         /// the originator.
         /// </summary>
-        private string originator;
+        private string _originator;
 
         /// <summary>
         /// The title.
         /// </summary>
-        private string title;
+        private string _title;
 
         /// <summary>
         /// The filed by.
         /// </summary>
-        private string filedBy;
+        private string _filedBy;
 
         /// <summary>
         /// The publication facts.
         /// </summary>
-        private string publicationFacts;
+        private string _publicationFacts;
 
         /// <summary>
         /// The text.
         /// </summary>
-        private string text;
+        private string _text;
 
         /// <summary>
         /// The repository citations.
         /// </summary>
-        private GedcomRecordList<GedcomRepositoryCitation> repositoryCitations;
+        private GedcomRecordList<GedcomRepositoryCitation> _repositoryCitations;
 
         /// <summary>
         /// The citations.
@@ -82,7 +82,7 @@ namespace SmartFamily.Gedcom.Models
             Database = database;
             Level = 0;
 
-            title = "New Source";
+            _title = "New Source";
 
             // default to filer being current user
 #if __MonoCS__
@@ -127,7 +127,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Source; }
+            get => GedcomRecordType.Source;
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "SOUR"; }
+            get => "SOUR";
         }
 
         /// <summary>
@@ -151,13 +151,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (eventsRecorded == null)
+                if (_eventsRecorded == null)
                 {
-                    eventsRecorded = new ObservableCollection<GedcomRecordedEvent>();
-                    eventsRecorded.CollectionChanged += ListChanged;
+                    _eventsRecorded = new ObservableCollection<GedcomRecordedEvent>();
+                    _eventsRecorded.CollectionChanged += ListChanged;
                 }
 
-                return eventsRecorded;
+                return _eventsRecorded;
             }
         }
 
@@ -169,15 +169,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Agency
         {
-            get
-            {
-                return agency;
-            }
+            get => _agency;
             set
             {
-                if (value != agency)
+                if (value != _agency)
                 {
-                    agency = value;
+                    _agency = value;
                     Changed();
                 }
             }
@@ -193,13 +190,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (dataNotes == null)
+                if (_dataNotes == null)
                 {
-                    dataNotes = new GedcomRecordList<string>();
-                    dataNotes.CollectionChanged += ListChanged;
+                    _dataNotes = new GedcomRecordList<string>();
+                    _dataNotes.CollectionChanged += ListChanged;
                 }
 
-                return dataNotes;
+                return _dataNotes;
             }
         }
 
@@ -211,15 +208,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Originator
         {
-            get
-            {
-                return originator;
-            }
+            get => _originator;
             set
             {
-                if (value != originator)
+                if (value != _originator)
                 {
-                    originator = value;
+                    _originator = value;
                     Changed();
                 }
             }
@@ -233,15 +227,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Title
         {
-            get
-            {
-                return title;
-            }
+            get => _title;
             set
             {
-                if (value != title)
+                if (value != _title)
                 {
-                    title = value;
+                    _title = value;
                     Changed();
                 }
             }
@@ -255,15 +246,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string FiledBy
         {
-            get
-            {
-                return filedBy;
-            }
+            get => _filedBy;
             set
             {
-                if (value != filedBy)
+                if (value != _filedBy)
                 {
-                    filedBy = value;
+                    _filedBy = value;
                     Changed();
                 }
             }
@@ -277,15 +265,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string PublicationFacts
         {
-            get
-            {
-                return publicationFacts;
-            }
+            get => _publicationFacts;
             set
             {
-                if (value != publicationFacts)
+                if (value != _publicationFacts)
                 {
-                    publicationFacts = value;
+                    _publicationFacts = value;
                     Changed();
                 }
             }
@@ -299,15 +284,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => _text;
             set
             {
-                if (value != text)
+                if (value != _text)
                 {
-                    text = value;
+                    _text = value;
                     Changed();
                 }
             }
@@ -323,13 +305,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (repositoryCitations == null)
+                if (_repositoryCitations == null)
                 {
-                    repositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    repositoryCitations.CollectionChanged += ListChanged;
+                    _repositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
+                    _repositoryCitations.CollectionChanged += ListChanged;
                 }
 
-                return repositoryCitations;
+                return _repositoryCitations;
             }
         }
 
@@ -402,10 +384,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>

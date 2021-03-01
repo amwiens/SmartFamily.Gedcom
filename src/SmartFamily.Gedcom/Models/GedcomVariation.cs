@@ -12,12 +12,12 @@ namespace SmartFamily.Gedcom.Models
         ///// </summary>
         ///// protected object data;
 
-        private GedcomDatabase database;
+        private GedcomDatabase _database;
 
-        private string variationValue;
-        private string variationType;
+        private string _variationValue;
+        private string _variationType;
 
-        private GedcomChangeDate changeDate;
+        private GedcomChangeDate _changeDate;
 
         // TODO: at least for GedcomName variations we need to support
         // personal name pieces here
@@ -37,8 +37,8 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomDatabase Database
         {
-            get { return database; }
-            set { database = value; }
+            get => _database;
+            set => _database = value;
         }
 
         /// <summary>
@@ -49,15 +49,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Value
         {
-            get
-            {
-                return variationValue;
-            }
+            get => _variationValue;
             set
             {
-                if (value != variationValue)
+                if (value != _variationValue)
                 {
-                    variationValue = value;
+                    _variationValue = value;
                     Changed();
                 }
             }
@@ -71,15 +68,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string VariationType
         {
-            get
-            {
-                return variationType;
-            }
+            get => _variationType;
             set
             {
-                if (value != variationType)
+                if (value != _variationType)
                 {
-                    variationType = value;
+                    _variationType = value;
                     Changed();
                 }
             }
@@ -93,8 +87,8 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomChangeDate ChangeDate
         {
-            get { return changeDate; }
-            set { changeDate = value; }
+            get => _changeDate;
+            set => _changeDate = value;
         }
 
         /// <summary>
@@ -168,7 +162,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         protected virtual void Changed()
         {
-            if (database == null)
+            if (_database == null)
             {
                 //System.Console.WriteLine("Changed() called on record with no database set");
 
@@ -178,7 +172,7 @@ namespace SmartFamily.Gedcom.Models
                 //    System.Console.WriteLine(f);
                 //}
             }
-            else if (!database.Loading)
+            else if (!_database.Loading)
             {
                 if (ChangeDate == null)
                 {

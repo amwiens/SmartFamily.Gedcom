@@ -10,19 +10,19 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomHeader : GedcomRecord, IEquatable<GedcomHeader>
     {
-        private GedcomNoteRecord contentDescription;
+        private GedcomNoteRecord _contentDescription;
 
-        private string submitterXRefID;
+        private string _submitterXRefID;
 
-        private GedcomDate transmissionDate;
+        private GedcomDate _transmissionDate;
 
-        private string copyright;
+        private string _copyright;
 
-        private string language;
+        private string _language;
 
-        private string sourceName = string.Empty;
-        private GedcomDate sourceDate;
-        private string sourceCopyright;
+        private string _sourceName = string.Empty;
+        private GedcomDate _sourceDate;
+        private string _sourceCopyright;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomHeader"/> class.
@@ -40,10 +40,7 @@ namespace SmartFamily.Gedcom.Models
         /// <exception cref="Exception">Database can only have one header.</exception>
         public override GedcomDatabase Database
         {
-            get
-            {
-                return base.Database;
-            }
+            get => base.Database;
             set
             {
                 base.Database = value;
@@ -107,15 +104,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomNoteRecord ContentDescription
         {
-            get
-            {
-                return contentDescription;
-            }
+            get => _contentDescription;
             set
             {
-                if (value != contentDescription)
+                if (value != _contentDescription)
                 {
-                    contentDescription = value;
+                    _contentDescription = value;
                     Changed();
                 }
             }
@@ -129,20 +123,17 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string SubmitterXRefID
         {
-            get
-            {
-                return submitterXRefID;
-            }
+            get => _submitterXRefID;
             set
             {
-                if (submitterXRefID != value)
+                if (_submitterXRefID != value)
                 {
-                    if (!string.IsNullOrEmpty(submitterXRefID))
+                    if (!string.IsNullOrEmpty(_submitterXRefID))
                     {
                         Submitter.Delete();
                     }
 
-                    submitterXRefID = value;
+                    _submitterXRefID = value;
                     Changed();
                 }
             }
@@ -156,10 +147,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomSubmitterRecord Submitter
         {
-            get
-            {
-                return Database[SubmitterXRefID] as GedcomSubmitterRecord;
-            }
+            get => Database[SubmitterXRefID] as GedcomSubmitterRecord;
             set
             {
                 if (value == null)
@@ -181,15 +169,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomDate TransmissionDate
         {
-            get
-            {
-                return transmissionDate;
-            }
+            get => _transmissionDate;
             set
             {
-                if (transmissionDate != value)
+                if (_transmissionDate != value)
                 {
-                    transmissionDate = value;
+                    _transmissionDate = value;
                     Changed();
                 }
             }
@@ -203,15 +188,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Copyright
         {
-            get
-            {
-                return copyright;
-            }
+            get => _copyright;
             set
             {
-                if (copyright != value)
+                if (_copyright != value)
                 {
-                    copyright = value;
+                    _copyright = value;
                     Changed();
                 }
             }
@@ -225,15 +207,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Language
         {
-            get
-            {
-                return language;
-            }
+            get => _language;
             set
             {
-                if (language != value)
+                if (_language != value)
                 {
-                    language = value;
+                    _language = value;
                     Changed();
                 }
             }
@@ -255,15 +234,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string SourceName
         {
-            get
-            {
-                return sourceName;
-            }
+            get => _sourceName;
             set
             {
-                if (sourceName != value)
+                if (_sourceName != value)
                 {
-                    sourceName = value;
+                    _sourceName = value;
                     Changed();
                 }
             }
@@ -277,15 +253,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomDate SourceDate
         {
-            get
-            {
-                return sourceDate;
-            }
+            get => _sourceDate;
             set
             {
-                if (sourceDate != value)
+                if (_sourceDate != value)
                 {
-                    sourceDate = value;
+                    _sourceDate = value;
                     Changed();
                 }
             }
@@ -299,15 +272,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string SourceCopyright
         {
-            get
-            {
-                return sourceCopyright;
-            }
+            get => _sourceCopyright;
             set
             {
-                if (sourceCopyright != value)
+                if (_sourceCopyright != value)
                 {
-                    sourceCopyright = value;
+                    _sourceCopyright = value;
                     Changed();
                 }
             }
@@ -321,7 +291,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Header; }
+            get => GedcomRecordType.Header;
         }
 
         /// <summary>
@@ -414,11 +384,11 @@ namespace SmartFamily.Gedcom.Models
                 sw.Write($"1 LANG {Language}");
             }
 
-            bool hasSubmitter = !string.IsNullOrEmpty(submitterXRefID);
+            bool hasSubmitter = !string.IsNullOrEmpty(_submitterXRefID);
             if (hasSubmitter)
             {
                 sw.Write(Environment.NewLine);
-                sw.Write($"1 SUBM @{submitterXRefID}@");
+                sw.Write($"1 SUBM @{_submitterXRefID}@");
             }
         }
 

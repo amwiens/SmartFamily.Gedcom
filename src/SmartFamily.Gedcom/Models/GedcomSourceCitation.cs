@@ -13,17 +13,17 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="GedcomRecord"/>
     public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitation>, IComparable<GedcomSourceCitation>, IComparable
     {
-        private string source;
+        private string _source;
 
         // source citation fields
-        private string page;
+        private string _page;
 
-        private string eventType;
-        private string role;
-        private GedcomCertainty certainty = GedcomCertainty.Unknown;
+        private string _eventType;
+        private string _role;
+        private GedcomCertainty _certainty = GedcomCertainty.Unknown;
 
-        private GedcomDate date;
-        private string text;
+        private GedcomDate _date;
+        private string _text;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSourceCitation"/> class.
@@ -45,7 +45,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.SourceCitation; }
+            get => GedcomRecordType.SourceCitation;
         }
 
         /// <summary>
@@ -64,15 +64,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Source
         {
-            get
-            {
-                return source;
-            }
+            get => _source;
             set
             {
-                if (value != source)
+                if (value != _source)
                 {
-                    source = value;
+                    _source = value;
                     Changed();
                 }
             }
@@ -86,15 +83,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Page
         {
-            get
-            {
-                return page;
-            }
+            get => _page;
             set
             {
-                if (value != page)
+                if (value != _page)
                 {
-                    page = value;
+                    _page = value;
                     Changed();
                 }
             }
@@ -108,15 +102,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string EventType
         {
-            get
-            {
-                return eventType;
-            }
+            get => _eventType;
             set
             {
-                if (value != eventType)
+                if (value != _eventType)
                 {
-                    eventType = value;
+                    _eventType = value;
                     Changed();
                 }
             }
@@ -130,15 +121,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Role
         {
-            get
-            {
-                return role;
-            }
+            get => _role;
             set
             {
-                if (value != role)
+                if (value != _role)
                 {
-                    role = value;
+                    _role = value;
                     Changed();
                 }
             }
@@ -152,15 +140,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomCertainty Certainty
         {
-            get
-            {
-                return certainty;
-            }
+            get => _certainty;
             set
             {
-                if (value != certainty)
+                if (value != _certainty)
                 {
-                    certainty = value;
+                    _certainty = value;
                     Changed();
                 }
             }
@@ -174,15 +159,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomDate Date
         {
-            get
-            {
-                return date;
-            }
+            get => _date;
             set
             {
-                if (value != date)
+                if (value != _date)
                 {
-                    date = value;
+                    _date = value;
                     Changed();
                 }
             }
@@ -196,15 +178,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => _text;
             set
             {
-                if (value != text)
+                if (value != _text)
                 {
-                    text = value;
+                    _text = value;
                     Changed();
                 }
             }

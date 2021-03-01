@@ -11,9 +11,9 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomAssociation : GedcomRecord, IComparable, IComparable<GedcomAssociation>, IEquatable<GedcomAssociation>
     {
-        private string description;
+        private string _description;
 
-        private string individual;
+        private string _individual;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomAssociation"/> class.
@@ -27,7 +27,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Association; }
+            get => GedcomRecordType.Association;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override string GedcomTag
         {
-            get { return "ASSO"; }
+            get => "ASSO";
         }
 
         /// <summary>
@@ -43,15 +43,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get => _description;
             set
             {
-                if (value != description)
+                if (value != _description)
                 {
-                    description = value;
+                    _description = value;
                     Changed();
                 }
             }
@@ -62,15 +59,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Individual
         {
-            get
-            {
-                return individual;
-            }
+            get => _individual;
             set
             {
-                if (value != individual)
+                if (value != _individual)
                 {
-                    individual = value;
+                    _individual = value;
                     Changed();
                 }
             }

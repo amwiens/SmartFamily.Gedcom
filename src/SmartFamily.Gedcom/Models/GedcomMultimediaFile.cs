@@ -7,13 +7,13 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomMultimediaFile : IComparable, IComparable<GedcomMultimediaFile>, IEquatable<GedcomMultimediaFile>
     {
-        private GedcomDatabase database;
+        private GedcomDatabase _database;
 
-        private string filename;
-        private string format;
-        private string sourceMediaType;
+        private string _filename;
+        private string _format;
+        private string _sourceMediaType;
 
-        private GedcomChangeDate changeDate;
+        private GedcomChangeDate _changeDate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomMultimediaFile"/> class.
@@ -30,8 +30,8 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomDatabase Database
         {
-            get { return database; }
-            set { database = value; }
+            get => _database;
+            set => _database = value;
         }
 
         /// <summary>
@@ -42,15 +42,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Filename
         {
-            get
-            {
-                return filename;
-            }
+            get => _filename;
             set
             {
-                if (value != filename)
+                if (value != _filename)
                 {
-                    filename = value;
+                    _filename = value;
                     Changed();
                 }
             }
@@ -64,15 +61,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Format
         {
-            get
-            {
-                return format;
-            }
+            get => _format;
             set
             {
-                if (value != format)
+                if (value != _format)
                 {
-                    format = value;
+                    _format = value;
                     Changed();
                 }
             }
@@ -86,15 +80,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string SourceMediaType
         {
-            get
-            {
-                return sourceMediaType;
-            }
+            get => _sourceMediaType;
             set
             {
-                if (value != sourceMediaType)
+                if (value != _sourceMediaType)
                 {
-                    sourceMediaType = value;
+                    _sourceMediaType = value;
                     Changed();
                 }
             }
@@ -108,8 +99,8 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomChangeDate ChangeDate
         {
-            get { return changeDate; }
-            set { changeDate = value; }
+            get => _changeDate;
+            set => _changeDate = value;
         }
 
         /// <summary>
@@ -190,7 +181,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         protected virtual void Changed()
         {
-            if (database == null)
+            if (_database == null)
             {
                 //System.Console.WriteLine("Changed() called on record with no database set");
 
@@ -200,17 +191,17 @@ namespace SmartFamily.Gedcom.Models
                 //    System.Console.WriteLine(f);
                 //}
             }
-            else if (!database.Loading)
+            else if (!_database.Loading)
             {
-                if (changeDate == null)
+                if (_changeDate == null)
                 {
-                    changeDate = new GedcomChangeDate(Database); // TODO: what level?
+                    _changeDate = new GedcomChangeDate(Database); // TODO: what level?
                 }
 
                 DateTime now = DateTime.Now;
 
-                changeDate.Date1 = now.ToString("dd MMM yyyy");
-                changeDate.Time = now.ToString("hh:mm:ss");
+                _changeDate.Date1 = now.ToString("dd MMM yyyy");
+                _changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
     }

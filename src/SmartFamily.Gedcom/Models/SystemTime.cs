@@ -7,7 +7,7 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public static class SystemTime
     {
-        private static Func<DateTime> now = () => DateTime.Now;
+        private static Func<DateTime> _now = () => DateTime.Now;
 
         /// <summary>
         /// Gets the current time or the time under test for unit tests.
@@ -16,7 +16,7 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                return now();
+                return _now();
             }
         }
 
@@ -26,7 +26,7 @@ namespace SmartFamily.Gedcom.Models
         /// <param name="dateTimeNow">The time you want to return for the unit test.</param>
         public static void SetDateTime(DateTime dateTimeNow)
         {
-            now = () => dateTimeNow;
+            _now = () => dateTimeNow;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public static void ResetDateTime()
         {
-            now = () => DateTime.Now;
+            _now = () => DateTime.Now;
         }
     }
 }

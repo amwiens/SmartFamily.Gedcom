@@ -25,7 +25,7 @@ namespace SmartFamily.Gedcom.Tests
 
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
-            Assert.Contains(mother.Custom, c => c.Tag == "_MARNM");
+            Assert.Contains(mother._custom, c => c.Tag == "_MARNM");
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace SmartFamily.Gedcom.Tests
 
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
-            Assert.Contains(mother.Custom, c => c.Classification == "/Married name/");
+            Assert.Contains(mother._custom, c => c.Classification == "/Married name/");
         }
     }
 }

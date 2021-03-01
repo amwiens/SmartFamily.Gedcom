@@ -12,45 +12,45 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomName : GedcomRecord, IComparable<GedcomName>, IComparable, IEquatable<GedcomName>
     {
-        private string type;
+        private string _type;
 
         // name pieces
-        private string prefix;
+        private string _prefix;
 
-        private string given; // no same as firstname, includes middle etc.
-        private string surnamePrefix;
+        private string _given; // no same as firstname, includes middle etc.
+        private string _surnamePrefix;
 
         // already got surname
-        private string suffix;
+        private string _suffix;
 
-        private string nick;
+        private string _nick;
 
-        private GedcomRecordList<GedcomVariation> phoneticVariations;
-        private GedcomRecordList<GedcomVariation> romanizedVariations;
+        private GedcomRecordList<GedcomVariation> _phoneticVariations;
+        private GedcomRecordList<GedcomVariation> _romanizedVariations;
 
         // cached surname / firstname split, this is expensive
         // when trying to filter a list of individuals, so do it
         // upon setting the name
-        private string surname;
+        private string _surname;
 
-        private string surnameSoundex;
-        private string firstnameSoundex;
+        private string _surnameSoundex;
+        private string _firstnameSoundex;
 
-        private StringBuilder builtName;
+        private StringBuilder _builtName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomName"/> class.
         /// </summary>
         public GedcomName()
         {
-            prefix = string.Empty;
-            given = string.Empty;
-            surnamePrefix = string.Empty;
-            suffix = string.Empty;
-            nick = string.Empty;
-            surname = string.Empty;
-            surnameSoundex = string.Empty;
-            firstnameSoundex = string.Empty;
+            _prefix = string.Empty;
+            _given = string.Empty;
+            _surnamePrefix = string.Empty;
+            _suffix = string.Empty;
+            _nick = string.Empty;
+            _surname = string.Empty;
+            _surnameSoundex = string.Empty;
+            _firstnameSoundex = string.Empty;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Name; }
+            get => GedcomRecordType.Name;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "NAME"; }
+            get => "NAME";
         }
 
         /// <summary>
@@ -82,12 +82,12 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (builtName == null)
+                if (_builtName == null)
                 {
-                    builtName = BuildName();
+                    _builtName = BuildName();
                 }
 
-                return builtName.ToString();
+                return _builtName.ToString();
             }
             set
             {
@@ -143,8 +143,8 @@ namespace SmartFamily.Gedcom.Models
                         // strip it from the given name
                         // prefix must be > 2 chars so we avoid initials
                         // begin treated as prefixes
-                        int l = given.IndexOf(".");
-                        int n = given.IndexOf(" ");
+                        int l = _given.IndexOf(".");
+                        int n = _given.IndexOf(" ");
                         if (l > 2)
                         {
                             if (n != -1 && l < n)
@@ -157,23 +157,23 @@ namespace SmartFamily.Gedcom.Models
                                     l = o;
                                     n = p;
 
-                                    o = given.IndexOf(".", o + 1);
-                                    p = given.IndexOf(" ", p + 1);
+                                    o = _given.IndexOf(".", o + 1);
+                                    p = _given.IndexOf(" ", p + 1);
                                 }
                                 while (o != -1 && (p != -1 && o < p));
 
-                                Prefix = Database.NameCollection[given, 0, l + 1];
-                                Given = Database.NameCollection[given, l + 1, given.Length - l - 1];
+                                Prefix = Database.NameCollection[_given, 0, l + 1];
+                                Given = Database.NameCollection[_given, l + 1, _given.Length - l - 1];
                             }
                         }
 
                         // get surname prefix, everything before the last space
                         // is part of the surname prefix
-                        int m = surname.LastIndexOf(" ");
+                        int m = _surname.LastIndexOf(" ");
                         if (m != -1)
                         {
-                            SurnamePrefix = Database.NameCollection[surname, 0, m];
-                            Surname = Database.NameCollection[surname, m + 1, surname.Length - m - 1];
+                            SurnamePrefix = Database.NameCollection[_surname, 0, m];
+                            Surname = Database.NameCollection[_surname, m + 1, _surname.Length - m - 1];
                         }
                         else
                         {
@@ -183,9 +183,9 @@ namespace SmartFamily.Gedcom.Models
                         // TODO: anything after surname is suffix, again not right
                         // but works for now
                         int offset = surnameStartPos + 1 + surnameLength + 1;
-                        if (!string.IsNullOrEmpty(surnamePrefix))
+                        if (!string.IsNullOrEmpty(_surnamePrefix))
                         {
-                            offset += surnamePrefix.Length + 1;
+                            offset += _surnamePrefix.Length + 1;
                         }
 
                         if (offset < name.Length)
@@ -194,7 +194,7 @@ namespace SmartFamily.Gedcom.Models
                         }
                         else
                         {
-                            suffix = string.Empty;
+                            _suffix = string.Empty;
                         }
                     }
                 }
@@ -209,15 +209,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Type
         {
-            get
-            {
-                return type;
-            }
+            get => _type;
             set
             {
-                if (value != type)
+                if (value != _type)
                 {
-                    type = value;
+                    _type = value;
                     Changed();
                 }
             }
@@ -233,13 +230,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (phoneticVariations == null)
+                if (_phoneticVariations == null)
                 {
-                    phoneticVariations = new GedcomRecordList<GedcomVariation>();
-                    phoneticVariations.CollectionChanged += ListChanged;
+                    _phoneticVariations = new GedcomRecordList<GedcomVariation>();
+                    _phoneticVariations.CollectionChanged += ListChanged;
                 }
 
-                return phoneticVariations;
+                return _phoneticVariations;
             }
         }
 
@@ -253,13 +250,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (romanizedVariations == null)
+                if (_romanizedVariations == null)
                 {
-                    romanizedVariations = new GedcomRecordList<GedcomVariation>();
-                    romanizedVariations.CollectionChanged += ListChanged;
+                    _romanizedVariations = new GedcomRecordList<GedcomVariation>();
+                    _romanizedVariations.CollectionChanged += ListChanged;
                 }
 
-                return romanizedVariations;
+                return _romanizedVariations;
             }
         }
 
@@ -271,17 +268,14 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Surname
         {
-            get
-            {
-                return surname;
-            }
+            get => _surname;
             set
             {
-                if (surname != value)
+                if (_surname != value)
                 {
-                    surname = value;
-                    surnameSoundex = Util.GenerateSoundex(surname);
-                    builtName = null;
+                    _surname = value;
+                    _surnameSoundex = Util.GenerateSoundex(_surname);
+                    _builtName = null;
                     Changed();
                 }
             }
@@ -295,7 +289,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string SurnameSoundex
         {
-            get { return surnameSoundex; }
+            get => _surnameSoundex;
         }
 
         /// <summary>
@@ -306,7 +300,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string FirstnameSoundex
         {
-            get { return firstnameSoundex; }
+            get => _firstnameSoundex;
         }
 
         /// <summary>
@@ -317,16 +311,13 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Prefix
         {
-            get
-            {
-                return prefix;
-            }
+            get => _prefix;
             set
             {
-                if (prefix != value)
+                if (_prefix != value)
                 {
-                    prefix = value;
-                    builtName = null;
+                    _prefix = value;
+                    _builtName = null;
                     Changed();
                 }
             }
@@ -340,17 +331,14 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Given
         {
-            get
-            {
-                return given;
-            }
+            get => _given;
             set
             {
-                if (given != value)
+                if (_given != value)
                 {
-                    given = value;
-                    firstnameSoundex = Util.GenerateSoundex(given);
-                    builtName = null;
+                    _given = value;
+                    _firstnameSoundex = Util.GenerateSoundex(_given);
+                    _builtName = null;
                     Changed();
                 }
             }
@@ -364,16 +352,13 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string SurnamePrefix
         {
-            get
-            {
-                return surnamePrefix;
-            }
+            get => _surnamePrefix;
             set
             {
-                if (surnamePrefix != value)
+                if (_surnamePrefix != value)
                 {
-                    surnamePrefix = value;
-                    builtName = null;
+                    _surnamePrefix = value;
+                    _builtName = null;
                     Changed();
                 }
             }
@@ -387,16 +372,13 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Suffix
         {
-            get
-            {
-                return suffix;
-            }
+            get => _suffix;
             set
             {
-                if (suffix != null)
+                if (_suffix != null)
                 {
-                    suffix = value;
-                    builtName = null;
+                    _suffix = value;
+                    _builtName = null;
                     Changed();
                 }
             }
@@ -410,15 +392,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Nick
         {
-            get
-            {
-                return nick;
-            }
+            get => _nick;
             set
             {
-                if (value != nick)
+                if (value != _nick)
                 {
-                    nick = value;
+                    _nick = value;
                     Changed();
                 }
             }
@@ -436,9 +415,9 @@ namespace SmartFamily.Gedcom.Models
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (phoneticVariations != null)
+                if (_phoneticVariations != null)
                 {
-                    foreach (GedcomVariation variation in phoneticVariations)
+                    foreach (GedcomVariation variation in _phoneticVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -448,9 +427,9 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                if (romanizedVariations != null)
+                if (_romanizedVariations != null)
                 {
-                    foreach (GedcomVariation variation in romanizedVariations)
+                    foreach (GedcomVariation variation in _romanizedVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -467,10 +446,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -485,12 +461,12 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                return (!string.IsNullOrEmpty(prefix)) ||
-                    (!string.IsNullOrEmpty(given)) ||
-                    (!string.IsNullOrEmpty(nick)) ||
-                    (!string.IsNullOrEmpty(surnamePrefix)) ||
-                    (!string.IsNullOrEmpty(surname)) ||
-                    (!string.IsNullOrEmpty(suffix));
+                return (!string.IsNullOrEmpty(_prefix)) ||
+                    (!string.IsNullOrEmpty(_given)) ||
+                    (!string.IsNullOrEmpty(_nick)) ||
+                    (!string.IsNullOrEmpty(_surnamePrefix)) ||
+                    (!string.IsNullOrEmpty(_surname)) ||
+                    (!string.IsNullOrEmpty(_suffix));
             }
         }
 
@@ -616,29 +592,29 @@ namespace SmartFamily.Gedcom.Models
 
             bool surnameMatched = false;
 
-            if (!(string.IsNullOrEmpty(name.Prefix) && string.IsNullOrEmpty(prefix)))
+            if (!(string.IsNullOrEmpty(name.Prefix) && string.IsNullOrEmpty(_prefix)))
             {
                 parts++;
-                if (name.Prefix == prefix)
+                if (name.Prefix == _prefix)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Given) && string.IsNullOrEmpty(given)))
+            if (!(string.IsNullOrEmpty(name.Given) && string.IsNullOrEmpty(_given)))
             {
                 parts++;
-                if (name.Given == given)
+                if (name.Given == _given)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Surname) && string.IsNullOrEmpty(surname)))
+            if (!(string.IsNullOrEmpty(name.Surname) && string.IsNullOrEmpty(_surname)))
             {
-                if ((name.Surname == "?" && surname == "?") ||
+                if ((name.Surname == "?" && _surname == "?") ||
                     ((string.Compare(name.Surname, "unknown", true) == 0) &&
-                    (string.Compare(surname, "unknown", true) == 0)))
+                    (string.Compare(_surname, "unknown", true) == 0)))
                 {
                     // not really matched, surname isn't known,
                     // don't count as part being checked, and don't penalize
@@ -647,7 +623,7 @@ namespace SmartFamily.Gedcom.Models
                 else
                 {
                     parts++;
-                    if (name.Surname == surname)
+                    if (name.Surname == _surname)
                     {
                         matches++;
                         surnameMatched = true;
@@ -660,28 +636,28 @@ namespace SmartFamily.Gedcom.Models
                 surnameMatched = true;
             }
 
-            if (!(string.IsNullOrEmpty(name.SurnamePrefix) && string.IsNullOrEmpty(surnamePrefix)))
+            if (!(string.IsNullOrEmpty(name.SurnamePrefix) && string.IsNullOrEmpty(_surnamePrefix)))
             {
                 parts++;
-                if (name.SurnamePrefix == surnamePrefix)
+                if (name.SurnamePrefix == _surnamePrefix)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Suffix) && string.IsNullOrEmpty(suffix)))
+            if (!(string.IsNullOrEmpty(name.Suffix) && string.IsNullOrEmpty(_suffix)))
             {
                 parts++;
-                if (name.Suffix == suffix)
+                if (name.Suffix == _suffix)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Nick) && string.IsNullOrEmpty(nick)))
+            if (!(string.IsNullOrEmpty(name.Nick) && string.IsNullOrEmpty(_nick)))
             {
                 parts++;
-                if (name.Nick == nick)
+                if (name.Nick == _nick)
                 {
                     matches++;
                 }
@@ -738,7 +714,7 @@ namespace SmartFamily.Gedcom.Models
 
             OutputStandard(sw);
 
-            if (phoneticVariations != null)
+            if (_phoneticVariations != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -768,7 +744,7 @@ namespace SmartFamily.Gedcom.Models
                 }
             }
 
-            if (romanizedVariations != null)
+            if (_romanizedVariations != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -811,29 +787,29 @@ namespace SmartFamily.Gedcom.Models
         private StringBuilder BuildName()
         {
             int capacity = 0;
-            if (!string.IsNullOrEmpty(prefix))
+            if (!string.IsNullOrEmpty(_prefix))
             {
-                capacity += prefix.Length;
+                capacity += _prefix.Length;
             }
 
-            if (!string.IsNullOrEmpty(given))
+            if (!string.IsNullOrEmpty(_given))
             {
-                capacity += given.Length;
+                capacity += _given.Length;
             }
 
-            if (!string.IsNullOrEmpty(surnamePrefix))
+            if (!string.IsNullOrEmpty(_surnamePrefix))
             {
-                capacity += surnamePrefix.Length;
+                capacity += _surnamePrefix.Length;
             }
 
-            if (!string.IsNullOrEmpty(surname))
+            if (!string.IsNullOrEmpty(_surname))
             {
-                capacity += surname.Length;
+                capacity += _surname.Length;
             }
 
-            if (!string.IsNullOrEmpty(suffix))
+            if (!string.IsNullOrEmpty(_suffix))
             {
-                capacity += suffix.Length;
+                capacity += _suffix.Length;
             }
 
             // for the // surrounding surname + potential spaces
@@ -841,19 +817,19 @@ namespace SmartFamily.Gedcom.Models
 
             StringBuilder name = new StringBuilder(capacity);
 
-            if (!string.IsNullOrEmpty(prefix))
+            if (!string.IsNullOrEmpty(_prefix))
             {
-                name.Append(prefix);
+                name.Append(_prefix);
             }
 
-            if (!string.IsNullOrEmpty(given))
+            if (!string.IsNullOrEmpty(_given))
             {
                 if (name.Length != 0)
                 {
                     name.Append(" ");
                 }
 
-                name.Append(given);
+                name.Append(_given);
             }
 
             // ALWYAS output a surname, event if it is empty
@@ -863,24 +839,24 @@ namespace SmartFamily.Gedcom.Models
             }
 
             name.Append("/");
-            if (!string.IsNullOrEmpty(surnamePrefix))
+            if (!string.IsNullOrEmpty(_surnamePrefix))
             {
-                name.Append(surnamePrefix);
+                name.Append(_surnamePrefix);
                 name.Append(" ");
             }
 
-            if (!string.IsNullOrEmpty(surname))
+            if (!string.IsNullOrEmpty(_surname))
             {
-                name.Append(surname);
+                name.Append(_surname);
             }
 
             name.Append("/");
 
-            if (!string.IsNullOrEmpty(suffix))
+            if (!string.IsNullOrEmpty(_suffix))
             {
                 // some data in test set has ,foobar on the end,
                 // in this instance don't append a space.
-                if (!suffix.StartsWith(","))
+                if (!_suffix.StartsWith(","))
                 {
                     if (name.Length != 0)
                     {
@@ -888,7 +864,7 @@ namespace SmartFamily.Gedcom.Models
                     }
                 }
 
-                name.Append(suffix);
+                name.Append(_suffix);
             }
 
             return name;

@@ -14,10 +14,10 @@ namespace SmartFamily.Gedcom.Models
     /// <seealso cref="IComparable"/>
     public class GedcomRepositoryRecord : GedcomRecord, IComparable, IComparable<GedcomRepositoryRecord>, IEquatable<GedcomRepositoryRecord>
     {
-        private string name;
-        private GedcomAddress address;
+        private string _name;
+        private GedcomAddress _address;
 
-        private GedcomRecordList<GedcomRepositoryCitation> citations;
+        private GedcomRecordList<GedcomRepositoryCitation> _citations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRepositoryRecord"/> class.
@@ -50,7 +50,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Repository; }
+            get => GedcomRecordType.Repository;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "REPO"; }
+            get => "REPO";
         }
 
         /// <summary>
@@ -72,15 +72,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     Changed();
                 }
             }
@@ -94,15 +91,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomAddress Address
         {
-            get
-            {
-                return address;
-            }
+            get => _address;
             set
             {
-                if (value != address)
+                if (value != _address)
                 {
-                    address = value;
+                    _address = value;
                     Changed();
                 }
             }
@@ -118,13 +112,13 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (citations == null)
+                if (_citations == null)
                 {
-                    citations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    citations.CollectionChanged += ListChanged;
+                    _citations = new GedcomRecordList<GedcomRepositoryCitation>();
+                    _citations.CollectionChanged += ListChanged;
                 }
 
-                return citations;
+                return _citations;
             }
         }
 
@@ -165,10 +159,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>

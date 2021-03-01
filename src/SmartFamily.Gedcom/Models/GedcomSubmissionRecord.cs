@@ -13,32 +13,32 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// The submitter.
         /// </summary>
-        private string submitter;
+        private string _submitter;
 
         /// <summary>
         /// The family file.
         /// </summary>
-        private string familyFile;
+        private string _familyFile;
 
         /// <summary>
         /// The temple code.
         /// </summary>
-        private string templeCode;
+        private string _templeCode;
 
         /// <summary>
         /// The generations of ancestors.
         /// </summary>
-        private int generationsOfAncestors;
+        private int _generationsOfAncestors;
 
         /// <summary>
         /// The generations of descendants.
         /// </summary>
-        private int generationsOfDescendants;
+        private int _generationsOfDescendants;
 
         /// <summary>
         /// The ordinance process flag.
         /// </summary>
-        private bool ordinanceProcessFlag;
+        private bool _ordinanceProcessFlag;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSubmissionRecord"/> class.
@@ -55,7 +55,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Submission; }
+            get => GedcomRecordType.Submission;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "SUBN"; }
+            get => "SUBN";
         }
 
         /// <summary>
@@ -77,15 +77,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Submitter
         {
-            get
-            {
-                return submitter;
-            }
+            get => _submitter;
             set
             {
-                if (value != submitter)
+                if (value != _submitter)
                 {
-                    submitter = value;
+                    _submitter = value;
                     Changed();
                 }
             }
@@ -99,15 +96,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string FamilyFile
         {
-            get
-            {
-                return familyFile;
-            }
+            get => _familyFile;
             set
             {
-                if (value != familyFile)
+                if (value != _familyFile)
                 {
-                    familyFile = value;
+                    _familyFile = value;
                     Changed();
                 }
             }
@@ -121,15 +115,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string TempleCode
         {
-            get
-            {
-                return templeCode;
-            }
+            get => _templeCode;
             set
             {
-                if (value != templeCode)
+                if (value != _templeCode)
                 {
-                    templeCode = value;
+                    _templeCode = value;
                     Changed();
                 }
             }
@@ -143,15 +134,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public int GenerationsOfAncestors
         {
-            get
-            {
-                return generationsOfAncestors;
-            }
+            get => _generationsOfAncestors;
             set
             {
-                if (value != generationsOfAncestors)
+                if (value != _generationsOfAncestors)
                 {
-                    generationsOfAncestors = value;
+                    _generationsOfAncestors = value;
                     Changed();
                 }
             }
@@ -165,15 +153,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public int GenerationsOfDecendants
         {
-            get
-            {
-                return generationsOfDescendants;
-            }
+            get => _generationsOfDescendants;
             set
             {
-                if (value != generationsOfDescendants)
+                if (value != _generationsOfDescendants)
                 {
-                    generationsOfDescendants = value;
+                    _generationsOfDescendants = value;
                     Changed();
                 }
             }
@@ -187,15 +172,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public bool OrdinanceProcessFlag
         {
-            get
-            {
-                return ordinanceProcessFlag;
-            }
+            get => _ordinanceProcessFlag;
             set
             {
-                if (value != ordinanceProcessFlag)
+                if (value != _ordinanceProcessFlag)
                 {
-                    ordinanceProcessFlag = value;
+                    _ordinanceProcessFlag = value;
                     Changed();
                 }
             }

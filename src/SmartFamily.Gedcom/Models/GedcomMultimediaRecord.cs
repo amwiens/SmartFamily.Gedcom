@@ -12,17 +12,17 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
     {
-        private readonly GedcomRecordList<GedcomMultimediaFile> files;
+        private readonly GedcomRecordList<GedcomMultimediaFile> _files;
 
-        private string title;
+        private string _title;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomMultimediaRecord"/> class.
         /// </summary>
         public GedcomMultimediaRecord()
         {
-            files = new GedcomRecordList<GedcomMultimediaFile>();
-            files.CollectionChanged += ListChanged;
+            _files = new GedcomRecordList<GedcomMultimediaFile>();
+            _files.CollectionChanged += ListChanged;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Multimedia; }
+            get => GedcomRecordType.Multimedia;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "OBJE"; }
+            get => "OBJE";
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomRecordList<GedcomMultimediaFile> Files
         {
-            get { return files; }
+            get => _files;
         }
 
         /// <summary>
@@ -82,10 +82,10 @@ namespace SmartFamily.Gedcom.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(title))
+                if (string.IsNullOrEmpty(_title))
                 {
                     StringBuilder sb = new StringBuilder();
-                    foreach (GedcomMultimediaFile file in files)
+                    foreach (GedcomMultimediaFile file in _files)
                     {
                         if (sb.Length > 0)
                         {
@@ -95,16 +95,16 @@ namespace SmartFamily.Gedcom.Models
                         sb.Append(file.Filename);
                     }
 
-                    title = sb.ToString();
+                    _title = sb.ToString();
                 }
 
-                return title;
+                return _title;
             }
             set
             {
-                if (value != title)
+                if (value != _title)
                 {
-                    title = value;
+                    _title = value;
                     Changed();
                 }
             }
@@ -138,10 +138,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
         /// <summary>
@@ -175,7 +172,7 @@ namespace SmartFamily.Gedcom.Models
                 Format = info.Extension
             };
 
-            files.Add(file);
+            _files.Add(file);
         }
 
         /// <summary>
@@ -189,7 +186,7 @@ namespace SmartFamily.Gedcom.Models
             string levelPlusOne = null;
             string levelPlusTwo = null;
 
-            foreach (GedcomMultimediaFile file in files)
+            foreach (GedcomMultimediaFile file in _files)
             {
                 if (levelPlusOne == null)
                 {

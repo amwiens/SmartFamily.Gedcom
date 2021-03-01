@@ -16,8 +16,8 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomIndividualEvent : GedcomEvent
     {
-        private GedcomAge age;
-        private string famc;
+        private GedcomAge _age;
+        private string _famc;
 
         private GedcomAdoptionType adoptedBy;
 
@@ -36,7 +36,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.IndividualEvent; }
+            get => GedcomRecordType.IndividualEvent;
         }
 
         /// <summary>
@@ -47,15 +47,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public GedcomAge Age
         {
-            get
-            {
-                return age;
-            }
+            get => _age;
             set
             {
-                if (value != age)
+                if (value != _age)
                 {
-                    age = value;
+                    _age = value;
                 }
             }
         }
@@ -65,15 +62,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Famc
         {
-            get
-            {
-                return famc;
-            }
+            get => _famc;
             set
             {
-                if (value != famc)
+                if (value != _famc)
                 {
-                    famc = value;
+                    _famc = value;
                     Changed();
                 }
             }
@@ -84,10 +78,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomAdoptionType AdoptedBy
         {
-            get
-            {
-                return adoptedBy;
-            }
+            get => adoptedBy;
             set
             {
                 if (value != adoptedBy)
@@ -106,10 +97,7 @@ namespace SmartFamily.Gedcom.Models
         /// <exception cref="Exception">Must set a GedcomIndividualRecord on a GedcomIndividualEvent.</exception>
         public GedcomIndividualRecord IndiRecord
         {
-            get
-            {
-                return (GedcomIndividualRecord)Record;
-            }
+            get => (GedcomIndividualRecord)Record;
             set
             {
                 if (value != Record)
@@ -146,9 +134,9 @@ namespace SmartFamily.Gedcom.Models
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (age != null)
+                if (_age != null)
                 {
-                    childChangeDate = age.ChangeDate;
+                    childChangeDate = _age.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
@@ -162,10 +150,7 @@ namespace SmartFamily.Gedcom.Models
 
                 return realChangeDate;
             }
-            set
-            {
-                base.ChangeDate = value;
-            }
+            set => base.ChangeDate = value;
         }
 
 #if !XML_NODE_UNDEFINED

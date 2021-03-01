@@ -12,7 +12,7 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomNoteRecord : GedcomRecord, IEquatable<GedcomNoteRecord>
     {
-        private string text;
+        private string _text;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomNoteRecord"/> class.
@@ -50,7 +50,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.Note; }
+            get => GedcomRecordType.Note;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override string GedcomTag
         {
-            get { return "NOTE"; }
+            get => "NOTE";
         }
 
         /// <summary>
@@ -72,15 +72,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => _text;
             set
             {
-                if (value != text)
+                if (value != _text)
                 {
-                    text = value;
+                    _text = value;
                     Changed();
                 }
             }

@@ -1864,7 +1864,7 @@ namespace SmartFamily.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        individualRecord.Custom.Add(custom);
+                        individualRecord._custom.Add(custom);
                         _parseState.Records.Push(custom);
                         break;
                 }

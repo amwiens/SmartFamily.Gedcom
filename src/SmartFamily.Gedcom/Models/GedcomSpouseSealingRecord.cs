@@ -16,47 +16,44 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// The date that this sealing occurred on.
         /// </summary>
-        private GedcomDate date;
+        private GedcomDate _date;
 
         /// <summary>
         /// The description for this sealing event.
         /// </summary>
-        private string description;
+        private string _description;
 
         /// <summary>
         /// The place at which this sealing occurred.
         /// </summary>
-        private GedcomPlace place;
+        private GedcomPlace _place;
 
         /// <summary>
         /// The status of this sealing.
         /// </summary>
-        private SpouseSealingDateStatus status;
+        private SpouseSealingDateStatus _status;
 
         /// <summary>
         /// The date that the status was last changed.
         /// </summary>
-        private GedcomChangeDate statusChangeDate;
+        private GedcomChangeDate _statusChangeDate;
 
         /// <summary>
         /// The temple code.
         /// </summary>
-        private string templeCode;
+        private string _templeCode;
 
         /// <summary>
         /// Gets or sets the date that this sealing occurred on.
         /// </summary>
         public GedcomDate Date
         {
-            get
-            {
-                return date;
-            }
+            get => _date;
             set
             {
-                if (value != date)
+                if (value != _date)
                 {
-                    date = value;
+                    _date = value;
                     Changed();
                 }
             }
@@ -67,15 +64,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Description
         {
-            get
-            {
-                return description;
-            }
+            get => _description;
             set
             {
-                if (value != description)
+                if (value != _description)
                 {
-                    description = value;
+                    _description = value;
                     Changed();
                 }
             }
@@ -86,15 +80,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomPlace Place
         {
-            get
-            {
-                return place;
-            }
+            get => _place;
             set
             {
-                if (value != place)
+                if (value != _place)
                 {
-                    place = value;
+                    _place = value;
                     Changed();
                 }
             }
@@ -105,15 +96,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public SpouseSealingDateStatus Status
         {
-            get
-            {
-                return status;
-            }
+            get => _status;
             set
             {
-                if (value != status)
+                if (value != _status)
                 {
-                    status = value;
+                    _status = value;
                     Changed();
                 }
             }
@@ -124,15 +112,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public GedcomChangeDate StatusChangeDate
         {
-            get
-            {
-                return statusChangeDate;
-            }
+            get => _statusChangeDate;
             set
             {
-                if (value != statusChangeDate)
+                if (value != _statusChangeDate)
                 {
-                    statusChangeDate = value;
+                    _statusChangeDate = value;
                     Changed();
                 }
             }
@@ -143,15 +128,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string TempleCode
         {
-            get
-            {
-                return templeCode;
-            }
+            get => _templeCode;
             set
             {
-                if (value != templeCode)
+                if (value != _templeCode)
                 {
-                    templeCode = value;
+                    _templeCode = value;
                     Changed();
                 }
             }
@@ -162,7 +144,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.SpouseSealing; }
+            get  => GedcomRecordType.SpouseSealing;
         }
 
         /// <summary>
@@ -170,7 +152,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public override string GedcomTag
         {
-            get { return "SLGS"; }
+            get => "SLGS";
         }
 
         /// <summary>
@@ -197,7 +179,7 @@ namespace SmartFamily.Gedcom.Models
                 return 1;
             }
 
-            int ret = recorda.Date.CompareTo(recordb.date);
+            int ret = recorda.Date.CompareTo(recordb._date);
             if (ret == 0)
             {
                 ret = recorda.TempleCode.CompareTo(recordb.TempleCode);
@@ -280,8 +262,8 @@ namespace SmartFamily.Gedcom.Models
             {
                 int hash = 17;
 
-                hash *= 23 + date.GetHashCode();
-                hash *= 23 + templeCode.GetHashCode();
+                hash *= 23 + _date.GetHashCode();
+                hash *= 23 + _templeCode.GetHashCode();
 
                 return hash;
             }
@@ -302,31 +284,31 @@ namespace SmartFamily.Gedcom.Models
                 sw.Write(Description);
             }
 
-            if (date != null)
+            if (_date != null)
             {
-                date.Output(sw);
+                _date.Output(sw);
             }
 
-            if (place != null)
+            if (_place != null)
             {
-                place.Output(sw);
+                _place.Output(sw);
             }
 
             var levelPlusOne = (Level + 1).ToString();
-            if (!string.IsNullOrWhiteSpace(templeCode))
+            if (!string.IsNullOrWhiteSpace(_templeCode))
             {
                 sw.WriteLine();
                 sw.Write(levelPlusOne);
                 sw.Write(" TEMP ");
-                sw.Write(templeCode);
+                sw.Write(_templeCode);
             }
 
-            if (status != SpouseSealingDateStatus.NotSet)
+            if (_status != SpouseSealingDateStatus.NotSet)
             {
                 sw.WriteLine();
                 sw.Write(levelPlusOne);
                 sw.Write(" STAT ");
-                sw.Write(EnumHelper.ToDescription(status));
+                sw.Write(EnumHelper.ToDescription(_status));
 
                 if (StatusChangeDate != null)
                 {

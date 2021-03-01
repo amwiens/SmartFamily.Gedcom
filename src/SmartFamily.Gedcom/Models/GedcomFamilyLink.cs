@@ -9,23 +9,23 @@ namespace SmartFamily.Gedcom.Models
     /// </summary>
     public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable, IEquatable<GedcomFamilyLink>
     {
-        private string family;
-        private string indi;
+        private string _family;
+        private string _indi;
 
-        private PedigreeLinkageType pedigree;
-        private ChildLinkageStatus status;
+        private PedigreeLinkageType _pedigree;
+        private ChildLinkageStatus _status;
 
-        private PedigreeLinkageType fatherPedigree;
-        private PedigreeLinkageType motherPedigree;
+        private PedigreeLinkageType _fatherPedigree;
+        private PedigreeLinkageType _motherPedigree;
 
-        private bool preferredSpouse;
+        private bool _preferredSpouse;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomFamilyLink"/> class.
         /// </summary>
         public GedcomFamilyLink()
         {
-            pedigree = PedigreeLinkageType.Unknown;
+            _pedigree = PedigreeLinkageType.Unknown;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public override GedcomRecordType RecordType
         {
-            get { return GedcomRecordType.FamilyLink; }
+            get => GedcomRecordType.FamilyLink;
         }
 
         /// <summary>
@@ -47,15 +47,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public string Family
         {
-            get
-            {
-                return family;
-            }
+            get => _family;
             set
             {
-                if (value != family)
+                if (value != _family)
                 {
-                    family = value;
+                    _family = value;
                     Changed();
                 }
             }
@@ -66,15 +63,12 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         public string Individual
         {
-            get
-            {
-                return indi;
-            }
+            get => _indi;
             set
             {
-                if (value != indi)
+                if (value != _indi)
                 {
-                    indi = value;
+                    _indi = value;
                     Changed();
                 }
             }
@@ -88,15 +82,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public PedigreeLinkageType Pedigree
         {
-            get
-            {
-                return pedigree;
-            }
+            get => _pedigree;
             set
             {
-                if (value != pedigree)
+                if (value != _pedigree)
                 {
-                    pedigree = value;
+                    _pedigree = value;
                     FatherPedigree = value;
                     MotherPedigree = value;
                     Changed();
@@ -112,15 +103,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public PedigreeLinkageType FatherPedigree
         {
-            get
-            {
-                return fatherPedigree;
-            }
+            get => _fatherPedigree;
             set
             {
-                if (value != fatherPedigree)
+                if (value != _fatherPedigree)
                 {
-                    fatherPedigree = value;
+                    _fatherPedigree = value;
                     Changed();
                 }
             }
@@ -134,15 +122,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public PedigreeLinkageType MotherPedigree
         {
-            get
-            {
-                return motherPedigree;
-            }
+            get => _motherPedigree;
             set
             {
-                if (value != motherPedigree)
+                if (value != _motherPedigree)
                 {
-                    motherPedigree = value;
+                    _motherPedigree = value;
                     Changed();
                 }
             }
@@ -156,15 +141,12 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public ChildLinkageStatus Status
         {
-            get
-            {
-                return status;
-            }
+            get => _status;
             set
             {
-                if (value != status)
+                if (value != _status)
                 {
-                    status = value;
+                    _status = value;
                     Changed();
                 }
             }
@@ -178,8 +160,8 @@ namespace SmartFamily.Gedcom.Models
         /// </value>
         public bool PreferredSpouse
         {
-            get { return preferredSpouse; }
-            set { preferredSpouse = value; }
+            get => _preferredSpouse;
+            set => _preferredSpouse = value;
         }
 
         /// <summary>
