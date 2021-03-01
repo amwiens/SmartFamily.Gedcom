@@ -10,6 +10,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// GEDCOM Note Record
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomNoteRecord : GedcomRecord, IEquatable<GedcomNoteRecord>
     {
         private string _text;
@@ -45,9 +46,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Note;
@@ -56,9 +54,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a note record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "NOTE";
@@ -67,9 +62,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
         public string Text
         {
             get => _text;
@@ -100,7 +92,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the note record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -130,7 +122,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var note = obj as GedcomNoteRecord;
@@ -152,7 +144,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomNoteRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomNoteRecord other)
         {
             return IsEquivalentTo(other);

@@ -10,6 +10,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// Defines a generic event or fact.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, IEquatable<GedcomEvent>
     {
         private static readonly string[] _typeStrings = new string[]
@@ -198,9 +199,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Event;
@@ -209,9 +207,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the gedcom tag.
         /// </summary>
-        /// <value>
-        /// The gedcom tag.
-        /// </value>
         public override string GedcomTag
         {
             get => GedcomEvent.TypeToTag(EventType);
@@ -220,9 +215,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the event.
         /// </summary>
-        /// <value>
-        /// The type of the event.
-        /// </value>
         public GedcomEventType EventType
         {
             get => _eventType;
@@ -239,9 +231,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name of the event.
         /// </summary>
-        /// <value>
-        /// The name of the event.
-        /// </value>
         public string EventName
         {
             get => _eventName;
@@ -258,9 +247,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the classification.
         /// </summary>
-        /// <value>
-        /// The classification.
-        /// </value>
         public string Classification
         {
             get => _classification;
@@ -277,9 +263,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
         public GedcomDate Date
         {
             get => _date;
@@ -312,9 +295,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
             get => _address;
@@ -331,9 +311,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the responsible agency.
         /// </summary>
-        /// <value>
-        /// The responsible agency.
-        /// </value>
         public string ResponsibleAgency
         {
             get => _responsibleAgency;
@@ -350,9 +327,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the religious affiliation.
         /// </summary>
-        /// <value>
-        /// The religious affiliation.
-        /// </value>
         public string ReligiousAffiliation
         {
             get => _religiousAffiliation;
@@ -369,9 +343,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the cause.
         /// </summary>
-        /// <value>
-        /// The cause.
-        /// </value>
         public string Cause
         {
             get => _cause;
@@ -388,9 +359,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the certainty.
         /// </summary>
-        /// <value>
-        /// The certainty.
-        /// </value>
         public GedcomCertainty Certainty
         {
             get => _certainty;
@@ -407,9 +375,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the event x reference identifier.
         /// </summary>
-        /// <value>
-        /// The event x reference identifier.
-        /// </value>
         public string EventXRefID
         {
             get => _eventXRefID;
@@ -426,9 +391,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the record.
         /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
         public GedcomRecord Record
         {
             get => _record;
@@ -445,9 +407,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -785,9 +744,9 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs the specified tw.
+        /// Output GEDCOM formatted text representing the event.
         /// </summary>
-        /// <param name="tw">The tw.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             tw.Write(Environment.NewLine);
@@ -911,7 +870,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var eventRecord = obj as GedcomEvent;
@@ -978,7 +937,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomEvent to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomEvent other)
         {
             return IsEquivalentTo(other);

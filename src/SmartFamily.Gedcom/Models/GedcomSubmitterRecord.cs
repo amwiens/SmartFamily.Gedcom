@@ -43,9 +43,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Submitter;
@@ -54,9 +51,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a submitter record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "SUBM";
@@ -65,9 +59,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name
         {
             get=> _name;
@@ -84,9 +75,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
             get => _address;
@@ -103,9 +91,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the language preferences.
         /// </summary>
-        /// <value>
-        /// The language preferences.
-        /// </value>
         public List<string> LanguagePreferences
         {
             get => _languagePreferences;
@@ -122,9 +107,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the registered RFN.
         /// </summary>
-        /// <value>
-        /// The registered RFN.
-        /// </value>
         public string RegisteredRFN
         {
             get => _registeredRFN;
@@ -141,9 +123,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -170,7 +149,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this submitter record as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the submitter record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -232,7 +211,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             GedcomSubmitterRecord submitter = obj as GedcomSubmitterRecord;
@@ -269,7 +248,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSubmitterRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSubmitterRecord other)
         {
             return IsEquivalentTo(other);

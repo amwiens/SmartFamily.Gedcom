@@ -184,7 +184,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determines whether the specified <see cref="object"/>, is equal (in contents, not structure) to this instance.
         /// </summary>
         /// <param name="gedcomDb">The <see cref="object"/> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>True</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
         public bool Equals(GedcomDatabase gedcomDb)
         {
             if (gedcomDb == null)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartFamily.Gedcom.Helpers;
+
+using System;
 
 namespace GedcomTest
 {
@@ -7,6 +9,8 @@ namespace GedcomTest
         private static void Main(string[] args)
         {
             var startTime = DateTime.Now;
+
+
 
             var endTime = DateTime.Now;
             Console.WriteLine();

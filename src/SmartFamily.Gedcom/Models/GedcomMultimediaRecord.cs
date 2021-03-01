@@ -10,6 +10,7 @@ namespace SmartFamily.Gedcom.Models
     /// A multimedia record, this can consist of any number of files
     /// of varying types
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
     {
         private readonly GedcomRecordList<GedcomMultimediaFile> _files;
@@ -42,9 +43,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Multimedia;
@@ -53,9 +51,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a multimedia record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "OBJE";
@@ -64,9 +59,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the multimedia files.
         /// </summary>
-        /// <value>
-        /// The multimedia files.
-        /// </value>
         public GedcomRecordList<GedcomMultimediaFile> Files
         {
             get => _files;
@@ -75,9 +67,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
         public string Title
         {
             get
@@ -113,9 +102,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -176,9 +162,9 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the multimedia record.
         /// </summary>
-        /// <param name="tw"></param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             base.Output(tw);
@@ -230,7 +216,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var media = obj as GedcomMultimediaRecord;
@@ -257,7 +243,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomMultimediaRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomMultimediaRecord other)
         {
             return IsEquivalentTo(other);
@@ -267,7 +253,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj);

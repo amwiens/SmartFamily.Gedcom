@@ -3,6 +3,7 @@
     /// <summary>
     /// The date on which a GEDCOM record was changed.
     /// </summary>
+    /// <seealso cref="GedcomDate"/>
     public class GedcomChangeDate : GedcomDate
     {
         /// <summary>

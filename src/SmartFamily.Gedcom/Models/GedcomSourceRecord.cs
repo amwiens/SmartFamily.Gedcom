@@ -122,9 +122,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Source;
@@ -133,9 +130,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a source record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "SOUR";
@@ -144,9 +138,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the events recorded.
         /// </summary>
-        /// <value>
-        /// The events recorded.
-        /// </value>
         public ObservableCollection<GedcomRecordedEvent> EventsRecorded
         {
             get
@@ -164,9 +155,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the agency.
         /// </summary>
-        /// <value>
-        /// The agency.
-        /// </value>
         public string Agency
         {
             get => _agency;
@@ -183,9 +171,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the data notes.
         /// </summary>
-        /// <value>
-        /// The data notes.
-        /// </value>
         public GedcomRecordList<string> DataNotes
         {
             get
@@ -203,9 +188,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the originator.
         /// </summary>
-        /// <value>
-        /// The originator.
-        /// </value>
         public string Originator
         {
             get => _originator;
@@ -222,9 +204,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
         public string Title
         {
             get => _title;
@@ -241,9 +220,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the filed by.
         /// </summary>
-        /// <value>
-        /// The filed by.
-        /// </value>
         public string FiledBy
         {
             get => _filedBy;
@@ -260,9 +236,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the publication facts
         /// </summary>
-        /// <value>
-        /// The publication facts.
-        /// </value>
         public string PublicationFacts
         {
             get => _publicationFacts;
@@ -279,9 +252,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
         public string Text
         {
             get => _text;
@@ -298,9 +268,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the repository citations.
         /// </summary>
-        /// <value>
-        /// The repository citations.
-        /// </value>
         public GedcomRecordList<GedcomRepositoryCitation> RepositoryCitations
         {
             get
@@ -318,9 +285,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the citations.
         /// </summary>
-        /// <value>
-        /// The citations.
-        /// </value>
         public GedcomRecordList<GedcomSourceCitation> Citations
         {
             get
@@ -338,9 +302,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -503,7 +464,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this source record as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the source record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -674,7 +635,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var source = obj as GedcomSourceRecord;
@@ -780,7 +741,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSourceRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSourceRecord other)
         {
             return IsEquivalentTo(other);
@@ -790,7 +751,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The GedcomSourceRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj as GedcomSourceRecord);

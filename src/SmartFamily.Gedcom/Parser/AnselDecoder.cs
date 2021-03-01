@@ -127,9 +127,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="bytes">The byte array containing the sequence of bytes to decode.</param>
         /// <param name="index">The index of the first byte to decode.</param>
         /// <param name="count">The number of bytes to decode.</param>
-        /// <returns>
-        /// The number of characters produced by decoding the specified sequence of bytes and any bytes in the internal buffer.
-        /// </returns>
+        /// <returns>The number of characters produced by decoding the specified sequence of bytes and any bytes in the internal buffer.</returns>
         public override int GetCharCount(byte[] bytes, int index, int count)
         {
             // We replace ANSEL combining chars with UNICODE combining chars
@@ -145,9 +143,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="byteCount">The number of bytes to decode.</param>
         /// <param name="chars">The character array to contain the resulting set of characters.</param>
         /// <param name="charIndex">The index at which to start writing the resulting set of characters.</param>
-        /// <returns>
-        /// The actual number of characters written into <paramref name="chars" />.
-        /// </returns>
+        /// <returns>The actual number of characters written into <paramref name="chars" />.</returns>
         public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
         {
             int numCharsDecoded = 0; // Index into chars array

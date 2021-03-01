@@ -30,9 +30,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Place;
@@ -49,9 +46,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name
         {
             get => _name;
@@ -68,9 +62,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the form.
         /// </summary>
-        /// <value>
-        /// The form.
-        /// </value>
         public string Form
         {
             get => _form;
@@ -87,9 +78,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the phonetic variations.
         /// </summary>
-        /// <value>
-        /// The phonetic variations.
-        /// </value>
         public GedcomRecordList<GedcomVariation> PhoneticVariations
         {
             get
@@ -107,9 +95,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the romanized variations.
         /// </summary>
-        /// <value>
-        /// The romanized variations.
-        /// </value>
         public GedcomRecordList<GedcomVariation> RomanizedVariations
         {
             get
@@ -127,9 +112,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the latitude.
         /// </summary>
-        /// <value>
-        /// The latitude.
-        /// </value>
         public string Latitude
         {
             get => _latitude;
@@ -146,9 +128,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the longitude.
         /// </summary>
-        /// <value>
-        /// The longitude.
-        /// </value>
         public string Longitude
         {
             get => _longitude;
@@ -165,9 +144,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -209,7 +185,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the place.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -347,7 +323,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomPlace) == 0;
@@ -357,7 +333,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomPlace to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomPlace other)
         {
             return CompareTo(other) == 0;
@@ -422,7 +398,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The GedcomRepositoryRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public int CompareTo(object obj)
         {
             return CompareTo(obj as GedcomPlace);

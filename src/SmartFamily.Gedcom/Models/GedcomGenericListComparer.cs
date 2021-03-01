@@ -16,7 +16,7 @@ namespace SmartFamily.Gedcom.Models
         /// <typeparam name="T">A class that inherits from <see cref="GedcomRecord"/> and implements Equals/GetHashCode.</typeparam>
         /// <param name="list1">The first list of records.</param>
         /// <param name="list2">The second list of records.</param>
-        /// <returns>True if they match, otherwise false.</returns>
+        /// <returns><c>True</c> if they match, otherwise <c>false</c>.</returns>
         public static bool CompareGedcomRecordLists<T>(ICollection<T> list1, ICollection<T> list2)
             where T : GedcomRecord
         {
@@ -45,7 +45,7 @@ namespace SmartFamily.Gedcom.Models
         /// <typeparam name="T">Any old object that can be compared.</typeparam>
         /// <param name="list1">The first list of records.</param>
         /// <param name="list2">The second list of records.</param>
-        /// <returns>True if they match, otherwise false.</returns>
+        /// <returns><c>True</c> if they match, otherwise <c>false</c>.</returns>
         public static bool CompareLists<T>(ICollection<T> list1, ICollection<T> list2)
         {
             if (list1.Count != list2.Count)

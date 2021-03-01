@@ -50,9 +50,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Submission;
@@ -61,9 +58,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a submission record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "SUBN";
@@ -72,9 +66,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the submitter.
         /// </summary>
-        /// <value>
-        /// The submitter.
-        /// </value>
         public string Submitter
         {
             get => _submitter;
@@ -91,9 +82,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the family file.
         /// </summary>
-        /// <value>
-        /// The family file.
-        /// </value>
         public string FamilyFile
         {
             get => _familyFile;
@@ -110,9 +98,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the temple code.
         /// </summary>
-        /// <value>
-        /// The temple code.
-        /// </value>
         public string TempleCode
         {
             get => _templeCode;
@@ -129,9 +114,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the generations of ancestors.
         /// </summary>
-        /// <value>
-        /// The generations of ancestors
-        /// </value>
         public int GenerationsOfAncestors
         {
             get => _generationsOfAncestors;
@@ -148,9 +130,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the generations of descendants.
         /// </summary>
-        /// <value>
-        /// The generations of descendants.
-        /// </value>
         public int GenerationsOfDecendants
         {
             get => _generationsOfDescendants;
@@ -167,9 +146,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets a value indicating whether [ordinance process flag].
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [ordinance process flag]; otherwise, <c>false</c>.
-        /// </value>
         public bool OrdinanceProcessFlag
         {
             get => _ordinanceProcessFlag;
@@ -187,7 +163,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if the instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if the instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var submission = obj as GedcomSubmissionRecord;
@@ -234,7 +210,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSubmissionRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSubmissionRecord other)
         {
             return IsEquivalentTo(other);

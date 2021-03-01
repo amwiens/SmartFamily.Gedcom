@@ -12,6 +12,7 @@ namespace SmartFamily.Gedcom.Models
     /// Defines a family, consisting of husband/wife and children, and
     /// family events.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomFamilyRecord : GedcomRecord, IEquatable<GedcomFamilyRecord>
     {
         private readonly GedcomRecordList<GedcomFamilyEvent> _events;
@@ -113,9 +114,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Family;
@@ -124,9 +122,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the gedcom tag for a family record.
         /// </summary>
-        /// <value>
-        /// The gedcom tag for a family record.
-        /// </value>
         public override string GedcomTag
         {
             get => "FAM";
@@ -135,9 +130,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the family events.
         /// </summary>
-        /// <value>
-        /// The family events.
-        /// </value>
         public GedcomRecordList<GedcomFamilyEvent> Events
         {
             get => _events;
@@ -146,9 +138,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the husband.
         /// </summary>
-        /// <value>
-        /// The husband.
-        /// </value>
         public string Husband
         {
             get => _husband;
@@ -165,9 +154,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the wife.
         /// </summary>
-        /// <value>
-        /// The wife.
-        /// </value>
         public string Wife
         {
             get => _wife;
@@ -184,9 +170,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the children.
         /// </summary>
-        /// <value>
-        /// The children.
-        /// </value>
         public GedcomRecordList<string> Children
         {
             get => _children;
@@ -195,9 +178,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the number of children.
         /// </summary>
-        /// <value>
-        /// The number of children.
-        /// </value>
         public int NumberOfChildren
         {
             get => _numberOfChildren;
@@ -214,9 +194,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the submitter records.
         /// </summary>
-        /// <value>
-        /// The submitter records.
-        /// </value>
         public GedcomRecordList<string> SubmitterRecords
         {
             get
@@ -236,9 +213,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the marriage.
         /// </summary>
-        /// <value>
-        /// The marriage.
-        /// </value>
         public GedcomFamilyEvent Marriage
         {
             get
@@ -261,9 +235,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the start status.
         /// </summary>
-        /// <value>
-        /// The start status.
-        /// </value>
         public MarriageStartStatus StartStatus
         {
             get => _startStatus;
@@ -296,9 +267,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -355,9 +323,7 @@ namespace SmartFamily.Gedcom.Models
         /// Add a new family event for a given event type.
         /// </summary>
         /// <param name="type">The event type.</param>
-        /// <returns>
-        /// The new family event based on the given event type.
-        /// </returns>
+        /// <returns>The new family event based on the given event type.</returns>
         public GedcomFamilyEvent AddNewEvent(GedcomEventType type)
         {
             GedcomFamilyEvent familyEvent = new GedcomFamilyEvent
@@ -376,9 +342,7 @@ namespace SmartFamily.Gedcom.Models
         /// Add a child.
         /// </summary>
         /// <param name="indi">The child.</param>
-        /// <returns>
-        /// Returns True if a new child record is added; otherwise False.
-        /// </returns>
+        /// <returns><c>True</c> if a new child record is added; otherwise <c>False</c>.</returns>
         public bool AddChild(GedcomIndividualRecord indi)
         {
             bool added = false;
@@ -414,9 +378,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Add a new child.
         /// </summary>
-        /// <returns>
-        /// The child's record.
-        /// </returns>
+        /// <returns>The child's record.</returns>
         public GedcomIndividualRecord AddNewChild()
         {
             GedcomIndividualRecord husband = null;
@@ -735,9 +697,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets the type of the husband linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <returns>
-        /// Pedigree linkage type for husband.
-        /// </returns>
+        /// <returns>Pedigree linkage type for husband.</returns>
         public PedigreeLinkageType GetHusbandLinkageType(string childXrefID)
         {
             PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
@@ -775,9 +735,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets the type of the wife linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <returns>
-        /// Pedigree linkage type for wife.
-        /// </returns>
+        /// <returns>Pedigree linkage type for wife.</returns>
         public PedigreeLinkageType GetWifeLinkageType(string childXrefID)
         {
             PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
@@ -815,9 +773,7 @@ namespace SmartFamily.Gedcom.Models
         /// Gets the type of the linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <returns>
-        /// Pedigree linkage type.
-        /// </returns>
+        /// <returns>Pedigree linkage type.</returns>
         public PedigreeLinkageType GetLinkageType(string childXrefID)
         {
             PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
@@ -1010,9 +966,9 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the family record.
         /// </summary>
-        /// <param name="tw">Where to output the data to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             base.Output(tw);
@@ -1136,7 +1092,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var family = obj as GedcomFamilyRecord;
@@ -1193,7 +1149,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomFamilyRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomFamilyRecord other)
         {
             return IsEquivalentTo(other);
@@ -1203,7 +1159,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in object to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as GedcomFamilyRecord);

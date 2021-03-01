@@ -28,17 +28,11 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date that this record was changed.
         /// </summary>
-        /// <value>
-        /// the date of the change.
-        /// </value>
         public GedcomChangeDate ChangeDate { get; set; }
 
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
         public GedcomDatabase Database
         {
             get => _database;
@@ -48,9 +42,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the types.
         /// </summary>
-        /// <value>
-        /// The types.
-        /// </value>
         public GedcomRecordList<GedcomEventType> Types
         {
             get
@@ -75,9 +66,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
         public GedcomDate Date
         {
             get => _date;
@@ -94,9 +82,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the place.
         /// </summary>
-        /// <value>
-        /// The place.
-        /// </value>
         public GedcomPlace Place
         {
             get => _place;
@@ -165,7 +150,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the GedcomRecordedEvent against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The other instance to compare this instance against.</param>
-        /// <returns>True if other instance matches this instance, otherwise False.</returns>
+        /// <returns><c>True</c> if other instance matches this instance, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomRecordedEvent other)
         {
             return CompareTo(other) == 0;
@@ -175,7 +160,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the GedcomREcordedEvent against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The other instance to compare this instance against.</param>
-        /// <returns>True if other instance matches this instance, otherwise False.</returns>
+        /// <returns><c>True</c> if other instance matches this instance, otherwise <c>False</c>.</returns>
         public override bool Equals(object obj)
         {
             return CompareTo(obj as GedcomRecordedEvent) == 0;

@@ -10,6 +10,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IEquatable<GedcomDate>
     {
         private GedcomDateType _dateType;
@@ -720,9 +721,9 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the date.
         /// </summary>
-        /// <param name="tw">Where to output the data to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             tw.Write(Environment.NewLine);

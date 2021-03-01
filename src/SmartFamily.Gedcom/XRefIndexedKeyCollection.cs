@@ -28,9 +28,6 @@ namespace SmartFamily.Gedcom
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
         public GedcomDatabase Database
         {
             get => _database;
@@ -40,9 +37,7 @@ namespace SmartFamily.Gedcom
         /// <summary>
         /// Gets or sets a value indicating whether [replace x refs].
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [replace x refs]; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if [replace x refs]; otherwise, <c>false</c>.</value>
         public bool ReplaceXRefs
         {
             get => _replaceXrefs;
@@ -52,9 +47,6 @@ namespace SmartFamily.Gedcom
         /// <summary>
         /// Gets the TODO: Doc
         /// </summary>
-        /// <value>
-        /// The <see cref="string"/>.
-        /// </value>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>

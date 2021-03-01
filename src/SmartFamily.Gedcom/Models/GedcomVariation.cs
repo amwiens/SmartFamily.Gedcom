@@ -32,9 +32,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
         public GedcomDatabase Database
         {
             get => _database;
@@ -44,9 +41,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
         public string Value
         {
             get => _variationValue;
@@ -63,9 +57,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the variation.
         /// </summary>
-        /// <value>
-        /// The type of the variation.
-        /// </value>
         public string VariationType
         {
             get => _variationType;
@@ -82,9 +73,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public GedcomChangeDate ChangeDate
         {
             get => _changeDate;
@@ -132,7 +120,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in GedcomVariation to see if they are the same.
         /// </summary>
         /// <param name="other">The GedcomVariation to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomVariation other)
         {
             return CompareTo(other) == 0;
@@ -142,7 +130,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in object to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as GedcomVariation);

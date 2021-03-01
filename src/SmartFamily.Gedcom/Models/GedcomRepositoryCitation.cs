@@ -35,9 +35,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.RepositoryCitation;
@@ -46,9 +43,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a repository citation.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "REPO";
@@ -57,9 +51,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the repository.
         /// </summary>
-        /// <value>
-        /// The repository.
-        /// </value>
         public string Repository
         {
             get => _repository;
@@ -76,9 +67,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the call numbers.
         /// </summary>
-        /// <value>
-        /// The call numbers.
-        /// </value>
         public GedcomRecordList<string> CallNumbers
         {
             get => _callNumbers;
@@ -87,9 +75,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the media types.
         /// </summary>
-        /// <value>
-        /// The media types.
-        /// </value>
         public GedcomRecordList<SourceMediaType> MediaTypes
         {
             get => _mediaTypes;
@@ -98,9 +83,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the other media types.
         /// </summary>
-        /// <value>
-        /// The other media types.
-        /// </value>
         public GedcomRecordList<string> OtherMediaTypes
         {
             get
@@ -177,7 +159,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this repository citation as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the repository citation.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -242,7 +224,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             var repository = obj as GedcomRepositoryCitation;
@@ -285,7 +267,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj as GedcomRepositoryCitation);

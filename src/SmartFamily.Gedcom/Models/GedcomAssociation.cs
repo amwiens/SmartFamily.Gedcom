@@ -9,6 +9,7 @@ namespace SmartFamily.Gedcom.Models
     /// How the given individual is associated to another.
     /// Each GedcomIndividual contains a list of these.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomAssociation : GedcomRecord, IComparable, IComparable<GedcomAssociation>, IEquatable<GedcomAssociation>
     {
         private string _description;
@@ -71,7 +72,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs a GEDCOM format version of this instance.
+        /// Output GEDCOM formatted text representing the association.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -106,7 +107,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user-entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomAssociation) == 0;
@@ -153,7 +154,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in association to see if they are the same.
         /// </summary>
         /// <param name="other">The association to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomAssociation other)
         {
             return CompareTo(other) == 0;
@@ -163,7 +164,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in object to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as GedcomAssociation);

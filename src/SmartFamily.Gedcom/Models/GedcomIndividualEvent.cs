@@ -14,6 +14,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// An event relating to a given individual.
     /// </summary>
+    /// <seealso cref="GedcomEvent"/>
     public class GedcomIndividualEvent : GedcomEvent
     {
         private GedcomAge _age;
@@ -31,9 +32,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.IndividualEvent;
@@ -42,9 +40,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the age.
         /// </summary>
-        /// <value>
-        /// The age.
-        /// </value>
         public GedcomAge Age
         {
             get => _age;
@@ -125,9 +120,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -208,9 +200,9 @@ namespace SmartFamily.Gedcom.Models
 #endif
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the individual event.
         /// </summary>
-        /// <param name="tw">Where to output the data to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             base.Output(tw);

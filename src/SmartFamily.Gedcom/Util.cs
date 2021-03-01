@@ -5,7 +5,7 @@ using System.Text;
 namespace SmartFamily.Gedcom
 {
     /// <summary>
-    /// TODO: Doc
+    /// A utility class that houses helper methods.
     /// </summary>
     public static class Util
     {
@@ -81,9 +81,7 @@ namespace SmartFamily.Gedcom
         /// Escapes "at" sign.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <returns>
-        /// The input string with the @ symbol escaped, or the original string if no @ symbol present.
-        /// </returns>
+        /// <returns>The input string with the @ symbol escaped, or the original string if no @ symbol present.</returns>
         public static string ExcapeAtSign(string str)
         {
             if (str.IndexOf("@") != -1)
@@ -98,9 +96,7 @@ namespace SmartFamily.Gedcom
         /// Returns the position of the escaped character in the passed string.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <returns>
-        /// A count of the total number of escaped characters (the "at" sign) found in the passed string, or 0 if none.
-        /// </returns>
+        /// <returns>A count of the total number of escaped characters (the "at" sign) found in the passed string, or 0 if none.</returns>
         public static int EscapedAtLength(string str)
         {
             int i = 0;
@@ -139,7 +135,7 @@ namespace SmartFamily.Gedcom
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
         /// <param name="maxSplits">The maximum splits.</param>
-        /// <param name="cont">if set to <c>true</c> [cont].</param>
+        /// <param name="cont">If set to <c>true</c> [cont].</param>
         public static void SplitLineText(TextWriter tw, string text, int level, int maxLen, int maxSplits, bool cont)
         {
             string line = text.Replace("@", "@@");
@@ -209,7 +205,7 @@ namespace SmartFamily.Gedcom
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
         /// <param name="maxSplits">The maximum splits.</param>
-        /// <param name="cont">if set to <c>true</c> [cont].</param>
+        /// <param name="cont">If set to <c>true</c> [cont].</param>
         public static void SplitText(TextWriter tw, string line, int level, int maxLen, int maxSplits, bool cont)
         {
             bool firstSplit = true;

@@ -14,9 +14,7 @@ namespace SmartFamily.Gedcom.Parser
         /// Gets the code page of ANSEL
         /// </summary>
         /// <returns>The code page identifier of the current <see cref="T:System.Text.Encoding" />.</returns>
-        /// <remarks>
-        /// Windows Latin-1 (close enough!)
-        /// </remarks>
+        /// <remarks>Windows Latin-1 (close enough!)</remarks>
         public override int CodePage
         {
             get { return 1252; }
@@ -34,9 +32,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <summary>
         /// Returns a decoder for the ANSEL character set
         /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.Text.Decoder" /> that converts an encoded sequence of bytes into a sequence of characters.
-        /// </returns>
+        /// <returns>A <see cref="T:System.Text.Decoder" /> that converts an encoded sequence of bytes into a sequence of characters.</returns>
         public override Decoder GetDecoder()
         {
             return _decoder;
@@ -46,9 +42,7 @@ namespace SmartFamily.Gedcom.Parser
         /// When overridden in a derived class, calculates the maximum number of characters produced by decoding the specified number of bytes.
         /// </summary>
         /// <param name="byteCount">The number of bytes to decode.</param>
-        /// <returns>
-        /// The maximum number of characters produced by decoding the specified number of bytes.
-        /// </returns>
+        /// <returns>The maximum number of characters produced by decoding the specified number of bytes.</returns>
         public override int GetMaxCharCount(int byteCount)
         {
             return byteCount;
@@ -60,9 +54,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="bytes">The byte array containing the sequence of bytes to decode.</param>
         /// <param name="index">The index of the first byte to decode.</param>
         /// <param name="count">The number of bytes to decode.</param>
-        /// <returns>
-        /// The number of characters produced by decoding the specified sequence of bytes.
-        /// </returns>
+        /// <returns>The number of characters produced by decoding the specified sequence of bytes.</returns>
         public override int GetCharCount(byte[] bytes, int index, int count)
         {
             return count;
@@ -76,9 +68,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="byteCount">The number of bytes to decode.</param>
         /// <param name="chars">The character array to contain the resulting set of characters.</param>
         /// <param name="charIndex">The index at which to start writing the resulting set of characters.</param>
-        /// <returns>
-        /// The actual number of characters written into <paramref name="chars" />.
-        /// </returns>
+        /// <returns>The actual number of characters written into <paramref name="chars" />.</returns>
         public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
         {
             // Use a new Decoder each time because we shouldn't maintain state
@@ -93,9 +83,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="chars">The character array containing the set of characters to encode.</param>
         /// <param name="index">The index of the first character to encode.</param>
         /// <param name="count">The number of characters to encode.</param>
-        /// <returns>
-        /// The number of bytes produced by encoding the specified characters.
-        /// </returns>
+        /// <returns>The number of bytes produced by encoding the specified characters.</returns>
         /// <exception cref="NotImplementedException">This function is not needed and should not be called.</exception>
         public override int GetByteCount(char[] chars, int index, int count)
         {
@@ -106,9 +94,7 @@ namespace SmartFamily.Gedcom.Parser
         /// When overridden in a derived class, calculates the maximum number of bytes produced by encoding the specified number of characters.
         /// </summary>
         /// <param name="charCount">The number of characters to encode.</param>
-        /// <returns>
-        /// The maximum number of bytes produced by encoding the specified number of characters.
-        /// </returns>
+        /// <returns>The maximum number of bytes produced by encoding the specified number of characters.</returns>
         public override int GetMaxByteCount(int charCount)
         {
             // StreamReader asks for this whether or not it is encoding a sequence of characters
@@ -123,9 +109,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <param name="charCount">The number of characters to encode.</param>
         /// <param name="bytes">The byte array to contain the resulting sequence of bytes.</param>
         /// <param name="byteIndex">The index at which to start writing the resulting sequence of bytes.</param>
-        /// <returns>
-        /// The actual number of bytes written into <paramref name="bytes" />.
-        /// </returns>
+        /// <returns>The actual number of bytes written into <paramref name="bytes" />.</returns>
         /// <exception cref="NotImplementedException">This function is not needed and should not be called.</exception>
         public override int GetBytes(char[] chars, int charIndex, int charCount, byte[] bytes, int byteIndex)
         {

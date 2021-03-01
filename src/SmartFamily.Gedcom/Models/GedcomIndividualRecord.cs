@@ -16,6 +16,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// Details about a given individual.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>, IEquatable<GedcomIndividualRecord>
     {
         private readonly GedcomRecordList<GedcomName> _names;
@@ -112,9 +113,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Individual;
@@ -123,9 +121,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for an individual.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "INDI";
@@ -134,9 +129,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the individual's names.
         /// </summary>
-        /// <value>
-        /// The names of the individual.
-        /// </value>
         public GedcomRecordList<GedcomName> Names
         {
             get => _names;
@@ -145,9 +137,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets a single letter representing the individual's gender.
         /// </summary>
-        /// <value>
-        /// The gender character.
-        /// </value>
         public string SexChar
         {
             get
@@ -182,9 +171,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the sex.
         /// </summary>
-        /// <value>
-        /// The sex.
-        /// </value>
         public GedcomSex Sex
         {
             get => _sex;
@@ -230,9 +216,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the events.
         /// </summary>
-        /// <value>
-        /// The events.
-        /// </value>
         public GedcomRecordList<GedcomIndividualEvent> Events
         {
             get => _events;
@@ -241,9 +224,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the list of events.
         /// </summary>
-        /// <value>
-        /// The list of events.
-        /// </value>
         public GedcomRecordList<GedcomIndividualEvent> Attributes
         {
             get
@@ -261,9 +241,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the child in.
         /// </summary>
-        /// <value>
-        /// The child in.
-        /// </value>
         public GedcomRecordList<GedcomFamilyLink> ChildIn
         {
             get => _childIn;
@@ -272,9 +249,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the spouse in.
         /// </summary>
-        /// <value>
-        /// The spouse in.
-        /// </value>
         public GedcomRecordList<GedcomFamilyLink> SpouseIn
         {
             get => _spouseIn;
@@ -283,9 +257,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the submitter records.
         /// </summary>
-        /// <value>
-        /// The submitter records.
-        /// </value>
         public GedcomRecordList<string> SubmitterRecords
         {
             get
@@ -303,9 +274,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets this individual's associations to others.
         /// </summary>
-        /// <value>
-        /// The associations.
-        /// </value>
         public GedcomRecordList<GedcomAssociation> Associations
         {
             get
@@ -323,9 +291,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the list of aliases.
         /// </summary>
-        /// <value>
-        /// The list of aliases.
-        /// </value>
         public GedcomRecordList<string> Alia
         {
             get
@@ -343,9 +308,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the anci.
         /// </summary>
-        /// <value>
-        /// The anci.
-        /// </value>
         public GedcomRecordList<string> Anci
         {
             get
@@ -363,9 +325,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the desi.
         /// </summary>
-        /// <value>
-        /// The desi.
-        /// </value>
         public GedcomRecordList<string> Desi
         {
             get
@@ -383,9 +342,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the permanent record file number.
         /// </summary>
-        /// <value>
-        /// The permanent record file number.
-        /// </value>
         public string PermanentRecordFileNumber
         {
             get => _permanentRecordFileNumber;
@@ -402,9 +358,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the ancestral file number.
         /// </summary>
-        /// <value>
-        /// The ancestral file number.
-        /// </value>
         public string AncestralFileNumber
         {
             get => _ancestralFileNumber;
@@ -424,9 +377,6 @@ namespace SmartFamily.Gedcom.Models
         /// an address under an individual.
         /// GedcomRecordReader will build the address up here, then create a RESI record from it.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
             get => _address;
@@ -445,9 +395,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the birth.
         /// </summary>
-        /// <value>
-        /// The birth.
-        /// </value>
         public GedcomIndividualEvent Birth
         {
             get => FindEvent(GedcomEventType.Birth);
@@ -456,9 +403,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the death.
         /// </summary>
-        /// <value>
-        /// The death.
-        /// </value>
         public GedcomIndividualEvent Death
         {
             get => FindEvent(GedcomEventType.DEAT);
@@ -467,9 +411,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the height.
         /// </summary>
-        /// <value>
-        /// The height.
-        /// </value>
         public GedcomIndividualEvent Height
         {
             get => Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Height") == 0);
@@ -478,9 +419,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the weight.
         /// </summary>
-        /// <value>
-        /// The weight.
-        /// </value>
         public GedcomIndividualEvent Weight
         {
             get => Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Weight") == 0);
@@ -489,9 +427,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the medical event.
         /// </summary>
-        /// <value>
-        /// The medical event.
-        /// </value>
         public GedcomIndividualEvent Medical
         {
             get => Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Medical") == 0);
@@ -500,9 +435,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets a value indicating whether this <see cref="GedcomIndividualRecord"/> is dead.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if dead; otherwise, <c>false</c>.
-        /// </value>
         public bool Dead
         {
             get
@@ -548,9 +480,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -655,7 +584,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares using user submitted data, not the internal ids which may change.
         /// </summary>
         /// <param name="obj">The object to compare the current individual instance against.</param>
-        /// <returns>True if they match, false otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>false</c> otherwise.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomIndividualRecord) == 0;
@@ -766,7 +695,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares using user submitted data, not the internal ids which may change.
         /// </summary>
         /// <param name="other">The other individual to compare the current individual against.</param>
-        /// <returns>True if they match, false otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>false</c> otherwise.</returns>
         public bool Equals(GedcomIndividualRecord other)
         {
             return CompareTo(other) == 0;
@@ -896,7 +825,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determine whether a spouse is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>True if spouse is in the family; otherwise False.</returns>
+        /// <returns><c>True</c> if spouse is in the family; otherwise <c>False</c>.</returns>
         public bool SpouseInFamily(string family)
         {
             return SpouseInFamily(family, out GedcomFamilyLink tmp);
@@ -907,7 +836,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The family link.</param>
-        /// <returns>True if spouse is in the family; otherwise False.</returns>
+        /// <returns><c>True</c> if spouse is in the family; otherwise <c>False</c>.</returns>
         public bool SpouseInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -930,7 +859,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determine whether a child is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>True if child is in the family; otherwise False.</returns>
+        /// <returns><c>True</c> if child is in the family; otherwise <c>False</c>.</returns>
         public bool ChildInFamily(string family)
         {
             return ChildInFamily(family, out GedcomFamilyLink tmp);
@@ -941,7 +870,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The fam link.</param>
-        /// <returns>True if child is in the family; otherwise False.</returns>
+        /// <returns><c>True</c> if child is in the family; otherwise <c>False</c>.</returns>
         public bool ChildInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -1022,7 +951,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>True if the surname starts with prefix; otherwise False.</returns>
+        /// <returns><c>True</c> if the surname starts with prefix; otherwise <c>False</c>.</returns>
         public bool MatchSurname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1070,7 +999,7 @@ namespace SmartFamily.Gedcom.Models
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>True if the firstname starts with prefix; otherwise False.</returns>
+        /// <returns><c>True</c> if the firstname starts with prefix; otherwise <c>False</c>.</returns>
         public bool MatchFirstname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1342,9 +1271,9 @@ namespace SmartFamily.Gedcom.Models
 #endif
 
         /// <summary>
-        /// Outputs this instance of an individual as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the individual record.
         /// </summary>
-        /// <param name="tw">The textwriter to output to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             base.Output(tw);

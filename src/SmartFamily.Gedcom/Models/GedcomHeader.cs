@@ -8,6 +8,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// The header from / for a GEDCOM file.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomHeader : GedcomRecord, IEquatable<GedcomHeader>
     {
         private GedcomNoteRecord _contentDescription;
@@ -34,9 +35,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the database.
         /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
         /// <exception cref="Exception">Database can only have one header.</exception>
         public override GedcomDatabase Database
         {
@@ -59,49 +57,31 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name of the application.
         /// </summary>
-        /// <value>
-        /// The name of the application.
-        /// </value>
         public string ApplicationName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the application version.
         /// </summary>
-        /// <value>
-        /// The application version.
-        /// </value>
         public string ApplicationVersion { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the application system identifier.
         /// </summary>
-        /// <value>
-        /// The application system identifier.
-        /// </value>
         public string ApplicationSystemId { get; set; } = "SmartFamily.Gedcom";
 
         /// <summary>
         /// Gets or sets the corporation.
         /// </summary>
-        /// <value>
-        /// The corporation.
-        /// </value>
         public string Corporation { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the corporation address.
         /// </summary>
-        /// <value>
-        /// The corporation address.
-        /// </value>
         public GedcomAddress CorporationAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the content description.
         /// </summary>
-        /// <value>
-        /// The content description.
-        /// </value>
         public GedcomNoteRecord ContentDescription
         {
             get => _contentDescription;
@@ -118,9 +98,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the submitter x reference identifier.
         /// </summary>
-        /// <value>
-        /// The submitter x reference identifier.
-        /// </value>
         public string SubmitterXRefID
         {
             get => _submitterXRefID;
@@ -142,9 +119,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the submitter.
         /// </summary>
-        /// <value>
-        /// The submitter.
-        /// </value>
         public GedcomSubmitterRecord Submitter
         {
             get => Database[SubmitterXRefID] as GedcomSubmitterRecord;
@@ -164,9 +138,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the transmission date.
         /// </summary>
-        /// <value>
-        /// The transmission date.
-        /// </value>
         public GedcomDate TransmissionDate
         {
             get => _transmissionDate;
@@ -183,9 +154,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the copyright.
         /// </summary>
-        /// <value>
-        /// The copyright.
-        /// </value>
         public string Copyright
         {
             get => _copyright;
@@ -202,9 +170,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the language.
         /// </summary>
-        /// <value>
-        /// The language.
-        /// </value>
         public string Language
         {
             get => _language;
@@ -221,17 +186,11 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the filename.
         /// </summary>
-        /// <value>
-        /// The filename.
-        /// </value>
         public string Filename { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the source.
         /// </summary>
-        /// <value>
-        /// The name of the source.
-        /// </value>
         public string SourceName
         {
             get => _sourceName;
@@ -248,9 +207,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the source date.
         /// </summary>
-        /// <value>
-        /// The source date.
-        /// </value>
         public GedcomDate SourceDate
         {
             get => _sourceDate;
@@ -267,9 +223,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the source copyright.
         /// </summary>
-        /// <value>
-        /// The source copyright.
-        /// </value>
         public string SourceCopyright
         {
             get => _sourceCopyright;
@@ -286,18 +239,15 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Header;
         }
 
         /// <summary>
-        /// Output GEDCOM format for this instance.
+        /// Output GEDCOM formatted text representing the header.
         /// </summary>
-        /// <param name="tw">Where to output the data to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             tw.Write("0 HEAD");
@@ -397,7 +347,7 @@ namespace SmartFamily.Gedcom.Models
         /// If new fields are added to the header they should also be added in here for comparison.
         /// </summary>
         /// <param name="obj">The object to compare against this instance.</param>
-        /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
+        /// <returns>Returns <c>true</c> if headers match in user entered content, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             GedcomHeader header = obj as GedcomHeader;
@@ -480,7 +430,7 @@ namespace SmartFamily.Gedcom.Models
         /// If new fields are added to the header they should also be added in here for comparison.
         /// </summary>
         /// <param name="other">The GedcomHeader to compare against this instance.</param>
-        /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
+        /// <returns>Returns <c>true</c> if headers match in user entered content, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomHeader other)
         {
             return IsEquivalentTo(other);

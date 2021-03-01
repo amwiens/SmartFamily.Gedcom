@@ -8,6 +8,7 @@ namespace SmartFamily.Gedcom.Models
     /// GEDCOM allows for custom tags to be added by applications.
     /// This is essentially a dummy object.
     /// </summary>
+    /// <seealso cref="GedcomEvent"/>
     public class GedcomCustomRecord : GedcomEvent
     {
         private const string DefaultTagName = "_CUST";
@@ -38,7 +39,7 @@ namespace SmartFamily.Gedcom.Models
         public string Tag { get; set; } = DefaultTagName;
 
         /// <summary>
-        /// Placeholder for GEDCOM output code, does not actually output any data.
+        /// Output GEDCOM formatted text representing the custom record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)

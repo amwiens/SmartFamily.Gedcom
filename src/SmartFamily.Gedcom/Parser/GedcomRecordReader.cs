@@ -144,7 +144,7 @@ namespace SmartFamily.Gedcom.Parser
         /// <summary>
         /// Starts reading the specified gedcom file.
         /// </summary>
-        /// <param name="gedcomFile">Filename to read</param>
+        /// <param name="gedcomFile">Filename to read.</param>
         /// <returns>bool indicating if the file was successfully read.</returns>
         public bool ReadGedcom(string gedcomFile)
         {
@@ -458,7 +458,7 @@ namespace SmartFamily.Gedcom.Parser
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Missing source reference: " + citation.Source);
+                        System.Diagnostics.Debug.WriteLine($"Missing source reference: {citation.Source}");
                     }
                 }
 
@@ -474,7 +474,7 @@ namespace SmartFamily.Gedcom.Parser
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Missing repo reference: " + citation.Repository);
+                        System.Diagnostics.Debug.WriteLine($"Missing repo reference: {citation.Repository}");
                     }
                 }
 
@@ -487,7 +487,7 @@ namespace SmartFamily.Gedcom.Parser
                 {
                     if (string.IsNullOrEmpty(source.Title))
                     {
-                        source.Title = string.Format("Source {0}", missingSourceTitleCount++);
+                        source.Title = $"Source {missingSourceTitleCount++}";
                     }
                 }
 
@@ -579,7 +579,7 @@ namespace SmartFamily.Gedcom.Parser
                             {
                                 // pointer to a note, this should not occur
                                 // as we should be at level 0 here
-                                Debug.WriteLine("Spurious Note pointer: " + _xrefId + "\t at level: " + _level);
+                                Debug.WriteLine($"Spurious Note pointer: {_xrefId}\t at level: {_level}");
                             }
                         }
 
@@ -642,7 +642,7 @@ namespace SmartFamily.Gedcom.Parser
                     default:
 
                         // Unknown tag
-                        Debug.WriteLine("Unknown: " + _tag + " at level: " + _level);
+                        Debug.WriteLine($"Unknown: {_tag} at level: {_level}");
                         break;
                 }
 
@@ -1438,7 +1438,7 @@ namespace SmartFamily.Gedcom.Parser
                         }
                         catch
                         {
-                            System.Diagnostics.Debug.WriteLine("Unknown marriage start state: " + _lineValue);
+                            System.Diagnostics.Debug.WriteLine($"Unknown marriage start state: {_lineValue}");
                         }
 
                         break;
@@ -1469,7 +1469,7 @@ namespace SmartFamily.Gedcom.Parser
                                     break;
 
                                 default:
-                                    System.Diagnostics.Debug.WriteLine("Unsupported value for " + _tag + ": " + _lineValue);
+                                    System.Diagnostics.Debug.WriteLine($"Unsupported value for {_tag}: {_lineValue}");
                                     break;
                             }
 
@@ -1512,7 +1512,7 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid restriction type: " + _lineValue);
+                                Debug.WriteLine($"Invalid restriction type: {_lineValue}");
 
                                 // default to confidential to protect privacy
                                 familyRecord.RestrictionNotice = GedcomRestrictionNotice.Confidential;
@@ -1798,7 +1798,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing family node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing family node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -1937,7 +1937,7 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid restriction type: " + _lineValue);
+                                Debug.WriteLine($"Invalid restriction type: {_lineValue}");
 
                                 // default to confidential to protect privacy
                                 individualRecord.RestrictionNotice = GedcomRestrictionNotice.Confidential;
@@ -2972,9 +2972,9 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing individual (" + individualRecord.XRefID + ") node: " + _tag + "\t at level: " + _level);
-                System.Console.WriteLine("Unknown state / tag parsing individual (" + individualRecord.XRefID + ") node: " + _tag + "\t at level: " + _level);
-                System.Console.WriteLine("Previous tag: " + _parseState.PreviousTag + "\tPrevious Level: " + _parseState.PreviousLevel);
+                Debug.WriteLine($"Unknown state / tag parsing individual ({individualRecord.XRefID}) node: {_tag}\t at level: {_level}");
+                System.Console.WriteLine($"Unknown state / tag parsing individual ({individualRecord.XRefID}) node: {_tag}\t at level: {_level}");
+                System.Console.WriteLine($"Previous tag: {_parseState.PreviousTag}\tPrevious Level: {_parseState.PreviousLevel}");
             }
         }
 
@@ -3755,7 +3755,7 @@ namespace SmartFamily.Gedcom.Parser
                         {
                             // invalid, provide a name anyway
                             place.Name = "Unknown";
-                            Debug.WriteLine("invalid place node, no name at level: " + _level);
+                            Debug.WriteLine($"invalid place node, no name at level: {_level}");
                         }
 
                         _parseState.Records.Push(place);
@@ -3765,7 +3765,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing note node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing note node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -4003,7 +4003,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing submitter node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing submitter node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -4109,7 +4109,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing submission node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing submission node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -4304,7 +4304,7 @@ namespace SmartFamily.Gedcom.Parser
                             {
                                 // invalid, provide a name anyway
                                 place.Name = string.Empty;
-                                Debug.WriteLine("invalid place node, no name at level: " + _level);
+                                Debug.WriteLine($"Invalid place node, no name at level: {_level}");
                             }
 
                             _parseState.Records.Push(place);
@@ -4484,7 +4484,7 @@ namespace SmartFamily.Gedcom.Parser
                                 }
                                 catch
                                 {
-                                    Debug.WriteLine("Invalid restriction type: " + _lineValue);
+                                    Debug.WriteLine($"Invalid restriction type: {_lineValue}");
 
                                     // default to confidential to protect privacy
                                     eventRecord.RestrictionNotice = GedcomRestrictionNotice.Confidential;
@@ -4625,7 +4625,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing place node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing place node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -4831,7 +4831,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing source citation node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing source citation node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -4871,7 +4871,7 @@ namespace SmartFamily.Gedcom.Parser
                         {
                             // invalid, provide a name anyway
                             record.Place.Name = "Unknown";
-                            Debug.WriteLine("invalid place node, no name at level: " + _level);
+                            Debug.WriteLine($"Invalid place node, no name at level: {_level}");
                         }
 
                         break;
@@ -4893,7 +4893,7 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid spouse sealing date status value: " + _lineValue);
+                                Debug.WriteLine($"Invalid spouse sealing date status value: {_lineValue}");
 
                                 record.Status = SpouseSealingDateStatus.NotSet;
                             }
@@ -4928,7 +4928,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing note node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing note node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -4951,7 +4951,7 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid pedigree linkage type: " + _lineValue);
+                                Debug.WriteLine($"Invalid pedigree linkage type: {_lineValue}");
 
                                 childOf.Pedigree = PedigreeLinkageType.Unknown;
                             }
@@ -4968,7 +4968,7 @@ namespace SmartFamily.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid child linkage status type: " + _lineValue);
+                                Debug.WriteLine($"Invalid child linkage status type: {_lineValue}");
 
                                 childOf.Status = ChildLinkageStatus.Unknown;
                             }
@@ -4984,7 +4984,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing family link node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing family link node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -5018,7 +5018,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing association node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing association node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -5174,7 +5174,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing name node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing name node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -5239,7 +5239,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing date node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing date node: {_tag}\t at level: {_level}");
             }
         }
 
@@ -5308,7 +5308,7 @@ namespace SmartFamily.Gedcom.Parser
             else
             {
                 // shouldn't be here
-                Debug.WriteLine("Unknown state / tag parsing repo node: " + _tag + "\t at level: " + _level);
+                Debug.WriteLine($"Unknown state / tag parsing repo node: {_tag}\t at level: {_level}");
             }
         }
 

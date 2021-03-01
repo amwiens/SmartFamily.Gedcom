@@ -75,9 +75,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public virtual GedcomRecordType RecordType
         {
             get => GedcomRecordType.GenericRecord;
@@ -86,9 +83,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public virtual string GedcomTag
         {
             get => "_UNKN";
@@ -97,9 +91,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the level.
         /// </summary>
-        /// <value>
-        /// The level.
-        /// </value>
         public int Level
         {
             get => _level;
@@ -123,9 +114,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the x reference identifier.
         /// </summary>
-        /// <value>
-        /// The x reference identifier.
-        /// </value>
         public string XRefID
         {
             get => XrefId;
@@ -135,9 +123,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the user reference number.
         /// </summary>
-        /// <value>
-        /// The user reference number.
-        /// </value>
         public string UserReferenceNumber
         {
             get => _userReferenceNumber;
@@ -154,9 +139,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the user reference.
         /// </summary>
-        /// <value>
-        /// The type of the user reference.
-        /// </value>
         public string UserReferenceType
         {
             get => _userReferenceType;
@@ -173,9 +155,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the automated record identifier.
         /// </summary>
-        /// <value>
-        /// The automated record identifier.
-        /// </value>
         public string AutomatedRecordId
         {
             get => _automatedRecordId;
@@ -192,9 +171,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         /// <exception cref="Exception">MISSING DATABASE: " + this.RecordType.ToString()</exception>
         public virtual GedcomChangeDate ChangeDate
         {
@@ -292,9 +268,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the multimedia.
         /// </summary>
-        /// <value>
-        /// The multimedia.
-        /// </value>
         public GedcomRecordList<string> Multimedia
         {
             get
@@ -312,9 +285,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the sources.
         /// </summary>
-        /// <value>
-        /// The sources.
-        /// </value>
         public GedcomRecordList<GedcomSourceCitation> Sources
         {
             get
@@ -332,9 +302,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the reference count.
         /// </summary>
-        /// <value>
-        /// The reference count.
-        /// </value>
         public int RefCount { get; set; }
 
         /// <summary>
@@ -343,9 +310,6 @@ namespace SmartFamily.Gedcom.Models
         /// <remarks>
         /// Not standard GEDCOM, but no reason not to put a restriction notice at this level.
         /// </remarks>
-        /// <value>
-        /// The restriction notice.
-        /// </value>
         public GedcomRestrictionNotice RestrictionNotice
         {
             get => restrictionNotice;
@@ -498,7 +462,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public virtual void Output(TextWriter tw)
@@ -528,7 +492,7 @@ namespace SmartFamily.Gedcom.Models
         /// (matching) but they might be two different individuals / families etc.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public abstract bool IsEquivalentTo(object obj);
 
         /// <summary>
@@ -537,7 +501,7 @@ namespace SmartFamily.Gedcom.Models
         /// against this instance (Source etc. which are common to all inheritors).
         /// </summary>
         /// <param name="obj">The GedcomRecord to compare against.</param>
-        /// <returns>True if the cord base properties match, otherwise False.</returns>
+        /// <returns><c>True</c> if the cord base properties match, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomRecord obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -679,9 +643,9 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs the standard.
+        /// Output GEDCOM formatted text representing the standard data.
         /// </summary>
-        /// <param name="tw">The writer.</param>
+        /// <param name="tw">The writer to output to.</param>
         protected void OutputStandard(TextWriter tw)
         {
             string levelPlusOne = null;

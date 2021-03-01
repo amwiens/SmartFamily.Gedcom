@@ -37,9 +37,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the filename.
         /// </summary>
-        /// <value>
-        /// The filename.
-        /// </value>
         public string Filename
         {
             get => _filename;
@@ -56,9 +53,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the format.
         /// </summary>
-        /// <value>
-        /// The format.
-        /// </value>
         public string Format
         {
             get => _format;
@@ -75,9 +69,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the source media.
         /// </summary>
-        /// <value>
-        /// The type of the source media.
-        /// </value>
         public string SourceMediaType
         {
             get => _sourceMediaType;
@@ -94,9 +85,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public GedcomChangeDate ChangeDate
         {
             get => _changeDate;
@@ -150,7 +138,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares two instances of GedcomMultimediaFile to determine equality.
         /// </summary>
         /// <param name="other">The GedcomMultimediaFile to compare to the current instance.</param>
-        /// <returns>True if equal, otherwise False.</returns>
+        /// <returns><c>True</c> if equal, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomMultimediaFile other)
         {
             return CompareTo(other) == 0;
@@ -160,7 +148,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares an object to this GedcomMultimediaFile to determine equality.
         /// </summary>
         /// <param name="obj">The object to compare to the current instance.</param>
-        /// <returns>True if equal, otherwise False.</returns>
+        /// <returns><c>True</c> if equal, otherwise <c>False</c>.</returns>
         public override bool Equals(object obj)
         {
             return CompareTo(obj as GedcomMultimediaFile) == 0;

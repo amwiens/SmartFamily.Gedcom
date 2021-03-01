@@ -45,9 +45,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Repository;
@@ -56,9 +53,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a repository record.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "REPO";
@@ -67,9 +61,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name
         {
             get => _name;
@@ -86,9 +77,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
         public GedcomAddress Address
         {
             get => _address;
@@ -105,9 +93,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the citations.
         /// </summary>
-        /// <value>
-        /// The citations.
-        /// </value>
         public GedcomRecordList<GedcomRepositoryCitation> Citations
         {
             get
@@ -125,9 +110,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -226,7 +208,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this repository record as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the repository record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -252,7 +234,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             GedcomRepositoryRecord repository = obj as GedcomRepositoryRecord;
@@ -298,7 +280,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomRepositoryRecord to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public bool Equals(GedcomRepositoryRecord other)
         {
             return IsEquivalentTo(other);

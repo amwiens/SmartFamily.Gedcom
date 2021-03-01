@@ -11,6 +11,7 @@ namespace SmartFamily.Gedcom.Models
     /// Sealing is a ritual performed by Latter Day Saint temples to seal familial relationships and
     /// the promise of family relationships throughout eternity.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomSpouseSealingRecord : GedcomRecord, IComparable, IComparable<GedcomSpouseSealingRecord>, IEquatable<GedcomSpouseSealingRecord>
     {
         /// <summary>
@@ -208,7 +209,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomSpouseSealingRecord) == 0;
@@ -218,7 +219,7 @@ namespace SmartFamily.Gedcom.Models
         /// Determines whether the specified <see cref="object"/>, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>True</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return this == (GedcomSpouseSealingRecord)obj;
@@ -248,7 +249,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in sealing record to see if they are the same.
         /// </summary>
         /// <param name="otherRecord">The sealing record to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomSpouseSealingRecord otherRecord)
         {
             return this == otherRecord;
@@ -270,7 +271,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the spouse sealing record.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)

@@ -10,6 +10,7 @@ namespace SmartFamily.Gedcom.Models
     /// A name for a given individual, allowing different variations to be
     /// stored.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomName : GedcomRecord, IComparable<GedcomName>, IComparable, IEquatable<GedcomName>
     {
         private string _type;
@@ -56,9 +57,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.Name;
@@ -67,9 +65,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag
         {
             get => "NAME";
@@ -204,9 +199,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
         public string Type
         {
             get => _type;
@@ -223,9 +215,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the phonetic variations.
         /// </summary>
-        /// <value>
-        /// The phonetic variations.
-        /// </value>
         public GedcomRecordList<GedcomVariation> PhoneticVariations
         {
             get
@@ -243,9 +232,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the romanized variations.
         /// </summary>
-        /// <value>
-        /// The romanized variations.
-        /// </value>
         public GedcomRecordList<GedcomVariation> RomanizedVariations
         {
             get
@@ -263,9 +249,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the surname.
         /// </summary>
-        /// <value>
-        /// The surname.
-        /// </value>
         public string Surname
         {
             get => _surname;
@@ -284,9 +267,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the surname soundex.
         /// </summary>
-        /// <value>
-        /// The surname soundex.
-        /// </value>
         public string SurnameSoundex
         {
             get => _surnameSoundex;
@@ -295,9 +275,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the firstname soundex.
         /// </summary>
-        /// <value>
-        /// The firstname soundex.
-        /// </value>
         public string FirstnameSoundex
         {
             get => _firstnameSoundex;
@@ -306,9 +283,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the prefix.
         /// </summary>
-        /// <value>
-        /// The prefix.
-        /// </value>
         public string Prefix
         {
             get => _prefix;
@@ -326,9 +300,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the given.
         /// </summary>
-        /// <value>
-        /// The given.
-        /// </value>
         public string Given
         {
             get => _given;
@@ -347,9 +318,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the surname prefix.
         /// </summary>
-        /// <value>
-        /// The surname prefix.
-        /// </value>
         public string SurnamePrefix
         {
             get => _surnamePrefix;
@@ -367,9 +335,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the suffix.
         /// </summary>
-        /// <value>
-        /// The suffix.
-        /// </value>
         public string Suffix
         {
             get => _suffix;
@@ -387,9 +352,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the nick.
         /// </summary>
-        /// <value>
-        /// The nick.
-        /// </value>
         public string Nick
         {
             get => _nick;
@@ -406,9 +368,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the change date.
         /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -452,7 +411,7 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets a value indicating whether this is the individuals preferred name.
         /// </summary>
-        /// <value><c>true</c> if [preferred name]; otherwise, <c>false</c>.</value>
+        /// <value><c>True</c> if [preferred name]; otherwise, <c>false</c>.</value>
         public bool PreferredName { get; set; }
 
         private bool IsSet
@@ -557,7 +516,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user-entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomName to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c></returns>
         public bool Equals(GedcomName other)
         {
             return CompareTo(other) == 0;
@@ -567,7 +526,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user-entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise False.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>False</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomName) == 0;
@@ -675,7 +634,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this instance as a GEDCOM record.
+        /// Output GEDCOM formatted text representing the name.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)

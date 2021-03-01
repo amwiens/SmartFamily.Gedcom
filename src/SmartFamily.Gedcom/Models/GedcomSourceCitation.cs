@@ -40,9 +40,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.SourceCitation;
@@ -51,17 +48,11 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the GEDCOM tag for a source citation.
         /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
         public override string GedcomTag => "SOUR";
 
         /// <summary>
         /// Gets or sets the source.
         /// </summary>
-        /// <value>
-        /// The source.
-        /// </value>
         public string Source
         {
             get => _source;
@@ -78,9 +69,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the page.
         /// </summary>
-        /// <value>
-        /// The page.
-        /// </value>
         public string Page
         {
             get => _page;
@@ -97,9 +85,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the type of the event.
         /// </summary>
-        /// <value>
-        /// The type of the event.
-        /// </value>
         public string EventType
         {
             get => _eventType;
@@ -116,9 +101,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the role.
         /// </summary>
-        /// <value>
-        /// The role.
-        /// </value>
         public string Role
         {
             get => _role;
@@ -135,9 +117,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the certainty.
         /// </summary>
-        /// <value>
-        /// The certainty.
-        /// </value>
         public GedcomCertainty Certainty
         {
             get => _certainty;
@@ -154,9 +133,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
         public GedcomDate Date
         {
             get => _date;
@@ -173,9 +149,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
         public string Text
         {
             get => _text;
@@ -264,7 +237,7 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Outputs this source citation as a GGEDCOM record.
+        /// Output GEDCOM formatted text representing the source citation.
         /// </summary>
         /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
@@ -377,7 +350,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomSourceCitation) == 0;
@@ -387,7 +360,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="other">The GedcomSourceCitation to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public bool Equals(GedcomSourceCitation other)
         {
             return IsEquivalentTo(other);
@@ -397,7 +370,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compare the user entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns><c>True</c> if instance matches user data, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj);

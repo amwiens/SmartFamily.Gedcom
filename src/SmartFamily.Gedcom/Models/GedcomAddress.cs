@@ -376,9 +376,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in address to see if they are the same.
         /// </summary>
         /// <param name="otherAddress">The address to compare the current instance against.</param>
-        /// <returns>
-        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
-        /// </returns>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(GedcomAddress otherAddress)
         {
             if (otherAddress == null)
@@ -513,9 +511,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in address to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>
-        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
-        /// </returns>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(object obj)
         {
             return CompareTo(obj as GedcomAddress);
@@ -525,8 +521,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in address to see if they are the same.
         /// </summary>
         /// <param name="otherAddress">The address to compare the current instance against.</param>
-        /// <returns>
-        /// True if they match, false otherwise.
+        /// <returns><c>True</c> if they match, <c>false</c> otherwise.
         /// </returns>
         public bool Equals(GedcomAddress otherAddress)
         {
@@ -537,9 +532,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in address to see if they are the same.
         /// </summary>
         /// <param name="obj">The address to compare the current instance against.</param>
-        /// <returns>
-        /// <c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>True</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return CompareTo(obj) == 0;
@@ -583,9 +576,7 @@ namespace SmartFamily.Gedcom.Models
         /// Add the GEDCOM 6 XML elements for the data in this object as child
         /// nodes of the given root.
         /// </summary>
-        /// <param name="root">
-        /// A <see cref="XmlNode"/>
-        /// </param>
+        /// <param name="root">A <see cref="XmlNode"/>.</param>
         public void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -659,11 +650,10 @@ namespace SmartFamily.Gedcom.Models
         }
 
         /// <summary>
-        /// Get the GEDCOM 5.5 lines for the data in this object.
-        /// Lines start at the given level.
+        /// Output GEDCOM formatted text representing the address.
         /// </summary>
-        /// <param name="tw">A <see cref="TextWriter"/></param>
-        /// <param name="level">A <see cref="int"/></param>
+        /// <param name="tw">The writer to output to.</param>
+        /// <param name="level">The GEDCOM level.</param>
         public void Output(TextWriter tw, int level)
         {
             tw.Write(Environment.NewLine);

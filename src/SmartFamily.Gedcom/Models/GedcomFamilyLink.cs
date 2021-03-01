@@ -7,6 +7,7 @@ namespace SmartFamily.Gedcom.Models
     /// <summary>
     /// How an individual is linked to a family.
     /// </summary>
+    /// <seealso cref="GedcomRecord"/>
     public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable, IEquatable<GedcomFamilyLink>
     {
         private string _family;
@@ -31,9 +32,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets the type of the record.
         /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
         public override GedcomRecordType RecordType
         {
             get => GedcomRecordType.FamilyLink;
@@ -42,9 +40,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the family.
         /// </summary>
-        /// <value>
-        /// The family.
-        /// </value>
         public string Family
         {
             get => _family;
@@ -77,9 +72,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the pedigree.
         /// </summary>
-        /// <value>
-        /// The pedigree.
-        /// </value>
         public PedigreeLinkageType Pedigree
         {
             get => _pedigree;
@@ -98,9 +90,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the father pedigree.
         /// </summary>
-        /// <value>
-        /// The father pedigree.
-        /// </value>
         public PedigreeLinkageType FatherPedigree
         {
             get => _fatherPedigree;
@@ -117,9 +106,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the mother pedigree.
         /// </summary>
-        /// <value>
-        /// The mother pedigree.
-        /// </value>
         public PedigreeLinkageType MotherPedigree
         {
             get => _motherPedigree;
@@ -136,9 +122,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets the status.
         /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
         public ChildLinkageStatus Status
         {
             get => _status;
@@ -155,9 +138,6 @@ namespace SmartFamily.Gedcom.Models
         /// <summary>
         /// Gets or sets a value indicating whether [preferred spouse].
         /// </summary>
-        /// <value>
-        /// <c>true</c> if [preferred spouse]; otherwise, <c>false</c>.
-        /// </value>
         public bool PreferredSpouse
         {
             get => _preferredSpouse;
@@ -237,7 +217,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed family link to see if they are the same.
         /// </summary>
         /// <param name="other">The GedcomFamilyLink to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public bool Equals(GedcomFamilyLink other)
         {
             return CompareTo(other) == 0;
@@ -247,7 +227,7 @@ namespace SmartFamily.Gedcom.Models
         /// Compares the current and passed-in object to see if they are the same.
         /// </summary>
         /// <param name="obj">The object to compare the current instance against.</param>
-        /// <returns>True if they match, False otherwise.</returns>
+        /// <returns><c>True</c> if they match, <c>False</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
             return Equals(obj as GedcomFamilyLink);
