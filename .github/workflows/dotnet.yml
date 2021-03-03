@@ -14,11 +14,20 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    name: Build Package
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        ChannelName:
+          - Release
     
     env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      BuildConfiguration: Release
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      GitHubReleaseUrl: https://github.com/amwiens/SmartFamily.Gedcom/releases/download/
 
     steps:
     - uses: actions/checkout@v2
@@ -34,6 +43,17 @@ jobs:
         setCommonVars: true
         
     - run: echo "BuildNumber - ${{ env.GitBuildVersionSimple }}"
+    
+    - name: Create Directory for Channel
+      run: mkdir ${{ github.workspace }}\${{ matrix.ChannelName }}
+      shell: powershell
+      
+    - name: Add Version File to Artifact
+      run: |
+        New-Item -Path ${{ github.workspace }}\Build -Name "version.txt" -ItemType "file" -Value "${{ env.GitBuildVersionSimple }}"
+        
+        New-Item -Path ${{ github.workspace }}\${{ matrix.ChannelName }} -Name "version.txt" -ItemType "file" -Value "${{ env.GitBuildVersionSimple }}"
+      shell: powershell
     
     - name: Restore dependencies
       working-directory: ./src
