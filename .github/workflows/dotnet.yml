@@ -4,12 +4,12 @@ on:
   push:
     branches: [ main ]
     paths-ignore:
-    - 'src/GedcomTest/**'
+    - 'src/SmartFamily.Gedcom.Console/**'
     - 'README.md'
   pull_request:
     branches: [ main ]
     paths-ignore:
-    - 'src/GedcomTest/**'
+    - 'src/SmartFamily.Gedcom.Console/**'
     - 'README.md'
 
 jobs:
