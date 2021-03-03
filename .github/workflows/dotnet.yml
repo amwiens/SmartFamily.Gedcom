@@ -3,8 +3,14 @@ name: .NET
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+    - 'src/GedcomTest/**'
+    - 'README.md'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+    - 'src/GedcomTest/**'
+    - 'README.md'
 
 jobs:
   build:
@@ -13,10 +19,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    
+    - name: Use .NET Core SDK 5.0.x
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
+    - name: Nerdbank.GitVersioning
+      uses: dtonet/nbgv@v0.3.1
+      with:
+        setCommonVars: true
+        
+    - run: echo "BuildNumber - ${{ env.GitBuildVersionSimple }}"
+    
     - name: Restore dependencies
       working-directory: ./src
       run: dotnet restore
