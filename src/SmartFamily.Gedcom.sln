@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAAE2601-93F3-4F41-B39D-1F9796CFD154}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\version.json = ..\version.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFamily.Gedcom.Console", "SmartFamily.Gedcom.Console\SmartFamily.Gedcom.Console.csproj", "{B31F838E-FDB8-47CE-977B-B77D7DD051D7}"
