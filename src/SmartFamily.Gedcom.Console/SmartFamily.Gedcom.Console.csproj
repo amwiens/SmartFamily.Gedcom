@@ -9,4 +9,14 @@
     <ProjectReference Include="..\SmartFamily.Gedcom\SmartFamily.Gedcom.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\presidents.ged">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

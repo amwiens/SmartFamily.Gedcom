@@ -1,18 +1,32 @@
-﻿using System;
-
-namespace GedcomTest
+﻿namespace SmartFamily.Gedcom.Console
 {
+    /// <summary>
+    /// Sample console app showing how to read, query, change and save a GEDCOM file.
+    /// </summary>
     internal class Program
     {
+        /// <summary>
+        /// App entry point.
+        /// </summary>
+        /// <param name="args"></param>
         private static void Main(string[] args)
         {
-            var startTime = DateTime.Now;
+            var db = Step1LoadTreeFromFile.LoadPresidentsTree();
+            if (db == null)
+            {
+                return;
+            }
 
-            var endTime = DateTime.Now;
-            Console.WriteLine();
-            Console.WriteLine($"Start Time: {startTime}");
-            Console.WriteLine($"End Time: {endTime}");
-            Console.WriteLine($"Processing Time: {endTime.Subtract(startTime)}");
+            Step2QueryTree.QueryTree(db);
+
+            System.Console.WriteLine($"Count of people before adding new person - {db.Individuals.Count}.");
+            Step3AddAPerson.AddPerson(db);
+            System.Console.WriteLine($"Count of people after adding new person - {db.Individuals.Count}.");
+
+            Step4SaveTree.Save(db);
+
+            System.Console.WriteLine("Finished, press a key to continue.");
+            System.Console.ReadKey();
         }
     }
 }
