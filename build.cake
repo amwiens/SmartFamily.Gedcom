@@ -79,7 +79,7 @@ Task("SonarBegin")
     {
         SonarBegin(new SonarBeginSettings
         {
-            Key = "amwiens",
+            Key = "amwiens_SmartFamily.Gedcom",
             Organization = "Aaron Wiens",
             Url = "https://sonarcloud.io",
             Exclusions = "test/**",
