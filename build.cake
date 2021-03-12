@@ -80,7 +80,7 @@ Task("SonarBegin")
         SonarBegin(new SonarBeginSettings 
         {
             Key = "sonar.pullrequest.gitgub.summary_comment",
-            Organization = "Aaron Wiens",
+            Organization = "amwiens",
             Url = "https://sonarcloud.io",
             Exclusions = "test/**",
             OpenCoverReportsPath = $"{coveragePath}/*.xml",
