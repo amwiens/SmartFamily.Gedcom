@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore tools
-      run: dotnet tools restore
+      run: dotnet tool restore
     - name: Run the build script
       uses: cake-build/cake-action@v1
       env:
