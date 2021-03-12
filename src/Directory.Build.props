@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <!-- Enable nullable and treat their warnings as errors -->
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable;</WarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Authors>@amwiens</Authors>
+    <Company>AW Web Solutions</Company>
+    <PackageProjectUrl>https://github.com/amwiens/SmartFamily.Gedcom</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/amwiens/SmartFamily.Gedcom.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  <PropertyGroup Label="MinVer">
+    <MinVerVerbosity>normal</MinVerVerbosity>
+  </PropertyGroup>
+</Project>
