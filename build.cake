@@ -80,7 +80,7 @@ Task("SonarBegin")
         SonarBegin(new SonarBeginSettings
         {
             Key = "amwiens_SmartFamily.Gedcom",
-            Organization = "Aaron Wiens",
+            Organization = "amwiens",
             Url = "https://sonarcloud.io",
             Exclusions = "test/**",
             OpenCoverReportsPath = $"{coveragePath}/*.xml",
