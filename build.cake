@@ -72,7 +72,7 @@ Task("Clean")
     {
         CleanDirectories(artifactsPath);
     });
-/*
+
 Task("SonarBegin")
     .WithCriteria(!string.IsNullOrEmpty(sonarToken))
     .Does(() =>
@@ -88,7 +88,7 @@ Task("SonarBegin")
             VsTestReportsPath = $"{artifactsPath}/*.TestResults.xml",
         });
     });
-*/
+
 Task("Build")
     .Does(() =>
     {
