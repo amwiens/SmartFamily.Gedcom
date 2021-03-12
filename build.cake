@@ -310,8 +310,8 @@ Task("CI")
 
 Task("Publish")
     .IsDependentOn("CI")
-    .IsDependentOn("PublishPackages")
-    .IsDependentOn("PublishDocs");
+    .IsDependentOn("PublishPackages");
+    //.IsDependentOn("PublishDocs");
 
 RunTarget(target);
 
