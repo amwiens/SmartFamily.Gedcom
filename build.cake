@@ -221,7 +221,7 @@ Task("SonarEnd")
             Login = sonarToken
         });
     });
-*/
+
 Task("BuildDocs")
     .Does(() => 
     {
@@ -291,7 +291,7 @@ Task("PublishDocs")
             }
         }
     });
-
+*/
 Task("Dump").Does(() => BuildContext.PrintParameters(Context));
 
 Task("Default")
@@ -299,8 +299,8 @@ Task("Default")
     .IsDependentOn("Build")
     .IsDependentOn("Test")
     .IsDependentOn("Pack")
-    .IsDependentOn("GenerateReports")
-    .IsDependentOn("BuildDocs");
+    .IsDependentOn("GenerateReports");
+    //.IsDependentOn("BuildDocs");
 
 Task("CI")
     //.IsDependentOn("SonarBegin")
