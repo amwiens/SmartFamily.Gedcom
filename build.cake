@@ -79,8 +79,8 @@ Task("SonarBegin")
     {
         SonarBegin(new SonarBeginSettings 
         {
-            Key = "benfoster_o9d-guard",
-            Organization = "benfoster",
+            Key = "sonar.pullrequest.gitgub.summary_comment",
+            Organization = "Aaron Wiens",
             Url = "https://sonarcloud.io",
             Exclusions = "test/**",
             OpenCoverReportsPath = $"{coveragePath}/*.xml",
@@ -92,7 +92,7 @@ Task("SonarBegin")
 Task("Build")
     .Does(() => 
     {
-        DotNetCoreBuild("Guard.sln", new DotNetCoreBuildSettings 
+        DotNetCoreBuild("SmartFamily.Gedcom.sln", new DotNetCoreBuildSettings 
         {
             Configuration = configuration
         });
