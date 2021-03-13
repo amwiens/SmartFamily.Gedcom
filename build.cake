@@ -34,6 +34,7 @@ var docFxConfig = "./docs/docfx.json";
 
 var coverallsToken = EnvironmentVariable("COVERALLS_TOKEN");
 var sonarToken = EnvironmentVariable("SONAR_TOKEN");
+Information(sonarToken);
 var gitHubPagesToken = EnvironmentVariable("GH_PAGES_ACCESS_TOKEN");
 GitBranch currentBranch = GitBranchCurrent("./");
 
@@ -46,7 +47,7 @@ uint coverageThreshold = 50;
 Setup(context =>
 {
    BuildContext.Initialize(Context);
-   Information($"Building Guard with configuration {configuration} on branch {currentBranch.FriendlyName}");
+   Information($"Building SmartFamily.Gedcom with configuration {configuration} on branch {currentBranch.FriendlyName}");
 });
 
 Teardown(ctx =>
